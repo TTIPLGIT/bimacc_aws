@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:REQUEST
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VTIMEZONE
+TZID:Asia/Kolkata
+TZURL:http://tzurl.org/zoneinfo-outlook/Asia/Kolkata
+X-LIC-LOCATION:Asia/Kolkata
+BEGIN:STANDARD
+TZOFFSETFROM:+0530
+TZOFFSETTO:+0530
+TZNAME:IST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:CwtPT_i1WvWAoGLE@HsimcJYtOI0XTdu
+DTSTART;TZID=Asia/Kolkata:20200807T171500
+DTEND;TZID=Asia/Kolkata:20200807T181500
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP
+ =TRUE:mailto:v.keeruthikadevi@talentakeaways.com
+CREATED:20200807T113126Z
+DESCRIPTION:\nTo join the meeting on a computer or mobile phone: https://b
+ luejeans.com/5595448947?src=calendarLink\n\nTo join the meeting on a compu
+ ter or mobile phone: https://bluejeans.com/5595448947?src=calendarLink \n\
+ nPhone Dial-in\n+1.408.419.1715 (United States(San Jose))\n+1.408.915.6290
+  (United States(San Jose))\nGlobal Numbers: https://www.bluejeans.com/numb
+ ers\n\nMeeting ID: 559 544 8947\n\nRoom System\n199.48.152.152 or airtel.b
+ jn.vc\n\nMeeting ID: 559 544 8947\n\nWant to test your video connection?\n
+ https://bluejeans.com/111\n\n
+DTSTAMP:20200807T113126Z
+LAST-MODIFIED:20200807T113126Z
+LOCATION:https://bluejeans.com/5595448947?src=calendarLink
+ORGANIZER:mailto:aravinth.k@talentakeaways.com
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Claim Notice 1
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

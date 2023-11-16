@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+  Hello <?php echo e($data1['username']); ?>,
+  <br/><br/><br/>
+This is with Reference to Online Arbitration System - Claim Petition (No:<?php echo e($data1['arbitration_petionno']); ?>)
+ <br/><br/>
+  Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a>
+  <br/><br/>
+The Arbitrator has posted the case for Evidence. Use the above link to lodge your evidence by way of Affidavit, if any. Do not introduce any fresh documents that have not been referred to in the Claim Petition. Do not include any annexures, however the affidavit shall refer to documents referred to in the pleadings along with the relevant Annexure/ page number. If the Evidence is not uploaded within the time specified by the Arbitrator, no extension will be granted and the stage will be closed.<br/><br/>
+  This is System Generated Mail Please Do not Reply.<br/><br/>
+  <br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+

@@ -1,0 +1,258 @@
+<?php if($ReliefRequests ==null): ?>
+
+<form  name="reliefrequest_form" id="reliefrequest_form" method="POST" >
+  <?php echo csrf_field(); ?>  
+  <div class="row register-form">
+    <div class="col-md-12">
+
+      <div class="row">
+       <div class="col-md-12"> 
+        <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+          <label><b>Please fill in the applicable details  pertaining to the dispute</b></label>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-1"><input class="form-control" placeholder='1'  type="text" disabled ></div>
+      <div class="col-md-5" > 
+        <div class="form-group">
+
+          <input type="text" id="mortgaged_property"  class="form-control<?php echo e($errors->has('mortgaged_property') ? ' is-invalid' : ''); ?>" name="mortgaged_property[]">
+          <label class="form-control-placeholder" for="mortgaged_property">Mortgaged Property/ Pledged Property/ Hypothecated property:</label> 
+          <?php if($errors->has('mortgaged_property')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('mortgaged_property')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="buttons" id="bankrelief_btn" >
+        <span class="btn btn-icon btn-sm btn-success">
+          <i class="far fa-plus-square"></i> </span>
+        </div>
+        <div class="col-md-5"> 
+          <div class="form-group">
+           <input type="text" id="debt_recovery" class="form-control<?php echo e($errors->has('debt_recovery') ? ' is-invalid' : ''); ?>" name="debt_recovery"  >
+           <label class="form-control-placeholder" for="debt_recovery">Total Aggregate Amount Including Interest and Charges:</label>
+           <?php if($errors->has('debt_recovery')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('debt_recovery')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+    <div id="mortgaged"></div>
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="rate_of_interest"  class="form-control<?php echo e($errors->has('rate_of_interest') ? ' is-invalid' : ''); ?>" name="rate_of_interest" >
+          <label class="form-control-placeholder" for="rate_of_interest">Enforcement of Security Interest:
+          </label>
+          <?php if($errors->has('rate_of_interest')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('rate_of_interest')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+    
+
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="amount_of_debt"  class="form-control<?php echo e($errors->has('amount_of_debt') ? ' is-invalid' : ''); ?>" name="amount_of_debt" >
+          <label class="form-control-placeholder" for="amount_of_debt">Enforcement of Guarantees:</label>
+          <?php if($errors->has('amount_of_debt')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('amount_of_debt')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="damages_rs"  class="form-control<?php echo e($errors->has('damages_rs') ? ' is-invalid' : ''); ?>" name="damages_rs" >
+          <label class="form-control-placeholder" for="damages_rs">Future Interest During Pendency of Arbitration:
+          </label>
+          <?php if($errors->has('damages_rs')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('damages_rs')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="text" id="rate_of_penal_interest"  class="form-control<?php echo e($errors->has('rate_of_penal_interest') ? ' is-invalid' : ''); ?>" name="rate_of_penal_interest" >
+          <label class="form-control-placeholder" for="rate_of_penal_interest">Future Interest from the Date of Award:</label>
+          <?php if($errors->has('rate_of_penal_interest')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('rate_of_penal_interest')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="number" id="damage_with_interest"  class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" >
+          <label class="form-control-placeholder" for="damage_with_interest">Total Aggregate Amount<span style="color: red">*</span>:</label>
+          <?php if($errors->has('damage_with_interest')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('damage_with_interest ')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+   <button type="submit" id="reliefrequestsave" class="btn btn-success btn-space"  >Save</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>   
+</form>
+<?php else: ?>
+
+<?php $__currentLoopData = $ReliefRequests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ReliefRequest): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<form  name="reliefrequest_update_form" id="reliefrequest_update_form" method="POST" >
+  <?php echo csrf_field(); ?>  
+  <input type="text" name="reliefrequestid" value="<?php echo e($ReliefRequest->id); ?>" style="display: none">
+
+    <div class="row register-form">
+    <div class="col-md-12">
+
+      <div class="row">
+       <div class="col-md-12"> 
+        <!-- <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+          <label><b>Please fill in the applicable details  pertaining to the dispute</b></label>
+        </div> -->
+        
+      </div>
+    </div>
+    <?php $__currentLoopData = $banking_relief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $banking_reliefs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php if($banking_reliefs->relief_id = $ReliefRequest->id): ?>
+    <div class="row">
+      <div class="col-md-6" > 
+        <div class="form-group">
+          <input type="text" id="mortgaged_property" value="<?php echo e($banking_reliefs->mortgaged_property); ?>" readonly class="form-control<?php echo e($errors->has('mortgaged_property') ? ' is-invalid' : ''); ?>" >
+          <label class="form-control-placeholder" for="mortgaged_property">Mortgaged Property/ Pledged Property/Hypothecated property:</label> 
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="row">
+      <div class="col-md-6" > 
+        <div class="form-group">
+          <input type="text" id="mortgaged_property"  class="form-control<?php echo e($errors->has('mortgaged_property') ? ' is-invalid' : ''); ?>" name="mortgaged_property[]">
+          <label class="form-control-placeholder" for="mortgaged_property">Mortgaged Property/ Pledged Property/ Hypothecated property:</label> 
+          <?php if($errors->has('mortgaged_property')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('mortgaged_property')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="buttons" id="bankrelief_btn" >
+        <span class="btn btn-icon btn-sm btn-success">
+          <i class="far fa-plus-square"></i> </span>
+        </div>
+    
+    
+    
+      
+        <div class="col-md-5"> 
+          <div class="form-group">
+           <input type="text" id="debt_recovery"  value="<?php echo e($ReliefRequest->debt_recovery); ?>" class="form-control<?php echo e($errors->has('debt_recovery') ? ' is-invalid' : ''); ?>" name="debt_recovery"  >
+           <label class="form-control-placeholder" for="debt_recovery">Total Aggregate Amount Including Interest and Charges:</label>
+           <?php if($errors->has('debt_recovery')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('debt_recovery')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+    <div id="mortgaged"></div>
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="number" value="<?php echo e($ReliefRequest->rate_of_interest); ?>"   class="form-control<?php echo e($errors->has('rate_of_interest') ? ' is-invalid' : ''); ?>" name="rate_of_interest" >
+          <label class="form-control-placeholder" for="rate_of_interest">Enforcement of Security Interest: 
+          </label>
+        </div>
+      </div>
+    
+    
+
+   
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="amount_of_debt"   value="<?php echo e($ReliefRequest->amount_of_debt); ?>" class="form-control<?php echo e($errors->has('amount_of_debt') ? ' is-invalid' : ''); ?>" name="amount_of_debt" >
+          <label class="form-control-placeholder" for="amount_of_debt">Enforcement of Guarantees:</label>
+          
+        </div>
+      </div>
+
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="damages_rs"  value="<?php echo e($ReliefRequest->damages_rs); ?>"  class="form-control<?php echo e($errors->has('damages_rs') ? ' is-invalid' : ''); ?>" name="damages_rs" >
+          <label class="form-control-placeholder" for="damages_rs">Future Interest During Pendency of Arbitration:
+          </label>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="text" id="rate_of_penal_interest"  value="<?php echo e($ReliefRequest->rate_of_penal_interest); ?>"  class="form-control<?php echo e($errors->has('rate_of_penal_interest') ? ' is-invalid' : ''); ?>" name="rate_of_penal_interest" >
+          <label class="form-control-placeholder" for="rate_of_penal_interest">Future Interest from the Date of Award:</label>
+         
+        </div>
+      </div>
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="number" id="damage_with_interest"   value="<?php echo e($ReliefRequest->damage_with_interest); ?>" class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" >
+          <label class="form-control-placeholder" for="damage_with_interest">Total Aggregate Amount<span style="color: red">*</span>:</label>
+          
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button type="submit" class="btn btn-success btn-space" >Update</button>
+      <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+      <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+       Close
+     </button>
+   </div> 
+ </div>   
+</form>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+<?php endif; ?>

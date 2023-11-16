@@ -1,0 +1,30 @@
+DISPUTES FORMS:
+1)Admiralty --relief request form (interest )--------->closed
+2)Aviation --
+Reason for claim (claim-show)
+Value of Claim for Payment of Freight Amount without interest (relief-edit and show)
+Value of Claim for Demurrages without interest (relief-edit and show)
+3)community
+date of breach (claim)
+Amount without interest,Claim Against Members for Damages and Nuisance relief(show and edit)
+4)consmer
+date of breach (claim)
+5)contract and commercial -Date of breach and Date of Demand is not showing
+6)employment - date of breach , intrest checkbox.In edit having 2 update in claim details.
+7)other -refund amount field (relief)
+8)real estate --- relief request form
+9)government --claim for refund field interest and w.int (relief)
+government --date of breach (claim)
+10)bank
+  pledge column ,Revival/ Renewal Letter (claim) 
+  show page multiple addition.
+
+
+
+OTHERS:
+1)counter claim form validation for amount field ,checkbox is not working and show page relif request is not showing
+2)If we select the counter claim , after arbitrato allocation the list page showing same claim notice twice.
+3)Relief update is not working.
+4)If we not upload the file in final stage in arbitrator it throws an error.
+5)Arbitrator dashboard widget click
+6)real-specific performance is not storing

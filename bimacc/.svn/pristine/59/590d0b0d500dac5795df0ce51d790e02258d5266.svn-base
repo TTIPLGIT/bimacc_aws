@@ -1,0 +1,221 @@
+
+
+<form  name="reliefrequest_form" id="reliefrequest_form" method="POST" >
+    <?php echo csrf_field(); ?>  
+     <?php $__currentLoopData = $claimnotices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+       <input type="hidden" id="claimnoticeid"  name="claimnoticeid"  value="<?php echo e($notice->id); ?>" >
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="row register-form">
+      <div class="col-md-12">
+        <div class="row">
+           <div class="col-md-12">
+             <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+              <label><b>Please fill in the applicable details pertaining to the dispute</b></label>
+            </div>            
+              
+          </div>
+        </div>
+        <div class="row"> 
+         <div class="col-md-12"> 
+           <div class="form-group text-center" style="margin-bottom: 1.4em">
+            <label><u><b>Nature of Relief</b></u></label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"> 
+          <div class="form-group">
+           <input type="text" id="claim_for_delivery_of_cargo" class="form-control<?php echo e($errors->has('claim_for_delivery_of_cargo') ? ' is-invalid' : ''); ?>" name="claim_for_delivery_of_cargo" >
+           <label class="form-control-placeholder" for="claim_for_delivery_of_cargo">Reason for Cargo Delivery Dispute: </label>
+           <?php if($errors->has('claim_for_delivery_of_cargo')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claim_for_delivery_of_cargo')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+        <div class="form-group">
+
+          <input type="text" id="cargo_nature" class="form-control<?php echo e($errors->has('cargo_nature') ? ' is-invalid' : ''); ?>" name="cargo_nature" >
+          <label class="form-control-placeholder" for="cargo_nature">Cargo Nature:</label>
+          <?php if($errors->has('cargo_nature')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('cargo_nature')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+       <div class="form-group">
+         <input type="text" id="nature_and_details_of_cargo" class="form-control<?php echo e($errors->has('nature_and_details_of_cargo') ? ' is-invalid' : ''); ?>" name="nature_and_details_of_cargo" >
+         <label class="form-control-placeholder" for="nature_and_details_of_cargo">Quantity and Specification:</label>
+         <?php if($errors->has('nature_and_details_of_cargo')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('nature_and_details_of_cargo')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">  
+      <div class="form-group">
+       <input type="text" id="claim_for_payment_of_freight_amount" class="form-control<?php echo e($errors->has('claim_for_payment_of_freight_amount') ? ' is-invalid' : ''); ?>" name="claim_for_payment_of_freight_amount" >
+       <label class="form-control-placeholder" for="claim_for_payment_of_freight_amount">Value of Claim for Payment of Freight Amount:</label>
+       <?php if($errors->has('claim_for_payment_of_freight_amount')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('claim_for_payment_of_freight_amount')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <!-- <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="text" id="freight_amount_interest" class="form-control<?php echo e($errors->has('freight_amount_interest') ? ' is-invalid' : ''); ?>" name="freight_amount_interest" >
+     <label class="form-control-placeholder" for="freight_amount_interest">Interest:</label>
+     <?php if($errors->has('freight_amount_interest')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('freight_amount_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+    <label class="form-control-placeholder" for="frightamountwithpoutinterest" style="margin-left: 10px;">Without Interest: </label>
+    <input type="checkbox" id="frightamountwithpoutinterest" class="form-control" style="width:7%" name="frightamountwithpoutinterest" onclick="document.getElementById('freight_amount_interest').disabled=this.checked;" >
+    
+  </div>
+</div> -->
+</div>
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+    <label><u><b>Claim for Payment of Damages</b></u></label>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="text" id="damage_amount" class="form-control<?php echo e($errors->has('damage_amount') ? ' is-invalid' : ''); ?>" name="damage_amount" >
+     <label class="form-control-placeholder" for="damage_amount">Damages:</label>
+     <?php if($errors->has('damage_amount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="damage_amount_interest" class="form-control<?php echo e($errors->has('damage_amount_interest') ? ' is-invalid' : ''); ?>" name="damage_amount_interest" >
+    <label class="form-control-placeholder" for="damage_amount_interest">Interest (%): </label>
+    <?php if($errors->has('damage_amount_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="damageamountinterestwithinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="damageamountinterestwithinterest"  name="damageamountinterestwithinterest" style="width:7%" value="yes" onclick="document.getElementById('damage_amount_interest').disabled=this.checked;" >
+  </div>
+</div>
+
+</div>
+<div class="row">
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="interest_amount" class="form-control<?php echo e($errors->has('interest_amount') ? ' is-invalid' : ''); ?>" name="interest_amount" >
+    <label class="form-control-placeholder" for="interest_amount">Interest Amount:</label>
+    <?php if($errors->has('interest_amount')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('interest_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="damage_with_interest"  class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" >
+   <?php if($claimantinformations[0]->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Total Damages Including Interest (INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Total Damages Including Interest (USD) <span style="color: red">*</span>:</label>
+           <?php endif; ?>
+    <?php if($errors->has('damage_with_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_with_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>Claim for specific performance</b></u></label>
+   </div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-6"> 
+    <div class="form-group">
+     <textarea id="remarks" class="form-control<?php echo e($errors->has('remarks') ? ' is-invalid' : ''); ?>" name="remarks"></textarea>
+     <label class="form-control-placeholder" for="remarks">Remarks: </label>
+     <?php if($errors->has('remarks')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('remarks')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-6"> 
+  <div class="form-group">
+    <input type="text" id="estimated_value_of_contract" class="form-control<?php echo e($errors->has('estimated_value_of_contract') ? ' is-invalid' : ''); ?>" name="estimated_value_of_contract" >
+    <label class="form-control-placeholder" for="estimated_value_of_contract">Estimated Value of Contract: </label>
+    <?php if($errors->has('estimated_value_of_contract')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('estimated_value_of_contract')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" id="reliefrequestsave" class="btn btn-success btn-space"  >Save</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>   
+</form>
+<script type="text/javascript">
+$('#damageamountinterestwithinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("damage_amount_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#damage_amount_interest').val("");
+
+            } else {
+               document.getElementById("damage_amount_interest").disabled = false;
+                $('#damage_amount_interest').val("");
+            }
+});
+
+</script>

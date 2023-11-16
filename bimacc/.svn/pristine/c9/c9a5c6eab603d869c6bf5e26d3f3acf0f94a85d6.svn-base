@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+
+<body>
+	Dear  <?php echo e($user['name']); ?><br/><br/>
+
+	Welcome to Online Arbitration<br/><br/>
+	Your Username is <?php echo e($user->email); ?><br/><br/>
+	Click this link for registration. <br/><br/>
+
+	Reset Your Password Here <?php echo e(route('password.reset', $token)); ?><br/><br/>
+	This is System Generated Mail Please Do not Reply<br/><br/>
+	<br/>
+	Thanks & Regards,
+	<br/>
+	Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>

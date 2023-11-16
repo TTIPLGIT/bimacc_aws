@@ -1,0 +1,108 @@
+<?php if($arbitrationcount = 0): ?>
+ $arbitrationmasters = ArbitrationMaster::findOrFail($id);
+ <?php endif; ?>
+<?php $__currentLoopData = $arbitrationmasters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $arbitrationmaster): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade" id="showArbitrationMasterModal<?php echo e($arbitrationmaster->id); ?>" tabindex="-1" role="dialog" aria-labelledby="showArbitrationMasterlabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                     <?php if($errors->any()): ?>
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="showArbitrationMasterlabel">Arbitrator's Details</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">             
+                       
+
+                <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                 <strong>Arbitrator Code:</strong>
+                                <?php echo e($arbitrationmaster->arbitrator_code); ?>
+
+                            </div>
+                            <div class="form-group">
+                                 <strong>Arbitrator Name:</strong>
+                                <?php echo e($arbitrationmaster->username); ?>
+
+                                 
+
+                            </div>
+                            <div class="form-group">
+                              <strong>Arbitrator Email:</strong>
+                                <?php echo e($arbitrationmaster->email); ?> 
+                                 <?php if( $arbitrationmaster->mail_verify=='1'): ?>
+           <!-- <td style="color: #62b662;font-weight: bolder;">Verified</td> -->
+            <span style="color: #62b662;font-weight: bolder;">&#10003;</span> 
+           <?php else: ?>
+         
+           <?php endif; ?> 
+                            </div>
+                            <div class="form-group">
+                              <strong>Arbitrator Contact:</strong>
+                                <?php echo e($arbitrationmaster->phone); ?>
+
+                           </div>
+                           <div class="form-group">
+                              <strong>Arbitrator Address:</strong>
+                                <?php echo e($arbitrationmaster->address); ?>
+
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                         <strong>Arbitrator Country:</strong>
+                                <?php echo e($arbitrationmaster->country); ?>
+
+                     </div>
+                     <div class="form-group">
+                          <strong>Arbitrator State:</strong>
+                                <?php echo e($arbitrationmaster->state); ?>
+
+                    <div class="form-group">
+                     <strong>Arbitrator City:</strong>
+                                <?php echo e($arbitrationmaster->city); ?>
+
+                 </div>
+
+                 <div class="form-group">
+                     <strong>Created At:</strong>
+                    <?php echo e($arbitrationmaster->created_at); ?>
+
+                 </div>
+
+                 <!--  -->   
+
+            </div>
+</div>              
+</div>
+    <div class="modal-footer">
+                <div class="mx-auto">
+                     <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">Cancel</span>
+                        </button>             
+                </div>
+    </div> 
+            </div>             
+     
+    </div>
+    </div>
+    </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+
+
+

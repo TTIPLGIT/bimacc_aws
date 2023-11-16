@@ -1,0 +1,197 @@
+ <style type="text/css">
+  .razorpay-payment-button
+{
+  background-color: #1bcd6b !important;
+    padding: 10px;
+    border: 1px; 
+    color: white;
+    border-radius: 10px;
+    font-weight: bolder;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+.btn{
+  text-align: center;
+    margin: auto;
+    display: block;
+}
+</style> 
+@extends('layouts.admin')
+@section('content')
+@foreach ($claimnotices as $notice)
+<div class="container con" > 
+ <div class="row">
+   <div class="col-lg-12 margin-tb" style="    text-align: center;
+   color: black;
+   font-weight: 900;
+   font-size: 24px;
+   text-decoration: underline;">                    
+   <b>{{$notice->claimnoticeno}} </b>
+ </div>
+</div>
+@include('showpagejavascript/showpageheadertab') 
+<div class="modal-content modelcontentheightclaim" id="idclaimnoticedetails" style="display: block">
+      @include('ClaimNoticeShowScreens/ClaimNoticeHeaderShow')      
+</div>
+<div class="modal-content modelcontentheightclaim"   style="margin-top: 10px;" id="idclaimantinformation" >
+  <div class="modal-body"> 
+    <div   class="row register-form" style="margin-top: 10px;" >
+      @foreach ($claimantinformations as $claimant)
+      @include('ClaimNoticeShowScreens/ClaimantInformationShow')      
+      @endforeach
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaim" style="overflow-x: none" id="idresponantinformation">
+  <div class="modal-body"> 
+    <div  class="row register-form">             
+      @foreach ($respondantinformations as $respondant) 
+      @include('ClaimNoticeShowScreens/RespondentInformationShow')
+      @endforeach 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      @foreach ($claimant_information as $claimantinformation)
+      @foreach ($claimandrelief as $details)
+      @include('ShowPageClaimDetails/ClaimDetails') 
+      @endforeach 
+      @endforeach 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idcounterclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      
+      @include('CounterClaimShowPageClaimDetails/Listcounterclaim') 
+      
+    </div>
+    </div>
+  </div>
+
+
+
+<div class="modal-content modelcontentheightclaim"  id="idoveralclaimstatus" >
+  <div class="modal-body"> 
+    <div  class="row register-form">
+      @foreach ($ClaimNoticeStatus as $ClaimNoticeStatuss)
+      @include('ClaimNoticeShowScreens/OverallClaimStatusShow')
+      @endforeach
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+
+   @if($notice->claimnoticestatus=='Payment Initiated Waiting for The Payment') 
+  
+  <form  action="{{ route('claimfees.payadminstrativefees_new') }}" method="POST" enctype="multipart/form-data">
+ 
+        @csrf  
+        
+
+          
+           <input type="hidden" name="claimnoticeid" value="{{$notice->id}}">
+           <div class="row">
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="adminstration_fees" value="{{ number_format((float)$notice->adminstration_fees, 2, '.', '') }}" class="form-control{{ $errors->has('adminstration_fees') ? ' is-invalid' : '' }}" name="adminstration_fees" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="adminstration_fees">Administration Fees</label>
+       @if ($errors->has('adminstration_fees'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('adminstration_fees') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="arbitrator_fees"  value="{{ number_format((float)$notice->arbitrator_fees, 2, '.', '') }}"
+ class="form-control{{ $errors->has('arbitrator_fees') ? ' is-invalid' : '' }}" name="arbitrator_fees" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="arbitrator_fees">Arbitration Fee</label>
+       @if ($errors->has('arbitrator_fees'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('arbitrator_fees') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="extra_amt"  value="{{ number_format((float)$extra_amt, 2, '.', '') }}"
+ class="form-control{{ $errors->has('total_fee') ? ' is-invalid' : '' }}" name="extra_amt" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="extra_amt">Platform Fee</label>
+       @if ($errors->has('total_fee'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('total_fee') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="total_pay_amt"  value="{{ number_format((float)$total_pay_amt_check, 2, '.', '') }}"
+ class="form-control{{ $errors->has('total_fee') ? ' is-invalid' : '' }}" name="total_pay_amt" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="total_amount">Total Amount</label>
+       @if ($errors->has('total_fee'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('total_fee') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+</div>
+   
+ 
+
+ 
+
+         <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                            data-key="{{ env('RAZORPAY_KEY') }}"
+                                             data-amount="{{$total_pay_amt}}"
+                                            data-buttontext="Pay Administration Fee and Arbitration Fee"
+                                            data-name="Online Arbitartion System"
+                                            data-description="EAS"
+                                            data-image="http://localhost:1000/images/pic.png"
+                                            data-prefill.name="name" 
+                                            data-prefill.email="email"
+                                            data-theme.color="#343464">
+                                    </script>
+                                    
+                                   
+         
+ 
+
+
+                   
+
+
+
+
+       </form>
+   @endif
+
+                   
+ 
+</strong>
+</div>
+<script type="text/javascript">
+  function allocationfeesbutton(url){
+     $("#allocationfees").attr("disabled", true);
+     window.location.href=url;
+     // document.getElementById('feessubmitform').submit();
+  }
+</script>
+
+@endforeach
+@include('showpagejavascript/showscript') 
+@endsection

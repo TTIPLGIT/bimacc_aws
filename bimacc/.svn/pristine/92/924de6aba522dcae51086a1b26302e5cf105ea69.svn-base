@@ -1,0 +1,80 @@
+<?php $__env->startSection('content'); ?>
+<?php if($message = Session::get('success')): ?>
+<div class="alert alert-success">
+  <p><?php echo e($message); ?></p>
+</div>
+<?php endif; ?>
+<div class="container con">
+<div class="row">
+   <div class="col-lg-12 margin-tb">                    
+    <div class="pull-right">
+      <a onclick="exportTableToExcel('dataTable','Claimant List-<?php echo e(now()); ?>')"class="btn btn-success float-right" title="Create"><i class="fa fa-download"></i> Export Excel</a>
+    </div>
+  </div>
+</div>
+ <div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Claimants List</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead class="theadalign">
+          <tr>
+            <th>Sl. No.</th>
+            
+            <th>Claimant Name</th>
+            <th>Username
+            <th>Claimant Email</th>
+            <th>Claimant Contact Number</th>
+            <th>Claimant Type</th>
+            <th>City</th>
+            <th>State</th>
+                                
+          </tr>
+        </thead>
+
+        <tbody>
+
+
+         <?php $__currentLoopData = $claimantslist; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimants): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+         <tr>
+          <td><?php echo e($loop->iteration); ?></td>
+         
+          <td><?php echo e($claimants->firstname); ?> <?php echo e($claimants->lastname); ?></td>
+          <td><?php echo e($claimants->username); ?></td>
+          <td><?php echo e($claimants->email); ?></td>
+          <td><?php echo e($claimants->phone); ?></td>  
+           <td><?php echo e($claimants->claimant_respondant_type_name); ?></td>  
+           <td><?php echo e($claimants->city); ?></td>  
+           <td><?php echo e($claimants->state); ?></td>  
+          <!-- <td>
+            <form action="<?php echo e(route('claimantslist.destroy',$claimants->id)); ?>" method="POST">
+
+              <a class="btn btn-info" href="<?php echo e(route('claimantslist.show',$claimants->id)); ?>" data-toggle="modal"  data-target="#showClaimantslistModal<?php echo e($claimants->id); ?>"><i class="fas fa-eye">Show</i></a>
+            </form>
+          </td>  -->                     
+        </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+      </tbody>
+
+    </table>
+
+
+  </div>
+</div>
+</div>
+
+</div>
+
+
+<?php if($claimantslist != null): ?>
+<?php echo $__env->make('claimantslist/show', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<?php endif; ?>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

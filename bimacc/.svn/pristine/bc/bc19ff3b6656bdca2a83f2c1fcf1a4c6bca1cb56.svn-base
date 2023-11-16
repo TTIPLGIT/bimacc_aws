@@ -1,0 +1,192 @@
+
+<?php $__currentLoopData = $ClaimNoticeStage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ClaimNoticeStages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+<!-- create Arbitration modal -->
+<div class="modal hide fade" id="editclaimstageTypeModal<?php echo e($ClaimNoticeStages->id); ?>" tabindex="-1" role="dialog" aria-labelledby="createclaimstagelabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+    <div class="modal-content">  
+      <div class="modal-header">
+        <h5 class="modal-title" id="editclaimstagelabel">Edit Stage for <?php echo e($notice->claimnoticeno); ?></h5>
+
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"> 
+
+       <form id="createForm" action="<?php echo e(route('ClaimNoticeStage.update',$ClaimNoticeStages->id)); ?>" 
+        method="POST" enctype="multipart/form-data" id="bimaccform">
+        <?php echo csrf_field(); ?> 
+        <?php echo method_field('PUT'); ?> 
+        <div class="row register-form">
+         <div class="col-md-6">
+          <div class="form-group">
+            <label  >Case Status</label>
+            <input type="text" id="claimantnotice_Stage1" name="claimantnotice_Stage1" class="form-control"  
+            value="<?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?>" required disabled>
+
+            <?php if($errors->has('claimantnotice_Stage1')): ?>
+            <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('claimantnotice_Stage1')); ?></strong>
+            </span>
+            <?php endif; ?>  
+          </div>
+        </div>
+<!-- 
+        <div class="col-md-6">
+          <div class="form-group">
+           <label>Claim Stage Description</label>
+           <textarea id="claimantnotice_stage_descriptions" name="claimantnotice_stage_descriptions" class="form-control" required  value="<?php echo e($ClaimNoticeStages->claimantnotice_stage_description); ?>" disabled><?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?></textarea>
+
+           <?php if($errors->has('claimantnotice_stage_description')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claimantnotice_stage_description')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div> -->
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="stagefromdate">Stage Start Date</label>
+          <input type="date" id="stagefromdate" name="stagefromdate" class="form-control" required value="<?php echo e($ClaimNoticeStages->stagefromdate); ?>" disabled>
+
+          <?php if($errors->has('stagefromdate')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('stagefromdate')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  for="stagetodate">Time ends by midnight of</label>
+          <input type="date" id="stagetodate" name="stagetodate" class="form-control" required value="<?php echo e($ClaimNoticeStages->stagetodate); ?>">
+
+          <?php if($errors->has('stagetodate')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('stagetodate')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  for="claimantnotice_stage_status">Stage Status</label>
+          <?php if($ClaimNoticeStages->claimantnotice_Stage !="Staging Completed"): ?>
+          
+          <select class="form-control" name="claimantnotice_stage_status">
+            <?php if($ClaimNoticeStages->claimantnotice_stage_status=="Initiated"): ?>
+            <option value="InProgress" selected>InProgress</option> 
+            <?php endif; ?>
+            <?php if($ClaimNoticeStages->claimantnotice_stage_status=="InProgress"): ?>
+            <option value="Completed" selected>Completed</option>
+            <?php endif; ?>
+            <?php if($ClaimNoticeStages->claimantnotice_stage_status=="Completed"): ?>
+            <option value="Awarded" selected>Awarded</option>
+            <?php endif; ?>
+          </select>
+          <?php else: ?>
+          <select class="form-control" name="claimantnotice_stage_status">
+            <option value="Award Reserved By Arbitrator" selected>Reserved for Award</option>
+          </select>
+          <?php endif; ?>
+
+         <!--  <label class="form-control-placeholder" for="claimantnotice_stage_status">Stage Status *</label> -->
+          <?php if($errors->has('claimantnotice_stage_status')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claimantnotice_stage_status')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <?php if($ClaimNoticeStages->claimantnotice_Stage == "Staging Completed"): ?>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  for="awardedstatementdocument">Awarded Statement Document Upload</label><span style="color: red">*</span>
+          <input type="file" name="awardedstatementdocument" id="awardedstatementdocument" class="form-control" required>
+          <?php if($errors->has('awardedstatementdocument')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('awardedstatementdocument')); ?></strong>
+          </span>
+          
+          <?php endif; ?>  
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="form-group">
+          <label  for="arbitrator_sign">Digital Signature Document Upload</label>
+          <input type="file" name="arbitrator_sign" id="arbitrator_sign" class="form-control" >
+          <?php if($errors->has('arbitrator_sign')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('arbitrator_sign')); ?></strong>
+          </span>
+          
+          <?php endif; ?>  
+        </div>
+      </div> -->
+
+        <!--  <div class="col-md-6">
+        <div class="form-group">
+          <label  for="claimantnotice_stage_status">Awarded Statement Document Upload</label>
+          <input type="file" name="awardedstatementdocument" id="awardedstatementdocument" class="form-control" >
+          <?php if($errors->has('claimantnotice_stage_status')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claimantnotice_stage_status')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div> -->
+      <?php endif; ?>
+      <div class="col-md-6" style="">
+        <div class="form-group">
+          <input type="hidden" id="claimnoticeid" name="claimnoticeid" value="<?php echo e($notice->id); ?>">
+          <input type="hidden" id="claimantnotice_Stage" name="claimantnotice_Stage" value="<?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?>">
+           <input type="hidden" id="claimnoticestageid" name="claimnoticestageid" value="<?php echo e($ClaimNoticeStages->id); ?>">
+          <input type="hidden" id="claimnoticeno" name="claimnoticeno" value="<?php echo e($notice->claimnoticeno); ?>">
+          <input type="hidden" id="claimantnotice_stage_description" name="claimantnotice_stage_description" value="<?php echo e($ClaimNoticeStages->claimantnotice_stage_description); ?>">
+          <input type="hidden" id="arbitration_petionno" name="arbitration_petionno" value="<?php echo e($notice->arbitration_petionno); ?>">
+          <input type="hidden" id="alfresco_stage_folderuniqueid" name="alfresco_stage_folderuniqueid" value="<?php echo e($ClaimNoticeStages->alfresco_stage_folderuniqueid); ?>">
+        </div>
+      </div>
+    </div>            
+  </div>
+  <div class="modal-footer">
+    <div class="mx-auto">
+      
+        <?php if($ClaimNoticeStages->claimantnotice_stage_status=="Initiated"): ?>
+       <button type="submit" id="register" class="btn btn-success btn-space">Mark As Complete</button>
+       
+       <?php elseif($ClaimNoticeStages->claimantnotice_stage_status=="InProgress"): ?>
+       <button type="submit" id="register" class="btn btn-success btn-space">Next Stage</button>
+     <?php else: ?>
+       <button type="submit" id="register" class="btn btn-success btn-space">Update Stage</button>
+       <?php endif; ?>
+      <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+      <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">Cancel</span>
+      </button>              
+    </div>
+  </div> 
+</div>             
+</form>
+
+</div>
+</div>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<!-- End of create Arbitration modal -->
+ <!-- <script type="text/javascript">
+   function bimaccbuttonclick() {
+    var awardedstatementdocument =  $('#awardedstatementdocument').val();
+     //alert(disputecategory);
+     if (awardedstatementdocument =='') {
+       swal("Please upload document", "", "error");
+     return false;
+     }
+ $("#register").attr("disabled", true);
+     document.getElementById('bimaccform').submit();
+    
+   }
+ </script> -->

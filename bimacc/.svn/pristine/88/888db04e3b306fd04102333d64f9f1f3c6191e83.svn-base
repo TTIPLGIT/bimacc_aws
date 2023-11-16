@@ -1,0 +1,166 @@
+   
+    <form  id="sample_form" name="sample_form" method="POST" style="    width: 100%;" >
+      <?php echo csrf_field(); ?>  
+       <?php $__currentLoopData = $claimnotices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+       <input type="hidden" id="claimnoticeid"  name="claimnoticeid"  value="<?php echo e($notice->id); ?>" >
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      <div class="row register-form">
+        <div class="col-md-12">
+          <div class="row">
+           <div class="col-md-12">
+             <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+              <label><b>Please fill in the applicable details  pertaining to the dispute</b></label>
+            </div>            
+            <div class="form-group text-center" style="margin-bottom: 1.4em">
+              <label><u><b>Details</b></u></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+           <div class="col-md-6"> 
+            <div class="form-group">
+             <input type="text" id="details_of_goods" class="form-control<?php echo e($errors->has('details_of_goods') ? ' is-invalid' : ''); ?>" name="details_of_goods" >
+             <label class="form-control-placeholder" for="details_of_goods">Details of Goods:</label>
+             <?php if($errors->has('details_of_goods')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('details_of_goods')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+          <div class="form-group">
+            <input type="text" id="details_of_service" class="form-control<?php echo e($errors->has('details_of_service') ? ' is-invalid' : ''); ?>" name="details_of_service" >
+            <label class="form-control-placeholder" for="details_of_service">Details of Service:</label>
+            <?php if($errors->has('details_of_service')): ?>
+            <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('details_of_service')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+         <div class="form-group">
+           <input type="number" id="claimamount" class="form-control<?php echo e($errors->has('claimamount') ? ' is-invalid' : ''); ?>" name="claimamount" >
+           <?php if($claimantinformations[0]->currency =='INR'): ?> 
+
+           <label class="form-control-placeholder" for="claimamount">Claim Amount(INR)<span style="color: red">*</span>:</label>
+
+           <?php else: ?>
+           <label class="form-control-placeholder" for="claimamount">Claim Amount(USD) <span style="color: red">*</span>:</label>
+           <?php endif; ?>
+           <?php if($errors->has('claimamount')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claimamount')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-6"> 
+      <div class="form-group">
+       <textarea id="reason_for_claim" class="form-control<?php echo e($errors->has('reason_for_claim') ? ' is-invalid' : ''); ?>" name="reason_for_claim" ></textarea>
+       <label class="form-control-placeholder" for="reason_for_claim">Reason for Claim<span style="color: red">*</span>:</label>
+       <?php if($errors->has('reason_for_claim')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('reason_for_claim')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">  
+        <div class="form-group">
+          <input type="date" id="date_of_contract" name="date_of_contract"  class="form-control<?php echo e($errors->has('date_of_contract') ? ' is-invalid' : ''); ?>" >
+          
+          <label class="form-control-placeholder" for="date_of_contract">Date of Contract:  </label>
+          <?php if($errors->has('date_of_contract')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('date_of_contract')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-3"> 
+        <div class="form-group">
+         <input type="date" id="date_of_invoice" class="form-control<?php echo e($errors->has('date_of_invoice') ? ' is-invalid' : ''); ?>" name="date_of_invoice" placeholder=" ">
+         <label class="form-control-placeholder" for="date_of_invoice">Date of Invoice:  </label>
+         <?php if($errors->has('date_of_invoice')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('date_of_invoice')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-3"> 
+      <div class="form-group">
+       <input type="date" id="date_of_warranty" class="form-control<?php echo e($errors->has('date_of_warranty') ? ' is-invalid' : ''); ?>" name="date_of_warranty" placeholder=" ">
+       <label class="form-control-placeholder" for="date_of_warranty">Period of Warranty Start Date: </label>
+       <?php if($errors->has('date_of_warranty')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('date_of_warranty')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3"> 
+      <div class="form-group">
+       <input type="date" id="date_of_warranty_end" class="form-control<?php echo e($errors->has('date_of_warranty_end') ? ' is-invalid' : ''); ?>" name="date_of_warranty_end" placeholder=" ">
+       <label class="form-control-placeholder" for="date_of_warranty_end">Period of Warranty End Date: </label>
+       <?php if($errors->has('date_of_warranty_end')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('date_of_warranty_end')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+<div class="row">
+ <div class="col-md-4"> 
+  <div class="form-group">
+   <input type="date" id="date_of_breach" class="form-control<?php echo e($errors->has('date_of_breach') ? ' is-invalid' : ''); ?>" name="date_of_breach" placeholder=" ">
+   <label class="form-control-placeholder" for="date_of_breach">Date of Breach:  </label>
+   <?php if($errors->has('date_of_breach')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('date_of_breach')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="date" id="default_date_of_cause_of_action" class="form-control<?php echo e($errors->has('default_date_of_cause_of_action') ? ' is-invalid' : ''); ?>" name="default_date_of_cause_of_action" placeholder=" ">
+   <label class="form-control-placeholder" for="default_date_of_cause_of_action">Date of Default/ Date of Cause of Action:</label>
+   <?php if($errors->has('default_date_of_cause_of_action')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('default_date_of_cause_of_action')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="date" id="date_of_notice" class="form-control<?php echo e($errors->has('date_of_notice') ? ' is-invalid' : ''); ?>" name="date_of_notice" placeholder=" ">
+   <label class="form-control-placeholder" for="date_of_notice">Date of Notice: </label>
+   <?php if($errors->has('date_of_notice')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('date_of_notice')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+</div>
+</div>
+</div>                  
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" class="btn btn-success btn-space"  >Save and Next</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>
+</form>

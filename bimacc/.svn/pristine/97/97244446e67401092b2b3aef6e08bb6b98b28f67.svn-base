@@ -1,0 +1,830 @@
+<?php if($ReliefRequests ==null): ?>
+
+<form  name="reliefrequest_form" id="reliefrequest_form" method="POST" >
+  <?php echo csrf_field(); ?>  
+  <div class="row register-form">
+    <div class="col-md-12">
+       <div class="row">
+           <div class="col-md-12">
+             <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+              <label><b>Please fill in the applicable details  pertaining to the dispute</b></label>
+            </div>            
+              
+          </div>
+        </div>
+
+      <div class="row">
+       <div class="col-md-12"> 
+         <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+          <label><u><b>Nature of Relief</b></u></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="form-group">
+         <input type="text" onkeypress="return isNumberKey(event)"  id="freightrefundamount" class="form-control<?php echo e($errors->has('freightrefundamount') ? ' is-invalid' : ''); ?>" name="freightrefundamount" >
+         <label class="form-control-placeholder" for="freightrefundamount">Value of Claim for Refund of Fare or Freight Amount:</label>
+         <?php if($errors->has('freightrefundamount')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('freightrefundamount')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-4"> 
+      <div class="form-group">
+        <input type="text" onkeypress="return isNumberKey(event)"  id="frightrefundamountinerest" class="form-control<?php echo e($errors->has('frightrefundamountinerest') ? ' is-invalid' : ''); ?>" name="frightrefundamountinerest" >
+        <label class="form-control-placeholder" for="frightrefundamountinerest">Interest (%):</label>
+        <?php if($errors->has('frightrefundamountinerest')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('frightrefundamountinerest')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <label class="form-control-placeholder" for="fightrefundamountamountinterestwithinterest" style="margin-left: 18px;">Without Interest</label>
+       <input type="checkbox" class="form-control" id="fightrefundamountamountinterestwithinterest"  name="fightrefundamountamountinterestwithinterest" style="width:7%"  value="yes">
+     </div>
+   </div>
+
+ </div>
+
+ <div class="row">
+   <div class="col-md-4"> 
+      <div class="form-group">
+       <label class="form-control-placeholder" for="claim_for_delivery_of_cargo" style="margin-left: 18px;">Claim for Delivery of Cargo/ Baggage</label>
+       <input type="checkbox" class="form-control" id="claim_for_delivery_of_cargo"  name="claim_for_delivery_of_cargo" style="width:7%" value="yes" >
+     </div>
+   </div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+
+    <input type="text" onkeypress="return isNumberKey(event)"  id="cargo_nature" class="form-control<?php echo e($errors->has('cargo_nature') ? ' is-invalid' : ''); ?>" name="cargo_nature" >
+    <label class="form-control-placeholder" for="cargo_nature">Value of Cargo:</label>
+    <?php if($errors->has('cargo_nature')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('cargo_nature')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+ <div class="form-group">
+   <input type="text" id="nature_and_details_of_cargo" class="form-control<?php echo e($errors->has('nature_and_details_of_cargo') ? ' is-invalid' : ''); ?>" name="nature_and_details_of_cargo" >
+   <label class="form-control-placeholder" for="nature_and_details_of_cargo">Nature and Details of Cargo:</label>
+   <?php if($errors->has('nature_and_details_of_cargo')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('nature_and_details_of_cargo')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">  
+    <div class="form-group">
+     <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_payment_of_freight_amount" class="form-control<?php echo e($errors->has('claim_for_payment_of_freight_amount') ? ' is-invalid' : ''); ?>" name="claim_for_payment_of_freight_amount" >
+     <label class="form-control-placeholder" for="claim_for_payment_of_freight_amount">Value of Claim for Payment of Freight Amount: </label>
+     <?php if($errors->has('claim_for_payment_of_freight_amount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('claim_for_payment_of_freight_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="text" onkeypress="return isNumberKey(event)"  id="freight_amount_interest" class="form-control<?php echo e($errors->has('freight_amount_interest') ? ' is-invalid' : ''); ?>" name="freight_amount_interest" >
+   <label class="form-control-placeholder" for="freight_amount_interest">Interest (%):</label>
+   <?php if($errors->has('freight_amount_interest')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('freight_amount_interest')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+    <label class="form-control-placeholder" for="frightamountwithpoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" id="frightamountwithpoutinterest" class="form-control" style="width:7%" name="frightamountwithpoutinterest" value="yes" >
+    
+  </div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="text" onkeypress="return isNumberKey(event)"  id="damage_amount" class="form-control<?php echo e($errors->has('damage_amount') ? ' is-invalid' : ''); ?>" name="damage_amount" >
+     <label class="form-control-placeholder" for="damage_amount">Value of Claim for Payment of Damages:</label>
+     <?php if($errors->has('damage_amount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="damage_amount_interest" class="form-control<?php echo e($errors->has('damage_amount_interest') ? ' is-invalid' : ''); ?>" name="damage_amount_interest" >
+    <label class="form-control-placeholder" for="damage_amount_interest">Interest (%):</label>
+    <?php if($errors->has('damage_amount_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+   <label class="form-control-placeholder" for="damageamountinterestwithinterest" style="margin-left: 18px;">Without Interest</label>
+   <input type="checkbox" class="form-control" id="damageamountinterestwithinterest"  name="damageamountinterestwithinterest" style="width:7%" value="yes">
+ </div>
+</div>
+
+</div>
+<div class="row">
+        <div class="col-md-4"> 
+          <div class="form-group">
+           <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_demurrages" class="form-control<?php echo e($errors->has('claim_for_demurrages') ? ' is-invalid' : ''); ?>" name="claim_for_demurrages" >
+           <label class="form-control-placeholder" for="claim_for_demurrages">Value of Claim for Demurrages: </label>
+           <?php if($errors->has('claim_for_demurrages')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claim_for_demurrages')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_demurrages_interest" class="form-control<?php echo e($errors->has('claim_for_demurrages_interest') ? ' is-invalid' : ''); ?>" name="claim_for_demurrages_interest" >
+          <label class="form-control-placeholder" for="claim_for_demurrages_interest">Interest (%): </label>
+          <?php if($errors->has('claim_for_demurrages_interest')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claim_for_demurrages_interest')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <div class="col-md-4"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="claim_for_demurrages_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+         <input type="checkbox" class="form-control" id="claim_for_demurrages_withoutinterest"  name="claim_for_demurrages_withoutinterest" style="width:7%"  value="yes">
+       </div>
+     </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6"> 
+      <div class="form-group">
+        <input type="text" id="claim_for_specific_performance" class="form-control<?php echo e($errors->has('claim_for_specific_performance') ? ' is-invalid' : ''); ?>" name="claim_for_specific_performance" >
+        <label class="form-control-placeholder" for="claim_for_specific_performance">Claim Details for Specific Performance:</label>
+        <?php if($errors->has('claim_for_specific_performance')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('claim_for_specific_performance')); ?></strong>
+        </span> 
+        <?php endif; ?>
+      </div>
+    </div> 
+    <div class="col-md-6"> 
+      <div class="form-group">
+        <input type="text" onkeypress="return isNumberKey(event)"  id="value_performance "  class="form-control<?php echo e($errors->has('value_performance') ? ' is-invalid' : ''); ?>" name="value_performance" >
+        <label class="form-control-placeholder" for="value_performance">Value of Specific Performance:
+         </label>
+        <?php if($errors->has('value_performance')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('value_performance')); ?></strong>
+        </span> 
+        <?php endif; ?>
+      </div>
+    </div> 
+   </div> 
+
+
+
+<div class="row">
+<div class="col-md-3"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="termination_of_contract" style="margin-left: 26px;">Termination of Contract</label>
+         <input type="checkbox" class="form-control" id="termination_of_contract"  name="termination_of_contract" style="width:10%"  value="yes">
+       </div>
+     </div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="estimated_value_of_contract" class="form-control<?php echo e($errors->has('estimated_value_of_contract') ? ' is-invalid' : ''); ?>" name="estimated_value_of_contract" >
+    <label class="form-control-placeholder" for="estimated_value_of_contract">Value of Contract:</label>
+    <?php if($errors->has('estimated_value_of_contract')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('estimated_value_of_contract')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="return_of_property" style="margin-left: 26px;">Return of Property</label>
+         <input type="checkbox" class="form-control" id="return_of_property"  name="return_of_property" style="width:10%"  value="yes">
+       </div>
+     </div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="estimated_value_of_property" class="form-control<?php echo e($errors->has('estimated_value_of_property') ? ' is-invalid' : ''); ?>" name="estimated_value_of_property" >
+    <label class="form-control-placeholder" for="estimated_value_of_property">Value of Property:</label>
+    <?php if($errors->has('estimated_value_of_property')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('estimated_value_of_property')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="payment_consideration"  class="form-control<?php echo e($errors->has('payment_consideration') ? ' is-invalid' : ''); ?>" name="payment_consideration" >
+       <label class="form-control-placeholder" for="payment_consideration">Value of Claim for Expenses and Other Charges:</label>
+       <?php if($errors->has('payment_consideration')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('payment_consideration')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+ <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="payment_consideration_interest"  class="form-control<?php echo e($errors->has('payment_consideration_interest') ? ' is-invalid' : ''); ?>" name="payment_consideration_interest" >
+       <label class="form-control-placeholder" for="payment_consideration_interest">With Interest (%):</label>
+       <?php if($errors->has('payment_consideration_interest')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('payment_consideration_interest')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+    <div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="payment_consideration_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="payment_consideration_withoutinterest"  name="payment_consideration_withoutinterest" style="width:7%" value="yes">
+  </div>
+
+</div>
+   </div>
+<div class="row">
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="value_claims"  class="form-control<?php echo e($errors->has('value_claims') ? ' is-invalid' : ''); ?>" name="value_claims" >
+       <label class="form-control-placeholder" for="value_claims">Total Value Claimed:</label>
+       <?php if($errors->has('value_claims')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('value_claims')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+ <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="value_claims_interest"  class="form-control<?php echo e($errors->has('value_claims_interest') ? ' is-invalid' : ''); ?>" name="value_claims_interest" >
+       <label class="form-control-placeholder" for="value_claims_interest">With Interest (%):</label>
+       <?php if($errors->has('value_claims_interest')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('value_claims_interest')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+    <div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="value_claims_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="value_claims_withoutinterest"  name="value_claims_withoutinterest" style="width:7%" value="yes">
+  </div>
+
+</div>
+   </div>
+   <div class="row">
+    <div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="interest_amount" class="form-control<?php echo e($errors->has('interest_amount') ? ' is-invalid' : ''); ?>" name="interest_amount" >
+    <label class="form-control-placeholder" for="interest_amount">Interest Amount:</label>
+    <?php if($errors->has('interest_amount')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('interest_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="damage_with_interest"  class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest">
+   <?php if($claimantinformations[0]->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Total Relief Amount Including Interest (INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Total Relief Amount Including Interest (USD) <span style="color: red">*</span>:</label>
+           <?php endif; ?>
+    <?php if($errors->has('damage_with_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_with_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+   </div> 
+
+
+</div>
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" id="reliefrequestsave" class="btn btn-success btn-space"  >Save</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>   
+</form>
+<?php else: ?>
+
+<?php $__currentLoopData = $ReliefRequests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ReliefRequests): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<form  name="reliefrequest_update_form" id="reliefrequest_update_form" method="POST" >
+  <?php echo csrf_field(); ?>  
+  <input type="text" onkeypress="return isNumberKey(event)"  name="reliefrequestid" value="<?php echo e($ReliefRequests->id); ?>" style="display: none">
+  <div class="row register-form">
+    <div class="col-md-12">
+      <div class="row"> 
+       <div class="col-md-12"> 
+         <div class="form-group text-center" style="margin-bottom: 1.4em">
+          <label><u><b>Nature of Relief:</b></u></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="form-group">
+         <input type="text" onkeypress="return isNumberKey(event)"   id="freightrefundamount" class="form-control<?php echo e($errors->has('freightrefundamount') ? ' is-invalid' : ''); ?>" name="freightrefundamount" value="<?php echo e($ReliefRequests->freightrefundamount); ?>">
+         <label class="form-control-placeholder" for="freightrefundamount">Value of Claim for Refund of Fare or Freight Amount:</label>
+         <?php if($errors->has('freightrefundamount')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('freightrefundamount')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-4"> 
+      <div class="form-group">
+        <input type="text" onkeypress="return isNumberKey(event)"  id="frightrefundamountinerest" class="form-control<?php echo e($errors->has('frightrefundamountinerest') ? ' is-invalid' : ''); ?>" name="frightrefundamountinerest" value="<?php echo e($ReliefRequests->frightrefundamountinerest); ?>">
+        <label class="form-control-placeholder" for="frightrefundamountinerest">Interest (%):</label>
+        <?php if($errors->has('frightrefundamountinerest')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('frightrefundamountinerest')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <label class="form-control-placeholder" for="fightrefundamountamountinterestwithinterest" style="margin-left: 18px;">Without Interest</label>
+       <input type="checkbox" class="form-control" id="fightrefundamountamountinterestwithinterest"  name="fightrefundamountamountinterestwithinterest" style="width:7%" value="yes"  <?php echo e($ReliefRequests->fightrefundamountamountinterestwithinterest == 'yes' ? 'checked' : ''); ?>>
+     </div>
+   </div>
+
+ </div>
+
+ <div class="row">
+   <div class="col-md-4"> 
+      <div class="form-group">
+       <label class="form-control-placeholder" for="claim_for_delivery_of_cargo" style="margin-left: 18px;">Claim for delivery of cargo/baggage</label>
+       <input type="checkbox" class="form-control" id="claim_for_delivery_of_cargo"  name="claim_for_delivery_of_cargo" style="width:7%" value="yes" <?php echo e($ReliefRequests->claim_for_delivery_of_cargo == 'yes' ? 'checked' : ''); ?>>
+     </div>
+   </div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+
+    <input type="text" onkeypress="return isNumberKey(event)"  id="cargo_nature" class="form-control<?php echo e($errors->has('cargo_nature') ? ' is-invalid' : ''); ?>" name="cargo_nature" value="<?php echo e($ReliefRequests->cargo_nature); ?>">
+    <label class="form-control-placeholder" for="cargo_nature">Value of Cargo:</label>
+    <?php if($errors->has('cargo_nature')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('cargo_nature')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+ <div class="form-group">
+   <input type='text'  id="nature_and_details_of_cargo" class="form-control<?php echo e($errors->has('nature_and_details_of_cargo') ? ' is-invalid' : ''); ?>" name="nature_and_details_of_cargo" value="<?php echo e($ReliefRequests->nature_and_details_of_cargo); ?>">
+   <label class="form-control-placeholder" for="nature_and_details_of_cargo">Nature and Details of Cargo:</label>
+   <?php if($errors->has('nature_and_details_of_cargo')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('nature_and_details_of_cargo')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">  
+    <div class="form-group">
+     <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_payment_of_freight_amount" class="form-control<?php echo e($errors->has('claim_for_payment_of_freight_amount') ? ' is-invalid' : ''); ?>" name="claim_for_payment_of_freight_amount" value="<?php echo e($ReliefRequests->claim_for_payment_of_freight_amount); ?>">
+     <label class="form-control-placeholder" for="claim_for_payment_of_freight_amount">Value of Claim for Payment of Freight Amount:</label>
+     <?php if($errors->has('claim_for_payment_of_freight_amount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('claim_for_payment_of_freight_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="text" onkeypress="return isNumberKey(event)"  id="freight_amount_interest" class="form-control<?php echo e($errors->has('freight_amount_interest') ? ' is-invalid' : ''); ?>" name="freight_amount_interest" value="<?php echo e($ReliefRequests->freight_amount_interest); ?>">
+   <label class="form-control-placeholder" for="freight_amount_interest">Interest (%):</label>
+   <?php if($errors->has('freight_amount_interest')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('freight_amount_interest')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+    <label class="form-control-placeholder" for="frightamountwithpoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" id="frightamountwithpoutinterest" class="form-control" style="width:7%" name="frightamountwithpoutinterest" value="yes" <?php echo e($ReliefRequests->frightamountwithpoutinterest == 'yes' ? 'checked' : ''); ?> >
+    
+  </div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="text" onkeypress="return isNumberKey(event)"  id="damage_amount" class="form-control<?php echo e($errors->has('damage_amount') ? ' is-invalid' : ''); ?>" name="damage_amount" value="<?php echo e($ReliefRequests->damage_amount); ?>">
+     <label class="form-control-placeholder" for="damage_amount">Value of Claim for Payment of Damages:</label>
+     <?php if($errors->has('damage_amount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="damage_amount_interest" class="form-control<?php echo e($errors->has('damage_amount_interest') ? ' is-invalid' : ''); ?>" name="damage_amount_interest" value="<?php echo e($ReliefRequests->damage_amount_interest); ?>">
+    <label class="form-control-placeholder" for="damage_amount_interest">Interest (%):</label>
+    <?php if($errors->has('damage_amount_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_amount_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+   <label class="form-control-placeholder" for="damageamountinterestwithinterest" style="margin-left: 18px;">Without Interest</label>
+   <input type="checkbox" class="form-control" id="damageamountinterestwithinterest"  name="damageamountinterestwithinterest" style="width:7%" value="yes" <?php echo e($ReliefRequests->damageamountinterestwithinterest == 'yes' ? 'checked' : ''); ?>>
+ </div>
+</div>
+
+</div>
+<div class="row">
+        <div class="col-md-4"> 
+          <div class="form-group">
+           <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_demurrages"   class="form-control<?php echo e($errors->has('claim_for_demurrages') ? ' is-invalid' : ''); ?>" name="claim_for_demurrages" value="<?php echo e($ReliefRequests->claim_for_demurrages); ?>">
+           <label class="form-control-placeholder" for="claim_for_demurrages">Value of Claim for Demurrages: </label>
+           <?php if($errors->has('claim_for_demurrages')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claim_for_demurrages')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" onkeypress="return isNumberKey(event)"  id="claim_for_demurrages_interest" class="form-control<?php echo e($errors->has('claim_for_demurrages_interest') ? ' is-invalid' : ''); ?>" name="claim_for_demurrages_interest"  value="<?php echo e($ReliefRequests->claim_for_demurrages_interest); ?>">
+          <label class="form-control-placeholder" for="claim_for_demurrages_interest">Interest (%): </label>
+          <?php if($errors->has('claim_for_demurrages_interest')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claim_for_demurrages_interest')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <div class="col-md-4"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="claim_for_demurrages_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+         <input type="checkbox" class="form-control" id="claim_for_demurrages_withoutinterest"  name="claim_for_demurrages_withoutinterest" style="width:7%" value="yes" <?php echo e($ReliefRequests->claim_for_demurrages_withoutinterest == 'yes' ? 'checked' : ''); ?> >
+       </div>
+     </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6"> 
+      <div class="form-group">
+        <input type="text" id="claim_for_specific_performance"  class="form-control<?php echo e($errors->has('claim_for_specific_performance') ? ' is-invalid' : ''); ?>" name="claim_for_specific_performance" value="<?php echo e($ReliefRequests->claim_for_specific_performance); ?>">
+        <label class="form-control-placeholder" for="claim_for_specific_performance">Claim Details for Specific Performance:</label>
+        <?php if($errors->has('claim_for_specific_performance')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('claim_for_specific_performance')); ?></strong>
+        </span> 
+        <?php endif; ?>
+      </div>
+    </div> 
+    <div class="col-md-6"> 
+      <div class="form-group">
+        <input type="text" onkeypress="return isNumberKey(event)"  id="value_performance "  class="form-control<?php echo e($errors->has('value_performance') ? ' is-invalid' : ''); ?>" name="value_performance" value="<?php echo e($ReliefRequests->value_performance); ?>">
+        <label class="form-control-placeholder" for="value_performance">Value of Specific Performance:
+         </label>
+        <?php if($errors->has('value_performance')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('value_performance')); ?></strong>
+        </span> 
+        <?php endif; ?>
+      </div>
+    </div> 
+   </div> 
+
+
+
+<div class="row">
+<div class="col-md-3"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="termination_of_contract" style="margin-left: 26px;">Termination of Contract</label>
+         <input type="checkbox" class="form-control" id="termination_of_contract"  name="termination_of_contract" style="width:10%"  value="yes" <?php echo e($ReliefRequests->termination_of_contract == 'yes' ? 'checked' : ''); ?>>
+       </div>
+     </div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="estimated_value_of_contract" class="form-control<?php echo e($errors->has('estimated_value_of_contract') ? ' is-invalid' : ''); ?>" name="estimated_value_of_contract" value="<?php echo e($ReliefRequests->estimated_value_of_contract); ?>">
+    <label class="form-control-placeholder" for="estimated_value_of_contract">Value of contract:</label>
+    <?php if($errors->has('estimated_value_of_contract')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('estimated_value_of_contract')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+        <div class="form-group">
+         <label class="form-control-placeholder" for="return_of_property" style="margin-left: 26px;">Return of Property</label>
+         <input type="checkbox" class="form-control" id="return_of_property"  name="return_of_property" style="width:10%"  value="yes" <?php echo e($ReliefRequests->return_of_property == 'yes' ? 'checked' : ''); ?> >
+       </div>
+     </div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="estimated_value_of_property" class="form-control<?php echo e($errors->has('estimated_value_of_property') ? ' is-invalid' : ''); ?>" name="estimated_value_of_property" value="<?php echo e($ReliefRequests->estimated_value_of_property); ?>">
+    <label class="form-control-placeholder" for="estimated_value_of_property">Value of Property:</label>
+    <?php if($errors->has('estimated_value_of_property')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('estimated_value_of_property')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="payment_consideration" class="form-control<?php echo e($errors->has('payment_consideration') ? ' is-invalid' : ''); ?>" name="payment_consideration" value="<?php echo e($ReliefRequests->payment_consideration); ?>">
+       <label class="form-control-placeholder" for="payment_consideration">Value of Claim for Expenses and Other Charges:</label>
+       <?php if($errors->has('payment_consideration')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('payment_consideration')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+ <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="payment_consideration_interest"  class="form-control<?php echo e($errors->has('payment_consideration_interest') ? ' is-invalid' : ''); ?>" name="payment_consideration_interest" value="<?php echo e($ReliefRequests->payment_consideration_interest); ?>">
+       <label class="form-control-placeholder" for="payment_consideration_interest">With Interest (%):</label>
+       <?php if($errors->has('payment_consideration_interest')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('payment_consideration_interest')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+    <div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="payment_consideration_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="payment_consideration_withoutinterest"  name="payment_consideration_withoutinterest" style="width:7%" value="yes" <?php echo e($ReliefRequests->payment_consideration_withoutinterest == 'yes' ? 'checked' : ''); ?> >
+  </div>
+
+</div>
+   </div>
+<div class="row">
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="value_claims"  class="form-control<?php echo e($errors->has('value_claims') ? ' is-invalid' : ''); ?>" name="value_claims" value="<?php echo e($ReliefRequests->value_claims); ?>">
+       <label class="form-control-placeholder" for="value_claims">Total Value Claimed:</label>
+       <?php if($errors->has('value_claims')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('value_claims')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+ <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" onkeypress="return isNumberKey(event)"  id="value_claims_interest"  class="form-control<?php echo e($errors->has('value_claims_interest') ? ' is-invalid' : ''); ?>" name="value_claims_interest" value="<?php echo e($ReliefRequests->value_claims_interest); ?>">
+       <label class="form-control-placeholder" for="value_claims_interest">With Interest (%):</label>
+       <?php if($errors->has('value_claims_interest')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('value_claims_interest')); ?></strong>
+      </span> 
+      <?php endif; ?>
+
+    </div>
+  </div>
+    <div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="value_claims_withoutinterest" style="margin-left: 18px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="value_claims_withoutinterest"  name="value_claims_withoutinterest" style="width:7%" value="yes" <?php echo e($ReliefRequests->value_claims_withoutinterest == 'yes' ? 'checked' : ''); ?> >
+  </div>
+
+</div>
+   </div>
+   <div class="row">
+    <div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="interest_amount" class="form-control<?php echo e($errors->has('interest_amount') ? ' is-invalid' : ''); ?>" name="interest_amount" value="<?php echo e($ReliefRequests->interest_amount); ?>">
+    <label class="form-control-placeholder" for="interest_amount">Interest Amount:</label>
+    <?php if($errors->has('interest_amount')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('interest_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" onkeypress="return isNumberKey(event)"  id="damage_with_interest"  class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" value="<?php echo e($ReliefRequests->damage_with_interest); ?>">
+   <?php if($claimantinformations[0]->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Total Relief Amount including Interest(INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Total Relief Amount including Interest(USD)<span style="color: red">*</span>:</label>
+           <?php endif; ?>
+    <?php if($errors->has('damage_with_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_with_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+   </div>
+
+</div>
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" class="btn btn-success btn-space"  >Update</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>   
+</form>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+<?php endif; ?>
+<script type="text/javascript">
+$('#fightrefundamountamountinterestwithinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("frightrefundamountinerest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#frightrefundamountinerest').val("");
+
+            } else {
+               document.getElementById("frightrefundamountinerest").disabled = false;
+                $('#frightrefundamountinerest').val("");
+            }
+});
+$('#frightamountwithpoutinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("freight_amount_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#freight_amount_interest').val("");
+
+            } else {
+               document.getElementById("freight_amount_interest").disabled = false;
+                $('#freight_amount_interest').val("");
+            }
+});
+$('#claim_for_delivery_of_cargo').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("nature_and_details_of_cargo").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#nature_and_details_of_cargo').val("");
+                document.getElementById("cargo_nature").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#cargo_nature').val("");
+
+            } else {
+               document.getElementById("nature_and_details_of_cargo").disabled = false;
+                $('#nature_and_details_of_cargo').val("");
+                document.getElementById("cargo_nature").disabled = false;
+                $('#cargo_nature').val("");
+            }
+});
+$('#damageamountinterestwithinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("damage_amount_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#damage_amount_interest').val("");
+
+            } else {
+               document.getElementById("damage_amount_interest").disabled = false;
+                $('#damage_amount_interest').val("");
+            }
+});
+$('#claim_for_demurrages_withoutinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("claim_for_demurrages_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#claim_for_demurrages_interest').val("");
+
+            } else {
+               document.getElementById("claim_for_demurrages_interest").disabled = false;
+                $('#claim_for_demurrages_interest').val("");
+            }
+});
+$('#termination_of_contract').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("estimated_value_of_contract").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#estimated_value_of_contract').val("");
+
+            } else {
+               document.getElementById("estimated_value_of_contract").disabled = false;
+                $('#estimated_value_of_contract').val("");
+            }
+});
+$('#return_of_property').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("estimated_value_of_property").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#estimated_value_of_property').val("");
+
+            } else {
+               document.getElementById("estimated_value_of_property").disabled = false;
+                $('#estimated_value_of_property').val("");
+            }
+});
+$('#value_claims_withoutinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("value_claims_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#value_claims_interest').val("");
+
+            } else {
+               document.getElementById("value_claims_interest").disabled = false;
+                $('#value_claims_interest').val("");
+            }
+});
+$('#payment_consideration_withoutinterest').on('click', function () {
+  if ($(this).prop('checked')) {
+                document.getElementById("payment_consideration_interest").disabled = true;
+                //$('#demand_for_licence_fee_interest').disabled();
+                $('#payment_consideration_interest').val("");
+
+            } else {
+               document.getElementById("payment_consideration_interest").disabled = false;
+                $('#payment_consideration_interest').val("");
+            }
+});
+
+</script>
+<SCRIPT language=Javascript>
+       <!--
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+       //-->
+    </SCRIPT>

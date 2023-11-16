@@ -1,0 +1,371 @@
+<?php if(count($errors) > 0): ?>
+    <script>
+        $( document ).ready(function() {
+            $('#createArbitrationMasterModal').modal('show');
+        });
+    </script>
+<?php endif; ?>
+
+  <!-- create Arbitration modal -->
+  <div class="modal hide fade" id="createArbitrationMasterModal" tabindex="-1" role="dialog" aria-labelledby="createArbitrationMasterlabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+      <div class="modal-content">  
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="createArbitrationMasterlabel">Create Arbitrator</h5>
+
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"> 
+          <?php if(count($errors) > 0): ?>
+          <div class="alert alert-danger">
+
+            <ul>
+              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><?php echo e($error); ?></li>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+          </div>
+
+          <?php endif; ?>
+
+          
+          <form id="createForm" action="<?php echo e(route('arbitrationmaster.store')); ?>" method="POST" autocomplete="off">
+           <?php echo csrf_field(); ?> 
+           <div class="row register-form">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" id="arbitrator_code" class="form-control<?php echo e($errors->has('arbitrator_code') ? ' is-invalid' : ''); ?>" name="arbitrator_code"  >
+                <label id="arbitrator_code" class="form-control-placeholder" for="arbitrator_code">Arbitrator Code<span style="color: red">*</span></label>
+                <?php if($errors->has('arbitrator_code')): ?>
+                <span class="invalid-feedback" role="alert">
+                  <strong><?php echo e($errors->first('arbitrator_code')); ?></strong>
+                </span>
+                <?php endif; ?>                                 
+              </div>            
+            </div>
+             <div class="col-md-6">
+         <div class="form-group">
+          <select id='category' class="form-control<?php echo e($errors->has('dispute_categories_id') ? ' is-invalid' : ''); ?>" name="dispute_categories_id" >
+            <option value=""></option>
+            <?php $__currentLoopData = $disputecategory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <option value="<?php echo e($category->id); ?>"> <?php echo e($category->category_name); ?></option>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </select>
+          <label class="form-control-placeholder" for="category">Main Dispute Category <span style="color: red">*</span></label>
+          <!-- <?php if($errors->has('dispute_categories_id')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('dispute_categories_id')); ?></strong>
+            </span>
+          <?php endif; ?>  -->
+        </div>
+      </div>
+             <div class="col-md-6">
+        <div class="form-group">         
+          <select id = 'subcategory' class="form-control<?php echo e($errors->has('dispute_subcategories_id') ? ' is-invalid' : ''); ?>" name="dispute_subcategories_id" >
+           
+           <?php $__currentLoopData = $disputesubcategory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+           <option value=""></option>
+           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+         </select>
+          <label class="form-control-placeholder" for="subcategory">Sub Dispute Category <span style="color: red">*</span></label>
+          <?php if($errors->has('dispute_subcategories_id')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('dispute_subcategories_id')); ?></strong>
+            </span>
+          <?php endif; ?>
+       </div>
+     </div>
+           <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" id="firstname" class="form-control <?php echo e($errors->has('firstname') ? ' is-invalid' : ''); ?>" name="firstname"  >
+                <label id="firstname" class="form-control-placeholder" for="firstname">Firstname<span style="color: red">*</span></label>
+                <?php if($errors->has('firstname')): ?>
+                <span class="invalid-feedback" role="alert">
+                  <strong><?php echo e($errors->first('firstname')); ?></strong>
+                </span>
+                <?php endif; ?>                                 
+              </div>            
+            </div>
+            
+           
+        <div class="col-md-6">
+              <div class="form-group">
+               <input type="text" id="lastname" name=
+               "lastname" class="form-control" >
+               <label class="form-control-placeholder" for="lastname">Lastname <span style="color: red">*</span></label>
+               <?php if($errors->has('lastname')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('lastname')); ?></strong>
+              </span>
+              <?php endif; ?>  
+            </div>
+          </div>
+          <div class="col-md-6">
+             <div class="form-group">
+              <input type="text" id="username" class="form-control<?php echo e($errors->has('username') ? ' is-invalid' : ''); ?>" name="username"  >
+              <label class="form-control-placeholder" for="username">Username<span style="color: red">*</span></label>
+              <?php if($errors->has('username')): ?>
+              <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('username')); ?></strong>
+              </span>
+              <?php endif; ?>
+            </div>
+          </div>
+<div class="col-md-6">
+          <div class="form-group">
+            <input type="text" id="phone" class="form-control<?php echo e($errors->has('phone') ? ' is-invalid' : ''); ?>" name="phone"  >
+            <label class="form-control-placeholder" for="phone">Phone <span style="color: red">*</span></label>
+            <?php if($errors->has('phone')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('phone')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+
+         <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" id="alt_phone" class="form-control" name="alt_phone">
+            <label class="form-control-placeholder" for="alt_phone">Alt phone</label>
+          </div>
+        </div>
+        
+         <div class="col-md-6">
+           <div class="form-group">
+             <input type="email" id="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email"  autofocus>
+             <label class="form-control-placeholder" for="email">Email <span style="color: red">*</span></label>
+             <?php if($errors->has('email')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('email')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+       
+      <div class="col-md-6">
+      <div class="form-group">
+   <input type="text" name="address" id="address" class="form-control<?php echo e($errors->has('address') ? ' is-invalid' : ''); ?>" >
+   <label class="form-control-placeholder" for="address">Address <span style="color: red">*</span></label>
+   <?php if($errors->has('address')): ?>
+   <span class="invalid-feedback" role="alert">
+     <strong><?php echo e($errors->first('address')); ?></strong>
+   </span>
+   <?php endif; ?>
+
+ </div>
+      
+    </div>
+    <div class="col-md-6">
+ <div class="form-group">
+       <input type="text" name="city" id="city" class="form-control<?php echo e($errors->has('city') ? ' is-invalid' : ''); ?>" >
+       <label class="form-control-placeholder" for="city">City <span style="color: red">*</span></label>
+      <!--  <?php if($errors->has('city')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('city')); ?></strong>
+      </span>
+      <?php endif; ?> -->
+
+    </div>
+
+</div>
+     <div class="col-md-6">
+     <div class="form-group">
+        <input type="text" name="state" id="state" class="form-control<?php echo e($errors->has('state') ? ' is-invalid' : ''); ?>" >
+        <label class="form-control-placeholder" for="state">State <span style="color: red">*</span></label>
+        <!-- <?php if($errors->has('state')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('state')); ?></strong>
+        </span>
+        <?php endif; ?> -->
+      </div>
+
+    
+ </div>
+ <div class="col-md-6">
+      <div class="form-group"  > 
+      <?php echo Form::countries('country', 'select2', 'form-control','country','required =false' ); ?>
+
+  <?php echo $errors->first('country', '<span class="alert-msg" >:message</span>'); ?>
+
+   <label class="form-control-placeholder" for="country" id="country">Country<span style="color: red">*</span></label>       
+       <!--  <?php echo Form::countries('country', 'select2', 'form-control','country','required' ); ?>
+
+        <?php echo $errors->first('country', '<span class="alert-msg">:message</span>'); ?>
+
+        <label class="form-control-placeholder" for="country">Country <span style="color: red">*</span></label>  -->
+
+      </div>
+      
+         
+       
+    </div>
+     
+    
+   
+ <div class="col-md-6">
+       <div class="form-group">
+     <input type="text" name="zipcode" id="zipcode" class="form-control<?php echo e($errors->has('zipcode') ? ' is-invalid' : ''); ?>" >
+     <label class="form-control-placeholder" for="zipcode">Zipcode <span style="color: red">*</span></label>
+     <!-- <?php if($errors->has('zipcode')): ?>
+     <span class="invalid-feedback" role="alert">
+       <strong><?php echo e($errors->first('zipcode')); ?></strong>
+     </span>
+     <?php endif; ?>
+ -->
+   </div>
+     
+  </div>
+ 
+
+</div>            
+
+
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+
+    <button type="button" id="register" class="btn btn-success btn-space" id="arbitrationbutton" onclick="arbitrationbuttonclick()">Save</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>    
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Close</span>
+      </button>            
+  </div>
+</div> 
+</div>             
+</form>
+
+</div>
+</div>
+
+<script>
+    $('#category').change(function(){
+    var categoryID = $(this).val(); 
+    //alert(categoryID);
+    if(categoryID){
+        $.ajax({
+           type:"GET",
+           url:"<?php echo e(url('/get-dispute-list')); ?>?dispute_categories_id="+categoryID,
+           success:function(res){                      
+            if(res){
+                $("#subcategory").empty();
+                $("#subcategory").append('<option></option>');
+                $.each(res,function(key,value){
+                    $("#subcategory").append('<option value="'+key+'">'+value+'</option>');
+                });
+           
+            }else{
+               $("#subcategory").empty();
+            }
+           }
+        });
+    }     
+   });
+
+
+   
+    
+</script>
+<script>
+  function arbitrationbuttonclick() {
+    // var country =  $('#country').val();
+    //  alert(country);
+
+  var arbitrator_code =  $('#arbitrator_code').val();
+     if (arbitrator_code =='') 
+     {
+       swal("Enter Arbitrator Code ", "", "error");
+     return false;
+     }
+     var category =  $('#category').val();
+     if (category =='') 
+     {
+       swal("Enter Main Dispute Category  ", "", "error");
+     return false;
+     }
+     var subcategory =  $('#subcategory').val();
+     if (subcategory =='') 
+     {
+       swal("Enter Sub Dispute Category  ", "", "error");
+     return false;
+     }
+   var firstname =  $('#firstname').val();
+     if (firstname =='') 
+     {
+       swal("Enter First Name ", "", "error");
+     return false;
+     }
+     var lastname =  $('#lastname').val();
+     if (lastname =='') 
+     {
+       swal("Enter Last Name ", "", "error");
+     return false;
+     }
+      var username =  $('#username').val();
+     if (username =='') 
+     {
+       swal("Enter User Name ", "", "error");
+     return false;
+     }
+     var phone =  $('#phone').val();
+     if (phone =='') 
+     {
+       swal("Enter phone Number ", "", "error");
+     return false;
+     }
+     var email =  $('#email').val();
+     if (email =='') 
+     {
+       swal("Enter Email-ID ", "", "error");
+     return false;
+     }
+     var address =  $('#address').val();
+     if (address =='') 
+     {
+       swal("Enter Address ", "", "error");
+     return false;
+     }
+      
+     var city =  $('#city').val();
+     if (city =='') 
+     {
+       swal("Enter City ", "", "error");
+     return false;
+     }
+      var state =  $('#state').val();
+     if (state =='') 
+     {
+       swal("Enter State ", "", "error");
+     return false;
+     }
+     var country =  $('#country').val();
+     if (country =='') 
+     {
+       swal("Enter Country ", "", "error");
+     return false;
+     }
+     var zipcode =  $('#zipcode').val();
+     if (zipcode =='') 
+     {
+       swal("Enter Zipcode ", "", "error");
+     return false;
+     }
+      $("#arbitrationbutton").attr("disabled", true);
+     document.getElementById('createForm').submit();
+   }
+   </script>
+
+
+
+
+
+
+<!-- End of create Arbitration modal -->
+
+
+
+
+

@@ -1,0 +1,257 @@
+<?php $__env->startSection('content'); ?>
+<?php if($message = Session::get('success')): ?>
+<div class="alert alert-success">
+  <p><?php echo e($message); ?></p>
+</div>
+<?php endif; ?> 
+
+<?php $__currentLoopData = $claimnotices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+<div class="container con"> 
+ <div class="row">
+   <div class="col-lg-12 margin-tb" style="    text-align: center;
+   color: black;
+   font-weight: 900;
+   font-size: 17px;
+   text-decoration: underline;">                    
+   <b><?php echo e($notice->arbitration_petionno); ?> </b>
+ </div> 
+</div>
+<?php echo $__env->make('showpagejavascript/showpageheadertab', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration" id="idclaimnoticedetails" style="display: block">
+  <?php echo $__env->make('ClaimNoticeShowScreens/ClaimNoticeHeaderShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+</div> 
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"   style="margin-top: 10px;" id="idclaimantinformation" >
+  <div class="modal-body"> 
+    <div   class="row register-form" style="margin-top: 10px;" >
+      <?php $__currentLoopData = $claimantinformations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ClaimNoticeShowScreens/ClaimantInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration" id="idresponantinformation">
+  <div class="modal-body"> 
+    <div  class="row register-form">             
+      <?php $__currentLoopData = $respondantdetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $respondant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>              
+      <?php echo $__env->make('ClaimNoticeShowScreens/RespondentInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"  id="idclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_information; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $claimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"  id="idcounterclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_dispute; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $respodentcounterclaimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('CounterClaimShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"  id="idoveralclaimstatus" >
+  <div class="modal-body"> 
+    <div  class="row register-form">
+      <?php $__currentLoopData = $ClaimNoticeStatus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ClaimNoticeStatuss): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ClaimNoticeShowScreens/OverallClaimStatusShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+  </div>
+
+</div> 
+
+
+<div class="container" style="max-width: 100%" > 
+  <div class="modal-content" style="margin-top: 10px">
+    <div class="modal-body">       
+      <div class="row register-form">
+        <?php if($notice->claimnoticestatus != 'Arbitrator Allocated and Waiting for the Acceptance'): ?>
+        
+        <div class="container" style="max-width: 100%" > 
+          <div class="row">
+           <div class="col-lg-12 margin-tb" style="    text-align: center;
+           color: black;
+           font-weight: 900;
+           font-size: 17px;
+           text-decoration: underline;">                    
+           <b><?php echo e($notice->arbitration_petionno); ?> </b>
+         </div>
+       </div>
+       <?php if($ClaimNoticeStatusCount != 0): ?>
+       <?php echo $__env->make('ClaimNoticeStage/bimaccawarded', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php endif; ?>
+       <div class="table-responsive" style="    margin-bottom: 30px;">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead class="theadalign">
+            <tr>
+              <th>Stage</th>
+              <th>Stage Name</th>
+              <th>Stage Description</th>
+              
+              <th>Stage Start Date</th>
+              <th>Stage End Date</th>
+              <th>Stage Status</th>
+              <th>Claimant Documents</th>
+              <th>Respondent Documents</th>
+              <th>Show</th> 
+            </tr>
+          </thead>  
+          <tbody>
+           <?php $__currentLoopData = $ClaimNoticeStage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $ClaimNoticeStages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+           <tr >
+            <td><?php echo e($loop->iteration); ?></td>
+            <td><?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?></td>                    
+            <td><?php echo e($ClaimNoticeStages->claimantnotice_stage_description); ?></td>     
+            
+            <td><?php echo e(date("d-m-Y", strtotime($ClaimNoticeStages->stagefromdate))); ?></td>  
+            <td><?php echo e(date("d-m-Y", strtotime($ClaimNoticeStages->stagetodate))); ?></td>          
+            <td style="    font-size: 16px;
+            font-weight: 900;
+            color: black;">
+            <?php echo e($ClaimNoticeStages->claimantnotice_stage_status); ?><br>
+
+            <?php if($ClaimNoticeStages->claimantnotice_stage_status == "Award Reserved By Arbitrator"): ?>
+            <br>Award Reserved Document:
+            <table>
+              <?php $__currentLoopData = $AwardedDcouments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $AwardedDcouments1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <?php if($AwardedDcouments1->id == $ClaimNoticeStages->id): ?>
+              <tr>
+               <td style="border: none;">
+                 <a href="<?php echo e(route('getClaimPetionStageDocuments',$AwardedDcouments1->documentid)); ?>" target="blank">
+                  <?php echo e($loop->iteration); ?>.<?php echo e($AwardedDcouments1->document_name); ?>
+
+                </a>
+              </td>
+            </tr>
+            <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </table> 
+          <?php elseif($ClaimNoticeStages->claimantnotice_stage_status == "Disposed"): ?>
+          Arbitrator Award Reserved Document:
+          <table>
+            <?php $__currentLoopData = $AwardedDcouments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $AwardedDcouments1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($AwardedDcouments1->id == $ClaimNoticeStages->id): ?>
+            <tr>
+             <td style="border: none;">
+               <a href="<?php echo e(route('getClaimPetionStageDocuments',$AwardedDcouments1->documentid)); ?>" target="blank">
+                <?php echo e($loop->iteration); ?>.<?php echo e($AwardedDcouments1->document_name); ?>
+
+              </a>
+            </td>
+          </tr>
+          <?php endif; ?>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </table> 
+        <br>
+        Disposed Document By Center:
+        <table>
+          <?php $__currentLoopData = $AdminAwardedDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $AdminAwardedDocuments1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php if($AdminAwardedDocuments1->id == $ClaimNoticeStages->id): ?>
+          <tr>
+           <td style="border: none;">
+             <a href="<?php echo e(route('getClaimPetionStageDocuments',$AdminAwardedDocuments1->documentid)); ?>" target="blank">
+              <?php echo e($loop->iteration); ?>.<?php echo e($AdminAwardedDocuments1->document_name); ?>
+
+            </a>
+          </td>
+        </tr>
+        <tr>
+          
+        </tr>
+        <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <td style="border: none;">
+            Nature Of Award:
+            <br>
+             <?php $__currentLoopData = $claimnoticenatureofaward; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $claimnoticenatureofawards): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php echo e($claimnoticenatureofawards->nature_of_award); ?>
+
+            
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </td>
+      </table> 
+      <?php endif; ?>
+
+
+
+    </td> 
+    <td> 
+      <table>
+        <?php $__currentLoopData = $ClaimantclaimNoticeStageDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $claimNoticeStageDocuments1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($claimNoticeStageDocuments1->id == $ClaimNoticeStages->id): ?>
+        <tr>
+         <td style="border: none;">
+           <a href="<?php echo e(route('getClaimPetionStageDocuments',$claimNoticeStageDocuments1->documentid)); ?>" target="blank">
+            <?php echo e($loop->iteration); ?>.<?php echo e($claimNoticeStageDocuments1->document_name); ?>
+
+          </a>
+        </td>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </table> 
+  </td>
+  <td>
+    <table>
+      <?php $__currentLoopData = $RespondentclaimNoticeStageDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $resclaimNoticeStageDocuments1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php if($resclaimNoticeStageDocuments1->id == $ClaimNoticeStages->id): ?>
+      <tr>
+       <td style="border: none;">
+         <a href="<?php echo e(route('getClaimPetionStageDocuments',$resclaimNoticeStageDocuments1->documentid)); ?>" target="blank">
+          <?php echo e($loop->iteration); ?>.<?php echo e($resclaimNoticeStageDocuments1->document_name); ?>
+
+        </a>
+
+      </td>
+    </tr>
+    <?php endif; ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+  </table> 
+</td>
+<td>
+  <?php if($ClaimNoticeStages->claimantnotice_stage_status=="Award Reserved By Arbitrator"): ?>
+  <form action="<?php echo e(route('ClaimPetition.destroy',$ClaimNoticeStages->id)); ?>" method="POST"> 
+    <a class="btn btn-success float-right" title="edit"  data-toggle="modal" data-target="#BIMACCclaimstageTypeModal<?php echo e($ClaimNoticeStages->id); ?>" data-backdrop="static" data-keyboard="false" >Show</i></a>
+  </form>
+  <?php else: ?>
+
+  <?php endif; ?>
+</td>
+</tr>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+</tbody>
+</table>
+</div>
+
+</div> 
+<?php endif; ?>
+
+</div> 
+</div>
+</div>
+
+<?php echo $__env->make('showpagejavascript/showscript', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

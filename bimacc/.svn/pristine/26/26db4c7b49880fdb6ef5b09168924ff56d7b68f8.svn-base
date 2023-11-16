@@ -1,0 +1,103 @@
+<?php $__currentLoopData = $registrationfees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $registrationfee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+<div class="modal fade fade-scale" id="editRegistrationFeesModal<?php echo e($registrationfee->id); ?>" tabindex="-1" role="dialog" aria-labelledby="editRegistrationFeeslabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <?php if($errors->any()): ?>
+      <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+          <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <li><?php echo e($error); ?></li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+      </div>
+      <?php endif; ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="editRegistrationFeeslabel">Edit Registration Fees</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"> 
+
+        <form  action="<?php echo e(route('registrationfees.update', $registrationfee->id )); ?>" method="POST"> 
+
+          <?php echo csrf_field(); ?>
+          <?php echo method_field('PUT'); ?>                        
+
+          <div class="row register-form">
+          
+           
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="number" id="registration_fees" class="form-control <?php echo e($errors->has('registration_fees') ? ' is-invalid' : ''); ?>" name="registration_fees" value = "<?php echo e($registrationfee->registration_fees); ?>" required >
+                <label id="registration_fees" class="form-control-placeholder" for="registration_fees">Registration Fees<span style="color: red">*</span></label>
+                <?php if($errors->has('registration_fees')): ?>
+                <span class="invalid-feedback" role="alert">
+                  <strong><?php echo e($errors->first('registration_fees')); ?></strong>
+                </span>
+                <?php endif; ?>                                 
+              </div>            
+            </div> 
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" name="fees_description" value = "<?php echo e($registrationfee->fees_description); ?>" required><?php echo e($registrationfee->fees_description); ?></textarea>               
+                <label id="fees_description" class="form-control-placeholder" for="fees_description">Fees <span style="color: red">*</span></label>
+                 
+
+              </div>            
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="claim_amount_from"  for="claim_amount_from">Claim Amount To<span style="color: red">*</span></label>
+                <input type="number" class="form-control" name="claim_amount_from" value="<?php echo e($registrationfee->claim_amount_from); ?>" required>              
+
+
+              </div>            
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="claim_amount_to" for="claim_amount_to">Claim Amount To<span style="color: red">*</span></label>
+                <input type="number" class="form-control" name="claim_amount_to" value="<?php echo e($registrationfee->claim_amount_to); ?>"  required>           </div>            
+            </div>  
+
+          </div>              
+
+
+        </div>
+        <div class="modal-footer">
+          <div class="mx-auto">
+            <button type="submit" class="btn btn-success btn-space">Save</button>                       
+
+           <button class="btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Cancel</span>
+          </button>          
+          </div>
+        </div> 
+      </div>             
+    </form>
+
+  </div>
+</div>
+</div>
+
+</div>
+
+
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+
+
+
+
+
+
+
+
+
+

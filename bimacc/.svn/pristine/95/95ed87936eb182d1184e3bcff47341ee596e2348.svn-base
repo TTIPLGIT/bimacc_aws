@@ -1,0 +1,691 @@
+[2020-05-07 11:59:02] local.INFO: C:\Apache24\htdocs\bimacc_production\storage/app/public/uploads/claim/CN_BIMACC_2020_020 : Defects Delivery Status_16_04_2020.xlsx : xlsx : workspace://SpacesStore/41338488-1d0f-4494-975d-4bbe0ea8f729  
+[2020-05-07 11:59:03] local.INFO: C:\Apache24\htdocs\bimacc_production\storage/app/public/uploads/claim/CN_BIMACC_2020_020/Defects Delivery Status_16_04_2020.xlsx  
+[2020-05-07 11:59:23] local.INFO: http://49.207.182.10:9080/alfresco/service/api/upload?alf_ticket=TICKET_17d069d4b6c50a5514f77b1d1f932e7c47c6fd38  
+[2020-05-07 14:37:31] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 14:37:31] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:37:31] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 14:37:31] local.INFO: [{"claim_id":1,"from_user_id":107,"message_count":5}]  
+[2020-05-07 14:37:31] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:37:31] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 5,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:37:31] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 14:48:04] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 14:48:04] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:48:04] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 14:48:04] local.INFO: []  
+[2020-05-07 14:48:04] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:48:04] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:48:04] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 14:49:19] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 14:49:19] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:49:19] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 14:49:19] local.INFO: []  
+[2020-05-07 14:49:19] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:49:19] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:49:19] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 14:54:38] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 14:54:38] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:54:39] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 14:54:39] local.INFO: []  
+[2020-05-07 14:54:39] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:54:39] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:54:39] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 14:56:33] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 14:56:33] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:56:34] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 14:56:34] local.INFO: []  
+[2020-05-07 14:56:34] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:56:34] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 14:56:34] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 15:00:57] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 15:00:57] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:00:58] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 15:00:58] local.INFO: []  
+[2020-05-07 15:00:58] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:00:58] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:00:58] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 15:03:23] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 15:03:23] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:24] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 15:03:24] local.INFO: []  
+[2020-05-07 15:03:24] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:24] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:24] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  
+[2020-05-07 15:03:49] local.INFO: URL: http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c  
+[2020-05-07 15:03:49] local.INFO: array (
+  0 => 
+  array (
+    'id' => 732,
+    'name' => 'Aravinth KAndasamy',
+    'image_name' => NULL,
+    'email' => 'aravinth.k@talentakeaways.com',
+    'usertype' => 2,
+    'short_name' => 'AK',
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:49] local.INFO: [{"id":1,"claim_id":1,"user_status":1,"display_order":1,"hearing_number":1,"user_id":252,"to_user_id":252,"name":"BIMACC Center ","email":"bimacc1@gmail.com","usertype":1,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":252,"message_typing":""},{"id":2,"claim_id":1,"user_status":1,"display_order":2,"hearing_number":1,"user_id":107,"to_user_id":107,"name":"Aravinth","email":"aravinthkumarbcs@gmail.com","usertype":3,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":107,"message_typing":""},{"id":4,"claim_id":1,"user_status":1,"display_order":4,"hearing_number":1,"user_id":null,"to_user_id":null,"name":null,"email":null,"usertype":null,"image_name":null,"claim_name":"CN\/BIMACC\/2020\/001","from_user_id":null,"message_typing":""}]  
+[2020-05-07 15:03:49] local.INFO: []  
+[2020-05-07 15:03:49] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:49] local.INFO: array (
+  0 => 
+  array (
+    'id' => 1,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 1,
+    'hearing_number' => 1,
+    'user_id' => 252,
+    'to_user_id' => 252,
+    'name' => 'BIMACC Center ',
+    'email' => 'bimacc1@gmail.com',
+    'usertype' => 1,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 252,
+    'message_typing' => '',
+    'short_name' => 'BC',
+    'message_count' => 0,
+    'previousClaim' => 0,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'claim_id' => 1,
+    'user_status' => 1,
+    'display_order' => 2,
+    'hearing_number' => 1,
+    'user_id' => 107,
+    'to_user_id' => 107,
+    'name' => 'Aravinth',
+    'email' => 'aravinthkumarbcs@gmail.com',
+    'usertype' => 3,
+    'image_name' => NULL,
+    'claim_name' => 'CN/BIMACC/2020/001',
+    'from_user_id' => 107,
+    'message_typing' => '',
+    'short_name' => 'A',
+    'message_count' => 0,
+    'previousClaim' => 1,
+    'loginUserType' => 2,
+    'image_path' => 'http://49.207.182.10:9080/alfresco/service/api/node/content/?alf_ticket=TICKET_5feb42fef4d6f1e49af033db9bb9eabdafb8c18c',
+  ),
+)  
+[2020-05-07 15:03:49] local.ERROR: [Method => HearingController => conversationContacts => Error Code: 0] "Uninitialized string offset: 0" on line 84 of file C:\Apache24\htdocs\bimacc_production\app\Http\Controllers\HearingController.php  

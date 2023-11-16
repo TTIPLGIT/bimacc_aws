@@ -1,0 +1,270 @@
+<div class="row register-form" style="margin-top: 30px;pointer-events: none;">
+  <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div>
+   <div class="col-md-3">
+        <div class="form-group">
+          <input type="text"  id="respondant_type1" class="form-control<?php echo e($errors->has('respondant_type1') ? ' is-invalid' : ''); ?>" name="respondant_type1" value="<?php echo e($respondant->claimant_respondant_type_name); ?>">
+          <label class="form-control-placeholder" for="respondant_type1">Respondant Type<span style="color: red">*</span></label>
+        </div>
+      </div>
+       <?php if($respondant->claimant_respondant_type_Code =='CA'): ?>
+        <div class="col-md-4">
+        <div class="form-group">
+          <input type="text"  id="company_name" class="form-control<?php echo e($errors->has('company_name') ? ' is-invalid' : ''); ?>" name="company_name" value="<?php echo e($respondant->company_name); ?>">
+          <label class="form-control-placeholder" for="company_name">Name of Company:<span style="color: red">*</span></label>
+        </div>
+      </div>
+      <?php endif; ?>
+      <?php if($respondant->claimant_respondant_type_Code =='TR'): ?>
+        <div class="col-md-4" >
+        <div class="form-group">
+          <input type="text"  id="proprietar_name" class="form-control<?php echo e($errors->has('proprietar_name') ? ' is-invalid' : ''); ?>" name="proprietar_name" value="<?php echo e($respondant->proprietar_name); ?>">
+          <label class="form-control-placeholder" for="proprietar_name">Name of Proprietary Concern:<span style="color: red">*</span></label>
+        </div>
+      </div>
+      <?php endif; ?>
+<?php if($respondant->claimant_respondant_type_Code =='GG' || $respondant->claimant_respondant_type_Code =='PA' || $respondant->claimant_respondant_type_Code =='CA'): ?> 
+ <div class="col-md-4">    
+  <div class="form-group"  >
+        <input type="text" id="organization_name" class="form-control<?php echo e($errors->has('organization_name') ? ' is-invalid' : ''); ?>" name="organization_name"  value="<?php echo e($respondant->organization_name); ?>" >
+        <?php if($respondant->claimant_respondant_type_Code =='GG'): ?>
+         <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Name of the Government<span style="color: red">*</span></label>
+          <?php elseif($respondant->claimant_respondant_type_Code =='PA'): ?>
+          <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Firm Name<span style="color: red">*</span></label>
+          <?php elseif($respondant->claimant_respondant_type_Code =='CA'): ?>
+          <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Company Name<span style="color: red">*</span></label>
+         
+          <?php endif; ?>
+          <?php if($errors->has('organization_name')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('organization_name')); ?></strong>
+        </span>
+        <?php endif; ?>  
+       
+
+    </div>
+</div>
+<?php else: ?>
+<?php endif; ?>
+<?php if($respondant->claimant_respondant_type_Code =='GG'): ?>
+<div class="col-md-4">     <div class="form-group">
+       <input type="text" id="organization_details" name=
+       "organization_details" class="form-control<?php echo e($errors->has('organization_details') ? ' is-invalid' : ''); ?>"  value="<?php echo e($respondant->organization_details); ?>" >
+         <label class="form-control-placeholder" for="organization_details" id="department_name_label">Name of The Department<span style="color: red">*</span></label>
+        <?php if($errors->has('organization_details')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('organization_details')); ?></strong>
+        </span>
+        <?php endif; ?>  
+     
+   </div>
+</div>
+<div class="col-md-4">   
+  <div class="form-group">
+        <input type="text" name="official_designation" id="official_designation" placeholder=" " class="form-control<?php echo e($errors->has('official_designation') ? ' is-invalid' : ''); ?>"   value="<?php echo e($respondant->official_designation); ?>" >
+        <label class="form-control-placeholder" for="official_designation" id="designation_label">Official Designation<span style="color: red">*</span></label>
+        <?php if($errors->has('official_designation')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('official_designation')); ?></strong>
+        </span>
+        <?php endif; ?>
+
+    </div>
+
+</div>
+<?php else: ?>
+<?php endif; ?>
+
+ <div class="col-md-4">    
+  <div class="form-group">
+        <input type="text" class="form-control<?php echo e($errors->has('firstname') ? ' is-invalid' : ''); ?>"  name="firstname" id="firstname"  value="<?php echo e($respondant->firstname); ?>" >
+         <?php if($respondant->claimant_respondant_type_Code =='GG'): ?>
+      
+            <label class="form-control-placeholder" for="firstname">Official Firstname<span style="color: red">*</span></label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='CA'): ?>
+             <label class="form-control-placeholder" for="firstname">Representative/OL Firstname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='PA'): ?>
+             <label class="form-control-placeholder" for="firstname">Partner's Firstname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='HU'): ?>
+             <label class="form-control-placeholder" for="firstname">Representative Firstname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='IS'): ?>
+             <label class="form-control-placeholder" for="firstname">Individual Firstname<span style="color: red">*</span></label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='TR'): ?>
+             <label class="form-control-placeholder" for="firstname">proprietor Firstname<span style="color: red">*</span></label>
+            
+            
+        <?php endif; ?>
+        <?php if($errors->has('firstname')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('firstname')); ?></strong>
+        </span>
+        <?php endif; ?>  
+        
+    </div>
+</div>
+
+<div class="col-md-4"> 
+    <div class="form-group">
+        <input type="text" class="form-control<?php echo e($errors->has('middlename') ? ' is-invalid' : ''); ?>"  name="middlename" id="middlename" value="<?php echo e($respondant->middlename); ?>" >
+         <?php if($respondant->claimant_respondant_type_Code =='GG'): ?>
+      
+            <label class="form-control-placeholder" for="middlename">Official Middlename</label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='CA'): ?>
+             <label class="form-control-placeholder" for="middlename">Representative/OL Middlename</label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='PA'): ?>
+             <label class="form-control-placeholder" for="middlename">Partner's Middlename</label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='HU'): ?>
+             <label class="form-control-placeholder" for="middlename">Representative Middlename</label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='IS'): ?>
+             <label class="form-control-placeholder" for="middlename">Individual Middlename</label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='TR'): ?>
+             <label class="form-control-placeholder" for="middlename">proprietor Middlename</label>
+            
+            
+        <?php endif; ?>
+        <?php if($errors->has('middlename')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('middlename')); ?></strong>
+        </span>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="col-md-4">     
+  <div class="form-group">
+        <input type="text" name="lastname" id="lastname" placeholder=" " class="form-control<?php echo e($errors->has('lastname') ? ' is-invalid' : ''); ?>"   value="<?php echo e($respondant->lastname); ?>" >
+     <?php if($respondant->claimant_respondant_type_Code =='GG'): ?>
+      
+            <label class="form-control-placeholder" for="lastname">Official Lastname<span style="color: red">*</span></label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='CA'): ?>
+             <label class="form-control-placeholder" for="lastname">Representative/OL Lastname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='PA'): ?>
+             <label class="form-control-placeholder" for="lastname">Partner's Lastname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='HU'): ?>
+             <label class="form-control-placeholder" for="lastname">Representative Lastname<span style="color: red">*</span></label>
+              <?php elseif($respondant->claimant_respondant_type_Code =='IS'): ?>
+             <label class="form-control-placeholder" for="lastname">Individual Lastname<span style="color: red">*</span></label>
+             <?php elseif($respondant->claimant_respondant_type_Code =='TR'): ?>
+             <label class="form-control-placeholder" for="lastname">proprietor Lastname<span style="color: red">*</span></label>
+            
+            
+        <?php endif; ?>
+        <?php if($errors->has('lastname')): ?>
+        <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('lastname')); ?></strong>
+        </span>
+        <?php endif; ?>
+
+    </div>
+
+</div>
+
+                 
+                  <div class="col-md-4">
+              <div class="form-group">
+
+               <input type="text" id="email_new" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" required value="<?php echo e($respondant->email); ?>">
+               <label class="form-control-placeholder" for="state">Email<span style="color: red">*</span></label>
+               <?php if($errors->has('email')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('email')); ?></strong>
+              </span>
+              <?php endif; ?>
+            </div>
+          </div>
+                  
+              
+             
+                <div class="col-md-4">
+            <div class="form-group">
+             <input type="text" id="daytimetelephone_new" class="form-control<?php echo e($errors->has('daytimetelephone') ? ' is-invalid' : ''); ?>" name="daytimetelephone" required  value="<?php echo e($respondant->daytimetelephone); ?>">
+             <label class="form-control-placeholder" for="daytimetelephone">Contact<span style="color: red">*</span></label>
+             <?php if($errors->has('daytimetelephone')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('daytimetelephone')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+                <div class="col-md-4">
+              <div class="form-group">
+
+               <input type="text" id="age_new" class="form-control<?php echo e($errors->has('age') ? ' is-invalid' : ''); ?>" name="age" required value="<?php echo e($respondant->age); ?>">
+               <label class="form-control-placeholder" for="state">Age<span style="color: red">*</span></label>
+               <?php if($errors->has('age')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('age')); ?></strong>
+              </span>
+              <?php endif; ?>
+            </div>
+          </div>
+                
+            
+           
+              
+ <div class="col-md-4">
+                    <div class="form-group">
+                     <input type="text" id="address_new" 
+                     class="form-control<?php echo e($errors->has('address') ? ' is-invalid' : ''); ?>" 
+                     name="address" required value="<?php echo e($respondant->address); ?>">
+                     <label class="form-control-placeholder" for="address">Address<span style="color: red">*</span></label>
+                     <?php if($errors->has('address')): ?>
+                     <span class="invalid-feedback" role="alert">
+                      <strong><?php echo e($errors->first('address')); ?></strong>
+                    </span>
+                    <?php endif; ?>            
+                  </div>
+                </div><div class="col-md-4">
+                <div class="form-group">
+
+                  <input type="text" id="city_new" class="form-control<?php echo e($errors->has('city') ? ' is-invalid' : ''); ?>" name="city" required value="<?php echo e($respondant->city); ?>">
+                  <label class="form-control-placeholder" for="state">City<span style="color: red">*</span></label>
+                  <?php if($errors->has('city')): ?>
+                  <span class="invalid-feedback" role="alert">
+                    <strong><?php echo e($errors->first('city')); ?></strong>
+                  </span>
+                  <?php endif; ?>
+                </div>
+              </div>
+               <div class="col-md-4">
+                  <div class="form-group">
+                   <input type="text" id="state_new" class="form-control<?php echo e($errors->has('state') ? ' is-invalid' : ''); ?>" 
+                   value="<?php echo e($respondant->state); ?>" name="state" required>
+                   <label class="form-control-placeholder" for="state">State<span style="color: red">*</span></label>
+                   <?php if($errors->has('state')): ?>
+                   <span class="invalid-feedback" role="alert">
+                    <strong><?php echo e($errors->first('state')); ?></strong>
+                  </span>
+                  <?php endif; ?>   
+                </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+
+                    <input type="text" id="country_new" class="form-control<?php echo e($errors->has('country') ? ' is-invalid' : ''); ?>" 
+                    value="<?php echo e($respondant->country); ?>" name="country" required>
+                    <label class="form-control-placeholder" for="country">Country<span style="color: red">*</span></label>
+                    <?php if($errors->has('country')): ?>
+                    <span class="invalid-feedback" role="alert">
+                      <strong><?php echo e($errors->first('country')); ?></strong>
+                    </span>
+                    <?php endif; ?>
+                  </div>
+                </div>
+
+              
+              
+          
+         
+      
+        
+          <div class="col-md-4">
+                <div class="form-group">
+                  <input type="text" id="zipcode_new" class="form-control<?php echo e($errors->has('zipcode') ? ' is-invalid' : ''); ?>" name="zipcode" required  value="<?php echo e($respondant->zipcode); ?>">
+                 <label class="form-control-placeholder" for="zipcode">Zip Code<span style="color: red">*</span></label>
+                 <?php if($errors->has('zipcode')): ?>
+                 <span class="invalid-feedback" role="alert">
+                  <strong><?php echo e($errors->first('zipcode')); ?></strong>
+                </span>
+                <?php endif; ?>   
+              </div>
+            </div>
+       </div>

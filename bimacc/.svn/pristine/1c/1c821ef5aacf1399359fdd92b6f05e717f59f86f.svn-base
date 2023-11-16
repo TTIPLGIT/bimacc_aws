@@ -1,0 +1,631 @@
+  <!-- Edit Climant Information Modal respondantinformation-- >
+    <!-- Create Climant Information Modal-->
+
+
+    <div class="modal fade" id="editclaimantinformationModal" tabindex="-1" role="dialog" aria-labelledby="editclaimantinformationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="editclaimantinformationModal">Edit Claimant's Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body"> 
+            <form  action="{{ route('claimantinformation.update', $claimantinformation->id) }}" method="POST" id="claimantinformationform">
+              @csrf  
+              @method('PUT') 
+              <div class="row register-form">
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                   <select class="form-control" name="dispute_categories_id" id="disputecategory" required>
+                    <option value=""></option>
+                    @foreach ($dispute_categories as $category)
+                    <option value="{{$category->id}}" {{$category->id == $claimantinformation->dispute_categories_id ? 'selected':''}} >{{$category->category_name}}</option>
+                    
+                    @endforeach
+                  </select>
+                  <label class="form-control-placeholder" for="dispute_categories_id">Main Dispute Category<span style="color: red">*</span></label> 
+                </div>
+              </div>
+              <div class="col-md-6"> 
+                <div class="form-group">
+                 <select class="form-control" id ="subcategory" name="dispute_subcategories_id" required="true"  onchange="subdispute_type_select_yes()">
+                   
+                  @foreach ($dispute_subcategories_Edit as $category)
+
+                  <option value="{{$category->id}}" {{$category->id == $claimantinformation->dispute_subcategories_id ? 'selected':''}}>{{$category->subcategory_name}}</option> 
+                  
+                  @endforeach
+                </select>
+
+                <label class="form-control-placeholder" for="dispute_subcategories_id">Sub Dispute Category<span style="color: red">*</span></label>
+              </div>
+            </div> 
+            
+            
+            <div class="col-md-6" id="others">
+              <div class="form-group">
+                <input type="text"  id="others_val" class="form-control{{ $errors->has('others') ? ' is-invalid' : '' }}" name="others" required="true" value="{{$claimantinformation->others }}">
+                <label class="form-control-placeholder" for="others" >Others<span style="color: red">*</span></label>
+              </div>
+            </div> 
+            
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" readonly  id="claimant_type" class="form-control{{ $errors->has('claimant_type') ? ' is-invalid' : '' }}" 
+                name="claimant_type" required value="{{$claimanttype[0]->claimant_respondant_type_name}}">
+                <label class="form-control-placeholder" for="claimant_type">Claimant Type<span style="color: red">*</span></label>
+                @if ($errors->has('claimant_type'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('claimant_type') }}</strong>
+                </span>
+                @endif      
+              </div>
+            </div>
+            
+
+            @if ($claimantinformation->company_individual =='Company') 
+            <div class="col-md-6" >
+              <div class="form-group">
+                <input type="text"   id="company_name" class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }}" 
+                name="company_name" value="{{$claimantinformation->company_name }}">
+                <label class="form-control-placeholder" for="claimant_type">Company's Name<span style="color: red">*</span></label>
+                @if ($errors->has('claimant_type'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('company_name') }}</strong>
+                </span>
+              @endif      </div>
+            </div>
+            @endif
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG' && 'PA' && 'CA') 
+            <div class="col-md-6" >
+              <div class="form-group">
+
+                <input type="text" id="organization_name" class="form-control{{ $errors->has('organization_name') ? ' is-invalid' : '' }}" 
+                name="organization_name" required value="{{$claimantinformation->organization_name }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Name of the Government<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+                <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Firm Name<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+                <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Company Name<span style="color: red">*</span></label>
+                @else
+                @endif
+                @if ($errors->has('organization_name'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('organization_name') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            @endif
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG'  || $claimanttype[0]->claimant_respondant_type_Code =='BA')
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="organization_details" onkeydown="return alphaOnly(event);" class="form-control{{ $errors->has('organization_details') ? ' is-invalid' : '' }}" 
+                name="organization_details" required value="{{$claimantinformation->organization_details }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                <label class="form-control-placeholder" for="organization_details">Department Name<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+                <label class="form-control-placeholder" for="organization_details" id="org_name_label">Authorised Representative's Name<span style="color: red">*</span></label>
+
+                @endif
+                @if ($errors->has('organization_details'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('organization_details') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="official_designation" onkeydown="return alphaOnly(event);" class="form-control{{ $errors->has('official_designation') ? ' is-invalid' : '' }}" 
+                name="official_designation" required value="{{$claimantinformation->official_designation }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                <label class="form-control-placeholder" for="official_designation">Officer Designation<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+                <label class="form-control-placeholder" for="official_designation" id="official_designation" >Authorised Representative's Designation<span style="color: red">*</span></label>
+                @endif
+                @if ($errors->has('official_designation'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('official_designation') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            @else
+            @endif
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="age" class="form-control{{ $errors->has('age') ? ' is-invalid' : '' }}" 
+                name="age"  value="{{$claimantinformation->age }}" required maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label class="form-control-placeholder" for="age">Age<span style="color: red">*</span></label>
+                @if ($errors->has('age'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('age') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="firstname" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" 
+                name="firstname" required value="{{$claimantinformation->firstname }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                
+                <label class="form-control-placeholder" for="firstname">Official Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+                <label class="form-control-placeholder" for="firstname">Representative/OL Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+                <label class="form-control-placeholder" for="firstname">Partner's Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+                <label class="form-control-placeholder" for="firstname">Representative Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+                <label class="form-control-placeholder" for="firstname">Individual Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+                <label class="form-control-placeholder" for="firstname">proprietor Firstname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+                <label class="form-control-placeholder" for="firstname">Bank Name<span style="color: red">*</span></label>
+                
+                
+                @endif
+                @if ($errors->has('firstname'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('firstname') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            @if ($claimanttype[0]->claimant_respondant_type_Code !='BA')
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="middlename" class="form-control{{ $errors->has('middlename') ? ' is-invalid' : '' }}" 
+                name="middlename" required value="{{$claimantinformation->middlename }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                
+                <label class="form-control-placeholder" for="middlename">Official Middlename</label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+                <label class="form-control-placeholder" for="middlename">Representative/OL Middlename</label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+                <label class="form-control-placeholder" for="middlename">Partner's Middlename</label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+                <label class="form-control-placeholder" for="middlename">Representative Middlename</label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+                <label class="form-control-placeholder" for="middlename">Individual Middlename</label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+                <label class="form-control-placeholder" for="middlename">proprietor Middlename</label>
+                
+                
+                @endif
+                @if ($errors->has('middlename'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('middlename') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            @endif
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="text" id="lastname" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" 
+                name="lastname" required value="{{$claimantinformation->lastname }}">
+                @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+                
+                <label class="form-control-placeholder" for="lastname">Official Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+                <label class="form-control-placeholder" for="lastname">Representative/OL Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+                <label class="form-control-placeholder" for="lastname">Partner's Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+                <label class="form-control-placeholder" for="lastname">Representative Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+                <label class="form-control-placeholder" for="lastname">Individual Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+                <label class="form-control-placeholder" for="lastname">proprietor Lastname<span style="color: red">*</span></label>
+                @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+                <label class="form-control-placeholder" for="lastname">Bank Branch Name<span style="color: red">*</span></label>
+                
+                
+                @endif
+                @if ($errors->has('lastname'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('lastname') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+            <div class="col-md-6" >
+              <div class="form-group"  >
+                <input type="text" id="dept_name" class="form-control{{ $errors->has('dept_name') ? ' is-invalid' : '' }}" name="dept_name"  value="{{$claimregister[0]->dept_name}}">
+                
+                <label class="form-control-placeholder" for="dept_name" id="dept_name" >Branch / Dept. Code<span style="color: red">*</span></label>
+                
+              </div>
+            </div> 
+            @else
+            @endif
+            
+            
+            
+
+            <div class="col-md-6">
+              <div class="form-group">
+
+               <input type="text" id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required value="{{$claimantinformation->email }}">
+               <label class="form-control-placeholder" for="state">Email<span style="color: red">*</span></label>
+               @if ($errors->has('email'))
+               <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('email') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="col-md-6">
+           <div class="form-group">
+             <input type="text" id="aadhar_num" class="form-control" name="aadhar_num" maxlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="{{$claimantinformation->aadhar_num}}">
+             <label class="form-control-placeholder" for="aadhar_num" >Aadhar Number</label>
+             @if ($errors->has('aadhar_num'))
+             <span class="invalid-feedback" role="alert">
+              <strong>{{ $errors->first('aadhar_num') }}</strong>
+            </span>
+            @endif
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+           <input type="text" id="daytimetelephone" class="form-control{{ $errors->has('daytimetelephone') ? ' is-invalid' : '' }}" name="daytimetelephone" required  value="{{$claimantinformation->daytimetelephone }}">
+           <label class="form-control-placeholder" for="daytimetelephone">Contact<span style="color: red">*</span></label>
+           @if ($errors->has('daytimetelephone'))
+           <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('daytimetelephone') }}</strong>
+          </span>
+          @endif
+        </div>
+      </div>
+      
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+         <input type="text" id="address" 
+         class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" 
+         name="address" required value="{{$claimantinformation->address }}">
+         <label class="form-control-placeholder" for="address">Address<span style="color: red">*</span></label>
+         @if ($errors->has('address'))
+         <span class="invalid-feedback" role="alert">
+          <strong>{{ $errors->first('address') }}</strong>
+        </span>
+        @endif            
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="hidden" name="claimnoticeid" id="claimnoticeid" value="{{$claimantinformation->claimnoticeid }}">
+        <input type="text" id="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" required value="{{$claimantinformation->city }}">
+        <label class="form-control-placeholder" for="state">City<span style="color: red">*</span></label>
+        @if ($errors->has('city'))
+        <span class="invalid-feedback" role="alert">
+          <strong>{{ $errors->first('city') }}</strong>
+        </span>
+        @endif
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+       <input type="text" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" 
+       value="{{$claimantinformation->state }}" name="state" required>
+       <label class="form-control-placeholder" for="state">State<span style="color: red">*</span></label>
+       @if ($errors->has('state'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('state') }}</strong>
+      </span>
+      @endif   
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" id="country" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" 
+      value="{{$claimantinformation->country }}" name="country" required>
+      <label class="form-control-placeholder" for="country">Country<span style="color: red">*</span></label>
+      @if ($errors->has('country'))
+      <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('country') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+     <input type="text" id="zipcode" class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}" 
+     value="{{$claimantinformation->zipcode }}" name="zipcode" required>
+     <label class="form-control-placeholder" for="zipcode">Postal Code<span style="color: red">*</span></label>
+     @if ($errors->has('zipcode'))
+     <span class="invalid-feedback" role="alert">
+      <strong>{{ $errors->first('zipcode') }}</strong>
+    </span>
+    @endif   
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="form-group">
+    <select name="currency" class="form-control">
+      <option {{old('currency',$claimantinformation->currency)=="INR"? 'selected':''}}  value="INR">INR</option>
+      <option {{old('currency',$claimantinformation->currency)=="USD"? 'selected':''}}  value="USD">USD</option>
+      
+    </select>
+    <label class="form-control-placeholder" for="currency">Select Currency<span style="color: red">*</span></label> 
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div> 
+</form>  
+</div>  
+
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="button" class="btn btn-success btn-space" id="claimantinformationbutton" onclick="Claimantinformationbuttonclick_edit()">Update</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>
+
+</div>  
+</div> 
+
+</div>       
+
+<script type="text/javascript">
+  
+ function subdispute_type_select_yes()
+ {
+  
+  
+  var inputvalue = document.getElementById("subcategory").value;
+  
+  if (inputvalue >= 240 &&  inputvalue <= 255){
+
+    $("#others").show();
+  }
+  else if (inputvalue == 161){
+
+    $("#others").show();
+  }
+  else if (inputvalue == 237){
+
+    $("#others").show();
+  }
+  else{
+    $("#others").hide();
+    $("#others_val").val("");
+
+  }
+}
+</script>
+
+
+<!-- End Of Climant Information Modal -->
+<script type="text/javascript">
+ function Claimantinformationbuttonclick_edit() {
+     // body...
+
+
+
+     var disputecategory =  $('#disputecategory').val();
+     
+     if (disputecategory =='') {
+       swal("Please Select Dispute Category", "", "error");
+       return false;
+     }
+
+     var inputvalue =  $('#subcategory').val();
+     if (inputvalue =='') 
+     {
+       swal("Please Select Sub Dispute Category", "", "error");
+       return false;
+     }
+
+     // alert(inputvalue);
+     var others =  $('#others_val').val();
+     
+     if (inputvalue >= 240 &&  inputvalue <= 255){
+
+      if (others =='') {
+       swal("Enter Others", "", "error");
+       return false;
+     }
+   }
+   else if (inputvalue == 161){
+
+    if (others =='') {
+     swal("Enter Others", "", "error");
+     return false;
+   }
+ }
+ else if (inputvalue == 237){
+
+  if (others =='') {
+   swal("Enter Others", "", "error");
+   return false;
+ }
+}
+else{
+ 
+
+}
+var claimant_type1 =  $('#claimant_type1').val();
+if (claimant_type1 =='') 
+{
+ swal("Please Select Claimant Type", "", "error");
+ return false;
+}
+var name = $('#name').val();
+
+if (name =='')
+ 
+{
+  swal("Enter Your Name", "", "error");
+  return false;
+}
+var email = $('#email').val();
+
+if (email =='')
+ 
+{
+  swal("Enter Your Email ID", "", "error");
+  return false;
+}
+var daytimetelephone = $('#daytimetelephone').val();
+
+if (daytimetelephone =='')
+ 
+{
+  swal("Enter Your Contact Number", "", "error");
+  return false;
+}
+
+var age = $('#age').val();
+
+if (age =='')
+ 
+{
+  swal("Enter Your Age", "", "error");
+  return false;
+}
+if (age < 17)
+ 
+{
+  swal("Claimant's Age should be above 17", "", "error");
+  return false;
+}
+
+var address = $('#address').val();
+
+if (address =='')
+ 
+{
+  swal("Enter Your Address", "", "error");
+  return false;
+}
+var city = $('#city').val();
+
+if (city =='')
+ 
+{
+  swal("Enter Your City", "", "error");
+  return false;
+}
+var state = $('#state').val();
+
+if (state =='')
+{
+  swal("Enter Your State", "", "error");
+  return false;
+}
+var zipcode = $('#zipcode').val();
+
+if (zipcode =='')
+{
+  swal("Enter Your Postal Code", "", "error");
+  return false;
+}
+var country = $('#country').val();
+
+if (country =='')
+ 
+{
+  swal("Enter Your Country", "", "error");
+  return false;
+}
+var currency =  $('#currency').val();
+if (currency =='') 
+{
+ swal("Please Select Currency", "", "error");
+ return false;
+}
+$("#claimantinformationbutton").attr("disabled", true);
+document.getElementById('claimantinformationform').submit();
+
+}
+</script>
+<script>
+  $('#disputecategory').change(function(){  
+    var categoryID = $(this).val();     
+    if(categoryID){
+      $.ajax({
+       type:"GET",
+       url:"{{url('/get-dispute-list')}}?dispute_categories_id="+categoryID,
+       success:function(res){                      
+        if(res){
+          $("#subcategory").empty();
+          $('#subcategory').prop( "disabled", false );  
+          $("#subcategory").append('<option value=""> Select Sub Category</option>');
+          for (var i =0; i < res.length; i++) {
+           
+            $("#subcategory").append('<option value="'+res[i].id+'">'+res[i].subcategory_name+'</option>');
+          }
+
+        }else{
+         $("#subcategory").empty();
+       }
+     }
+   });
+    }     
+  });
+  function alphaOnly(event) {
+    var key = event.keyCode;
+    return ((key >= 65 && key <= 90) || key == 8);
+  };
+</script>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+
+    var inputvalue = document.getElementById("subcategory").value;
+    
+    if (inputvalue >= 240 &&  inputvalue <= 255){
+
+      $("#others").show();
+    }
+    else if (inputvalue == 161){
+
+      $("#others").show();
+    }
+    else if (inputvalue == 237){
+
+      $("#others").show();
+    }
+    else{
+      $("#others").hide();
+    }
+    
+    
+    
+
+  });
+</script>
+
+

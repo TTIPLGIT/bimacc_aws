@@ -1,0 +1,84 @@
+@extends('layouts.basic')
+@section('content')
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<div class="limiter">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+              <img src="images/pic.png"   class="img-responsive" width="220px">
+        </div>
+    </div>
+</div>
+  
+ @foreach ($users as $user) 
+  
+  <div style="width:43%; float:left;margin-top: 8%;
+  ">            
+  <div class="login100-form-avatar">
+    @csrf
+    
+    <h1 class="bold1">Login As a {{$user->display_name}}</h1>
+    
+    <div>
+        
+        <a class="login100-form-btnnew" title="Register" onclick="claimant_click('{{$user->roles_id}}','{{$user->mail_verify}}')" href="#" id="role_click" mail_verify="{{$user->mail_verify}}">{{$user->display_name}}</a>     </div>
+    </div>
+</div>
+
+@endforeach
+ <input type="text" name="email"   id="role_email"  value="{{$email}}" style="display: none;">
+          <input type="text" name="password"   id="role_pass"  value="{{$encrypt}}" style="display: none;">
+
+
+<div style="width: 100%">
+
+ <div class="footercredits">
+      <img src="{{ url(asset('images/logo1.png')) }}" class="" width="200px" />
+      <div>
+<a>Have you did the mediation?</a> 
+</div>
+   <div> <a href="{{url('privacypolicy')}}">Privacy policy</a> 
+    <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p> 
+    <i class="fa fa-copyright" style="color: black; "></i><p>{{ now()->year }} <a href="{{url('https://www.bimacc.org/')}}" target="blank" style="color: red"> &nbsp;Lexquisite. &nbsp;</a> &nbsp; All Rights Reserved. &nbsp;</p></div>
+
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+  function claimant_click(id,mail_verify){
+
+var email=$("#role_email").val();
+var password=$("#role_pass").val();
+var CSRF_TOKEN = $('input[name="_token"]').val();
+// var mail_verify=$('#role_click').attr('mail_verify');
+
+   if(mail_verify =='0'){
+        swal("Kindly Verify your Mail", "", "error");
+        return false;
+      }
+      else{
+$.post('/login_role', {_token: CSRF_TOKEN, email:email,password:password,roles_id:id},  function(){
+      window.location.href = '{{ route("home") }}';
+    });
+}
+  }
+</script>
+<!-- <script type="text/javascript">
+  function respondent_click(id){
+var email=$("#role_email").val();
+var password=$("#role_pass").val();
+var CSRF_TOKEN = $('input[name="_token"]').val();
+   // alert(id);
+$.post('/login_role', {_token: CSRF_TOKEN, email:email,password:password,roles_id:id},  function(){
+      window.location.href = '{{ route("home") }}';
+    });
+  }
+</script> -->
+
+@endsection

@@ -1,0 +1,112 @@
+<?php $__env->startSection('content'); ?>
+<?php $__currentLoopData = $claimnotices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="container con" > 
+ <div class="row">
+   <div class="col-lg-12 margin-tb" style="    text-align: center;
+   color: black;
+   font-weight: 900;
+   font-size: 24px;
+   text-decoration: underline;">                    
+   <b><?php echo e($notice->claimnoticeno); ?> </b>
+ </div>
+</div>
+<?php echo $__env->make('showpagejavascript/showpageheadertab', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+
+<div class="modal-content modelcontentheightclaim" id="idclaimnoticedetails" style="display: block">
+      <?php echo $__env->make('ClaimNoticeShowScreens/ClaimNoticeHeaderShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+</div>
+<div class="modal-content modelcontentheightclaim"   style="margin-top: 10px;" id="idclaimantinformation" >
+  <div class="modal-body"> 
+    <div   class="row register-form" style="margin-top: 10px;" >
+      <?php $__currentLoopData = $claimantinformations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ClaimNoticeShowScreens/ClaimantInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaim" id="idresponantinformation">
+  <div class="modal-body"> 
+    <div  class="row register-form">             
+      <?php $__currentLoopData = $respondantdetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $respondant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>              
+       <?php echo $__env->make('ClaimNoticeShowScreens/RespondentInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+  </div>
+</div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_information; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $claimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+<div class="modal-content modelcontentheightclaim"  id="idcounterclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_dispute; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $respodentcounterclaimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('CounterClaimShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+    </div>
+  </div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idoveralclaimstatus" >
+  <div class="modal-body"> 
+    <div  class="row register-form">
+      <?php $__currentLoopData = $ClaimNoticeStatus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ClaimNoticeStatuss): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+       <?php echo $__env->make('ClaimNoticeShowScreens/OverallClaimStatusShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   </div>
+ </div>
+
+</div> 
+<div class="modal-footer">
+  <div class="mx-auto">
+     
+     <?php if(!empty($active_status)): ?>
+    
+   <?php if( $notice->claimnoticestatus =='New Claim Created'): ?>
+   <button class="btn btn-success btn-space" onclick="Respondentbuttonclick('<?php echo e(route('RespodentAccess',$notice->id)); ?>')" id="respondentbutton">Respondent Access</button>
+   <?php endif; ?> 
+   <?php if($notice->claimnoticestatus=='Disputing and Contesting the Claim' || $notice->claimnoticestatus =='Making a Counter Claim'): ?> 
+  <!--  <a class="btn btn-success btn-space" href="<?php echo e(route('Initiatepayment',$notice->id)); ?>">Initiate Payment for Administration Fee and Arbitration Fee</a> -->
+    <button class="btn btn-success btn-space" onclick="feesbuttonclick('<?php echo e(route('Initiatepayment',$notice->id)); ?>')" id="feesbutton">Initiate Payment for Administration Fee and Arbitration Fee</button>
+   <?php endif; ?>
+   <?php endif; ?>
+   <a class="btn btn-danger btn-space" href="<?php echo e(route('claimentslist.index')); ?>"> Back</a>                
+ </div>
+</div>
+
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#respondentbutton").click(function() {
+       $("#respondentbutton").attr("disabled", true);
+    });
+});
+  function Respondentbuttonclick(url){
+     $("#respondentbutton").attr("disabled", true);
+     window.location.href=url;
+     // document.getElementById('feessubmitform').submit();
+  }
+   function feesbuttonclick(url){
+     $("#feesbutton").attr("disabled", true);
+     window.location.href=url;
+     // document.getElementById('feessubmitform').submit();
+  }
+</script>
+
+<?php echo $__env->make('showpagejavascript/showscript', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

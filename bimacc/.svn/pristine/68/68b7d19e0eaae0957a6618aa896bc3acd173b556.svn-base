@@ -1,0 +1,227 @@
+ <div class="row register-form" style="pointer-events: none;">
+    <div class="col-md-12">
+
+      <div class="row">
+        <div class="col-md-12"> 
+          <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+            <!-- <label><b>Please fill in the applicable details  pertaining to the dispute</b></label> -->
+          </div>
+          <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+            <label><u><b>Nature of Relief</b></u></label>
+          </div>
+        </div>
+      </div>
+
+       <div class="row">
+     <div class="col-md-6"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="claim_reinstatement" style="margin-left: 38px;">Claim for Reinstatement</label>
+    <input type="checkbox" class="form-control" id="csclaim_reinstatement"  name="claim_reinstatement" style="width:5%"  value="yes" <?php echo e($details->claim_reinstatement == 'yes' ? 'checked' : ''); ?>>
+  </div>
+</div>
+<div class="col-md-6">  
+        <div class="form-group">
+         <input type="text" id="csaggregate_salary" class="form-control<?php echo e($errors->has('aggregate_salary') ? ' is-invalid' : ''); ?>" name="aggregate_salary" value="<?php echo e($details->aggregate_salary); ?>">
+         <label class="form-control-placeholder" for="aggregate_salary">Aggregate Annual Gross Salary or Consultancy Fee:</label>
+         <?php if($errors->has('aggregate_salary')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('aggregate_salary')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    </div>
+
+      <div class="row">
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" id="csclaim_for_salary_and_benefits" class="form-control<?php echo e($errors->has('claim_for_salary_and_benefits') ? ' is-invalid' : ''); ?>" name="claim_for_salary_and_benefits"  value="<?php echo e($details->claim_for_salary_and_benefits); ?>">
+       <label class="form-control-placeholder" for="claim_for_salary_and_benefits">Claim for Backwages/ Salary/ Benefits/ Reimbursement of expenses:</label>
+       <?php if($errors->has('claim_for_salary_and_benefits')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('claim_for_salary_and_benefits')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" id="csbenefit_withinterest" class="form-control<?php echo e($errors->has('benefit_withinterest') ? ' is-invalid' : ''); ?>" name="benefit_withinterest"  value="<?php echo e($details->benefit_withinterest); ?>">
+       <label class="form-control-placeholder" for="benefit_withinterest">With Interest:</label>
+       <?php if($errors->has('benefit_withinterest')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('benefit_withinterest')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="benefit_withoutinterest" style="margin-left: 28px;">Without Interest</label>
+    <input type="checkbox" class="form-control" id="csbenefit_withoutinterest"  name="benefit_withoutinterest" style="width:7%"  <?php echo e($details->benefit_withoutinterest == 'yes' ? 'checked' : ''); ?>>
+  </div>
+</div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12"> 
+
+     <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+      <label><u><b>Claim for Return of Property(Data/ Documents etc)</b></u></label>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6"> 
+  <div class="form-group">
+   <input type="text" id="csestimated_value_of_data" class="form-control<?php echo e($errors->has('estimated_value_of_data') ? ' is-invalid' : ''); ?>" name="estimated_value_of_data"  value="<?php echo e($details->estimated_value_of_data); ?>">
+   <label class="form-control-placeholder" for="estimated_value_of_data">Value of Property:</label>
+   <?php if($errors->has('estimated_value_of_data')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('estimated_value_of_data')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+  <div class="col-md-6"> 
+  <div class="form-group">
+   <input type="text" id="csnature_of_property" class="form-control<?php echo e($errors->has('nature_of_property') ? ' is-invalid' : ''); ?>" name="nature_of_property"  value="<?php echo e($details->nature_of_property); ?>">
+   <label class="form-control-placeholder" for="nature_of_property">Nature of Property:</label>
+   <?php if($errors->has('nature_of_property')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('nature_of_property')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+</div>
+  <div class="row">
+    
+
+    <div class="col-md-4"> 
+
+     <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+      <label><u><b>Claim for ESOP</b></u></label>
+    </div>
+  </div>
+  <div class="col-md-4"> 
+
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+    <label><u><b style="
+    
+    margin-right: 0px;
+">Claim for Damages</b></u></label>
+  </div>
+</div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-md-3">  
+    <div class="form-group">
+     <input type="text" id="csvalue_of_stock_options" class="form-control<?php echo e($errors->has('value_of_stock_options') ? ' is-invalid' : ''); ?>" name="value_of_stock_options"  value="<?php echo e($details->value_of_stock_options); ?>">
+     <label class="form-control-placeholder" for="value_of_stock_options">Value of Stock Options:</label>
+     <?php if($errors->has('value_of_stock_options')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('value_of_stock_options')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+  <div class="form-group">
+   <input type="text" id="csemd_amount" class="form-control<?php echo e($errors->has('emd_amount') ? ' is-invalid' : ''); ?>" name="emd_amount"  value="<?php echo e($details->emd_amount); ?>">
+   <label class="form-control-placeholder" for="emd_amount">Amount:</label>
+   <?php if($errors->has('emd_amount')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('emd_amount')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-3"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="restraint" style="margin-left: 28px;">Restraint on use of IPR/ Trade Secrets</label>
+    <input type="checkbox" class="form-control" id="csrestraint"  name="restraint" style="width:10%"  value="yes" 
+    <?php echo e($details->restraint == 'yes' ? 'checked' : ''); ?>>
+  </div>
+
+</div>
+<div class="col-md-3"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="termination" style="margin-left: 28px;">Termination </label>
+    <input type="checkbox" class="form-control" id="cstermination"  name="termination" style="width:10%"  value="yes" <?php echo e($details->termination == 'yes' ? 'checked' : ''); ?>>
+  </div>
+
+
+</div>
+
+</div>
+<div class="row">
+  
+  <div class="col-md-4"> 
+  <div class="form-group">
+   <input type="text" id="csaverage_value" class="form-control<?php echo e($errors->has('average_value') ? ' is-invalid' : ''); ?>" name="average_value"  value="<?php echo e($details->average_value); ?>">
+   <label class="form-control-placeholder" for="average_value">Amount/ Average Annual Value of Contract:</label>
+   <?php if($errors->has('average_value')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('average_value')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+ <div class="col-md-4"> 
+  <div class="form-group">
+   <input type="text" id="csaverage_value_interest" class="form-control<?php echo e($errors->has('average_value_interest') ? ' is-invalid' : ''); ?>" name="average_value_interest"  value="<?php echo e($details->average_value_interest); ?>">
+   <label class="form-control-placeholder" for="average_value_interest">With Interest:</label>
+   <?php if($errors->has('average_value_interest')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('average_value_interest')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+     <label class="form-control-placeholder" for="average_value_withoutinterest" style="margin-left: 28px;">Without interest</label>
+    <input type="checkbox" class="form-control" id="csaverage_value_withoutinterest"  name="average_value_withoutinterest" style="width:7%" <?php echo e($details->average_value_withoutinterest == 'yes' ? 'checked' : ''); ?>>
+  </div>
+
+</div>
+
+</div>
+<div class="row">
+  
+  <div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="csinterest_amount" class="form-control<?php echo e($errors->has('interest_amount') ? ' is-invalid' : ''); ?>" name="interest_amount" value="<?php echo e($details->interest_amount); ?>">
+    <label class="form-control-placeholder" for="interest_amount">Interest Amount:</label>
+    <?php if($errors->has('interest_amount')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('interest_amount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="csdamage_with_interest"  class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" value="<?php echo e($details->damage_with_interest); ?>">
+   <?php if($details->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Total Damages Including Interest (INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Total Damages Including Interest (USD)<span style="color: red">*</span>:</label>
+           <?php endif; ?>
+    <?php if($errors->has('damage_with_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('damage_with_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+  </div>
+</div>
+</div>

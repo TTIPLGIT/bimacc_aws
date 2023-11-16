@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+  Hello <?php echo e($data1['claimantname']); ?>,
+  <br/><br/><br/>
+ This is with Reference to Online Arbitration System - Claim Notice ( No:<?php echo e($data1['claimnoticeno']); ?>), Please find enclosed Receipt for the Payment towards claim notice registration.<br/><br/>
+   This is System Generated Mail Please Do not Reply
+  <br/><br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+
+
+
+

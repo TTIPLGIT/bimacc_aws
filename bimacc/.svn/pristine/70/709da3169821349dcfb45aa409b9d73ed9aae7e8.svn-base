@@ -1,0 +1,169 @@
+
+<!-- Edit Climant Details Modal-->
+<?php $__currentLoopData = $claimantinformations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<?php $__currentLoopData = $claimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimDetail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+<div class="modal fade" id="editClaimantDetailsModal<?php echo e($claimDetail->claimnoticeid); ?>" tabindex="-1" role="dialog" aria-labelledby="claimdetailslabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="claimdetailslabel">Edit Claim and Relief Request</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+         <div id="wrap">
+          <div class="tab"></div>
+          <div id="tab1" class="tab selected"><a href="#" id="hrefclaimdetails" class="active"  onclick="claimdetailsselected()">Claim Details</a></div>
+          <div id="tab2" class="tab" style="border-bottom: none;" id="hrefreliefrequest" onclick="reliefrequestselected()"><a href="#" style="color: black">Relief Request</a></div>
+          <div class="tab"></div>
+        </div>
+      </div>
+      <div class="row register-form">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+             <div class="form-group">
+              <label class="" style="font-weight: bold">Nature of Disputes*:</label>
+              <input type="text" value="<?php echo e($claimantinformation->category_name); ?>" readonly class="form-control" style="text-align: center;margin-left: -12px">
+            </div>
+          </div>
+          <div class="col-md-6">
+           <div class="form-group" >
+            <label class="" style="font-weight: bold">Types of Disputes*:</label>
+
+ <input type="text" value="<?php echo e($claimantinformation->subcategory_name); ?>" readonly class="form-control" style="text-align: center;">
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row register-form" id="claimdetailsform">
+
+    <?php if($claimantinformation->dispute_category_Code =="AAS"): ?>
+    <?php echo $__env->make('ClaimDetailForms/1AdmiraltyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+    <?php elseif($claimantinformation->dispute_category_Code =="ADS"): ?>
+    <?php echo $__env->make('ClaimDetailForms/2AviationDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+    <?php elseif($claimantinformation->dispute_category_Code =="B&F"): ?>
+    <?php echo $__env->make('ClaimDetailForms/3BankingFinanceMoneyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="CD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/4ConsumerDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="CCD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/5ContractsAndCommercialDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="CPD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/6PartnershipDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="CPD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/6PartnershipDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="CID"): ?>
+    <?php echo $__env->make('ClaimDetailForms/7CorporateandInvestmentDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="COD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/8CommunityDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="EMD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/9EmploymentandConsultantsDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="EID"): ?>
+    <?php echo $__env->make('ClaimDetailForms/10EnergyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="FAD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/11FamilyandPartitionDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="GOV"): ?>
+    <?php echo $__env->make('ClaimDetailForms/12GovernmentDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="IPR"): ?>    <?php echo $__env->make('ClaimDetailForms/13IntellectualPropertyandInformationTechnology', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="IND"): ?>
+    <?php echo $__env->make('ClaimDetailForms/14InsuranceandLogisticDisptues', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="FAD"): ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="MAS"): ?>
+    <?php echo $__env->make('ClaimDetailForms/15MediaandSports', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="RED"): ?>
+    <?php echo $__env->make('ClaimDetailForms/17RealEstateDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="AOD"): ?>
+    <?php echo $__env->make('ClaimDetailForms/18OtherDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php endif; ?>
+  </div>
+  <div class="row register-form" id="reliefrequestdetails" style="display: none">
+
+   <?php if($claimantinformation->dispute_category_Code =="AAS"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/1AdmiraltyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+   <?php elseif($claimantinformation->dispute_category_Code =="ADS"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/2AviationDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+   <?php elseif($claimantinformation->dispute_category_Code =="B&F"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/3BankingFinanceMoneyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="CD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/4ConsumerDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="CCD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/5ContractsAndCommercialDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="CPD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/6PartnershipDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="CPD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/6PartnershipDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="CID"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/7CorporateandInvestmentDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="COD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/8CommunityDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="EMD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/9EmploymentandConsultantsDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="EID"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/10EnergyDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>   
+   <?php elseif($claimantinformation->dispute_category_Code =="FAD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/11FamilyandPartitionDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="GOV"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/12GovernmentDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="IPR"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/13IntellectualPropertyandInformationTechnology', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="IND"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/14InsuranceandLogisticDisptues', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="MAS"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/15MediaandSports', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php elseif($claimantinformation->dispute_category_Code =="RED"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/17RealEstateDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php elseif($claimantinformation->dispute_category_Code =="AOD"): ?>
+   <?php echo $__env->make('ReliefRequestDetailsForms/18OtherDisputes', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+   <?php else: ?>
+
+   <?php endif; ?>
+
+ </div>                                 
+</div>
+
+</div>
+</div>
+</div> 
+<script type="text/javascript">
+    $('.date').datepicker({  
+       dateFormat: 'yy-mm-dd'
+     });  
+</script> 
+<script>
+  function DatepickerValidation()
+  {
+   
+    var loan_taken_date = new Date($('#loan_taken_date').val());
+    var NPADate = new Date($('#NPADate').val());
+
+    if (NPADate <= loan_taken_date){
+    alert('NPA Date is should be greater than Loan Taken Date');
+    //$('#NPADate').datepicker('#NPADate', null);
+    // $('#loan_taken_date').val() = null;
+     document.getElementById('NPADate').value = null;
+}   
+
+}
+</script>
+<script>
+function duplicate() {
+  var original = document.getElementById('personnelloan_details');
+    var clone = original.cloneNode(true); // "deep" clone
+    clone.id = "personnelloan_details" + ++i; // there can only be one element with an ID
+    original.parentNode.appendChild(clone);
+}
+</script>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+
+<!-- End Of Climant Information Modal -->

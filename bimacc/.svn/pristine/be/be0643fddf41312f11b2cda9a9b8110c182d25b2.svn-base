@@ -1,0 +1,72 @@
+<table class="table table-bordered dataTable no-footer" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+        <thead class="theadalign">
+          <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sl. No.: activate to sort column descending" style="width: 125px;">Sl. No.</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Claim Notice No: activate to sort column ascending" style="width: 268.2px;">Claim Notice No</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Invoice No: activate to sort column ascending" style="width: 177px;">Invoice No</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Invoice Amount: activate to sort column ascending" style="width: 241.8px;">Invoice Amount</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Invoice Type: activate to sort column ascending" style="width: 200.2px;">Invoice Type</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Invoice Date: activate to sort column ascending" style="width: 198.8px;">Invoice Date</th></tr>
+        </thead>
+
+        <tbody>
+
+
+                  
+                 
+                 
+                 
+                 
+                 
+        
+      <tr role="row" class="odd">
+          <td class="sorting_1">1</td>
+         
+          <td>CN/BIMACC/2020/003</td>
+          <td>INV/2020/001</td>
+          <td>500.00</td>  
+           <td>Registration</td>
+           <td>2020-08-12</td>  
+                               
+        </tr><tr role="row" class="even">
+          <td class="sorting_1">2</td>
+         
+          <td>CN/BIMACC/2020/004</td>
+          <td>INV/2020/002</td>
+          <td>500.00</td>  
+           <td>Registration</td>
+           <td>2020-08-12</td>  
+                               
+        </tr><tr role="row" class="odd">
+          <td class="sorting_1">3</td>
+         
+          <td>CN/BIMACC/2020/003</td>
+          <td>INV/2020/003</td>
+          <td>2500.00</td>  
+           <td>Administration</td>
+           <td>2020-08-13</td>  
+                               
+        </tr><tr role="row" class="even">
+          <td class="sorting_1">4</td>
+         
+          <td>CN/BIMACC/2020/004</td>
+          <td>INV/2020/004</td>
+          <td>2500.00</td>  
+           <td>Administration</td>
+           <td>2020-08-13</td>  
+                               
+        </tr><tr role="row" class="odd">
+          <td class="sorting_1">5</td>
+         
+          <td>CN/BIMACC/2020/002</td>
+          <td>INV/2020/005</td>
+          <td>500.00</td>  
+           <td>Registration</td>
+           <td>2020-08-13</td>  
+                               
+        </tr><tr role="row" class="even">
+          <td class="sorting_1">6</td>
+         
+          <td>CN/BIMACC/2020/002</td>
+          <td>INV/2020/006</td>
+          <td>2500.00</td>  
+           <td>Administration</td>
+           <td>2020-08-13</td>  
+                               
+        </tr></tbody>
+
+    </table>

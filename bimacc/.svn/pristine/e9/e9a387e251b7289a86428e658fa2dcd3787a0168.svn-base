@@ -1,0 +1,63 @@
+  <div class="modal-body" style="margin-top: 15px">       
+    <div class="row register-form" >
+
+       <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" id="name" value="<?php echo e($notice->claimnoticeno); ?>" class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>" name="name" placeholder=" " readonly >
+          <label class="form-control-placeholder" for="name">Claim Notice No</label>
+          <?php if($errors->has('name')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('name')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4">
+       <div class="form-group">
+         <input type="text" id="email"  value="<?php echo e($notice->claimnoticestatus); ?>" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" placeholder=" " readonly>
+         <label class="form-control-placeholder" for="email">Claim Status</label>
+         <?php if($errors->has('email')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('email')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="daytimetelephone" value="<?php echo e($notice->created_at); ?>" class="form-control<?php echo e($errors->has('daytimetelephone') ? ' is-invalid' : ''); ?>" name="daytimetelephone" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="daytimetelephone">Claim Notice Created Date</label>
+       <?php if($errors->has('daytimetelephone')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('daytimetelephone')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="adminstration_fees" value="<?php echo e($notice->adminstration_fees); ?>" class="form-control<?php echo e($errors->has('adminstration_fees') ? ' is-invalid' : ''); ?>" name="adminstration_fees" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="adminstration_fees">Administration Fees</label>
+       <?php if($errors->has('adminstration_fees')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('adminstration_fees')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="arbitrator_fees" value="<?php echo e($notice->arbitrator_fees); ?>" class="form-control<?php echo e($errors->has('arbitrator_fees') ? ' is-invalid' : ''); ?>" name="arbitrator_fees" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="arbitrator_fees">Arbitrator's Fee</label>
+       <?php if($errors->has('arbitrator_fees')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('arbitrator_fees')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  
+  
+  
+</div>
+</div>

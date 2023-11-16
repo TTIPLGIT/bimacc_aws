@@ -1,0 +1,1037 @@
+<style type="text/css">
+  @media (max-width: 755px) {
+  div#navbarSupportedContent {
+    background: #d3b86e;
+    z-index: 1000;
+}
+}
+</style>
+
+
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>E-Online Arbitration System</title>
+
+  <!-- Scripts -->
+  
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}"></script> 
+
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  
+
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+  <!-- <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+  <script src="{{ url('/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url('/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url('/js/buttons.flash.min.js') }}"></script>
+  <script src="{{ url('/js/jszip.min.js') }}"></script>
+  <script src="{{ url('/js/pdfmake.min.js') }}"></script>
+  <script src="{{ url('/js/vfs_fonts.js') }}"></script>
+  <script src="{{ url('/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ url('/js/buttons.print.min.js') }}"></script>
+   <script src="{{ url('/js/dropzone.min.js') }}"></script>
+  <script src="{{ url('/js/dropzone.js') }}"></script>
+  <script src="{{ url('/js/dropzone.min.js') }}"></script>
+  <script src="{{ url('/js/sweetalert.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>
+
+
+  <!-- Styles -->
+  <link href="{{ url(asset('css/app.css')) }}" rel="stylesheet" type="text/css">
+  <link href="{{ url(asset('css/dataTables.bootstrap4.min.css')) }}" rel="stylesheet" type="text/css"> 
+  <link href="{{ url(asset('css/dropzone.min.css')) }}" rel="stylesheet" type="text/css"> 
+  <link href="{{ url(asset('css/sweetalert.min.css')) }}" rel="stylesheet" type="text/css"> 
+ 
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> -->
+
+  
+  
+
+ 
+ 
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" rel="stylesheet" type="text/css"> 
+ <link href="{{ url('/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url('/css/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+ 
+
+  <script>
+    function myFunction() {
+      if(!confirm("Are You Sure Want to Delete this?"))
+        event.preventDefault();
+    }
+
+  </script>
+  <script type="text/javascript">
+     $(document).ready(function(){
+      var my_options = $("#country option");
+
+my_options.sort(function(a,b) {
+if (a.text > b.text) return 1;
+else if (a.text < b.text) return -1;
+else return 0;
+});
+});
+   </script>
+
+
+
+ <style type="text/css">
+   .btn-space {
+    margin-right: 10px;
+  }
+  .centered-modal.in {
+    display: flex !important;
+  }
+  .centered-modal .modal-dialog {
+    margin: auto;
+  }
+  .error {
+    color: red;
+    font-size: 0.8em;
+  }
+</style>
+
+
+</head>
+<body id="page-top">
+  <div id="appA" class="appbg">
+    <nav class="navbar navbar-expand navbar-light  topbar static-top shadow" style="height: 35px;background-color: black;" >
+
+      <!-- Sidebar Toggle (Topbar) -->
+      <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <!-- Topbar Search --> 
+      <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+      </form>
+
+      <!-- Topbar Navbar -->
+      <ul class="navbar-nav ml-auto">
+
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <li class="nav-item dropdown no-arrow d-sm-none">
+          <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-search fa-fw"></i>
+          </a>
+          <!-- Dropdown - Messages -->
+          <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+            <form class="form-inline mr-auto w-100 navbar-search">
+              <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+
+        <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow mx-1" style="">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div style="font-weight: bold;color: black;font-size: 16px;">Alert</div><i class="far fa-bell fa-fw"></i>
+            <!-- Counter - Alerts -->
+            <span id="notifier"></span>
+        <!--     <script type="text/javascript">
+              if(response.latest !== 0) {
+                $('#notifier').html('<i class="fas fa-bell"></i>' + '1')
+              } else {
+                $('#notifier').html('0')
+              }
+            </script> --> 
+            
+ @if(Auth::check())
+            @if(App\models\notifications::where([['notifiable_id', Auth::user()->id],['latest','1']])->count() != 0)
+            <span class="badge badge-danger badge-counter">{{ App\models\notifications::where([['notifiable_id', Auth::user()->id],['latest','1']])->count() }}</span> 
+            @endif
+
+             @endif
+          </a>
+          <!-- Dropdown - Alerts -->
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown" style="    height: 346px;
+          scroll-behavior: auto;
+          overflow-y: auto;">
+          <h6 class="dropdown-header"> 
+            Notification
+          </h6>
+         @if(Auth::check())
+          @foreach((DB::select("select * from   notifications 
+          where latest=1 and  notifiable_id = ".auth()->user()->id." order by id desc" ))  as $notification)
+          @php $data = json_decode($notification->data, true); @endphp
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('notification.reading', [$notification->id,$notification->registration_claimnotice_id]) }}">
+            <div class="mr-3">
+              <div class="icon-circle bg-primary">
+                <i class="fas fa-file-alt text-white"></i>
+              </div>
+            </div> 
+            <div>
+              <div class="small text-gray-500"></div>
+              <span class="font-weight-bold">{{ $data['body'] }}</span>
+            </div>
+          </a>
+          @endforeach
+          @endif
+          <div>
+            <a class="dropdown-item text-center small text-gray-500"  href="{{ route('notifications') }}"
+            >View All</a>
+          </div>
+        </div>
+      </li>      
+      <div class="topbar-divider d-none d-sm-block"></div>
+      <!-- Nav Item - User Information -->
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{{ isset(Auth::user()->name) ? Auth::user()->name : '' }}}</span>
+
+          <i class="far fa-user fa-fw"></i>
+
+        </a>
+        <!-- Dropdown - User Information -->
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+          <a class="dropdown-item" href="{{route('users.edit')}}">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            Profile
+          </a>
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            Logout
+          </a>
+        </div>
+      </li>
+
+    </ul>
+
+
+  </nav>    
+
+
+  <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <div class="container">
+      <a href="{{ url('/') }}" class="navbar-brand">
+        <img src="{{ url(asset('images/pic.png')) }}" class="img1001" />
+      </a> 
+      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+
+      @role('centre')
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+         <!--  <li class="nav-item nav123">
+            <a href="{{route('home')}}" class="nav-link">Home</a>
+          </li> -->
+          <li class="nav-item nav123 dropdown no-arrow mx-3">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+            padding-right: 0px;
+            padding-left: 32px;
+
+            ">
+            Master<i class="fas fa-angle-down"></i>
+          </a>                 
+          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+            <a class="dropdown-item" href="{{route('arbitrationmaster.index')}}">Arbitration Master</a>
+            <a class="dropdown-item" href="{{route('disputecategory.index')}}">Dispute Category</a>
+            <a class="dropdown-item" href="{{route('disputesubcategory.index')}}">Dispute sub Category</a> 
+             <!-- <a class="dropdown-item" href="{{route('country.index')}}">Country</a>                  -->
+            <!-- <a class="dropdown-item" href="{{route('securitytypes.index')}}">Security Types</a> -->
+            <!-- <a class="dropdown-item" href="{{route('loantype.index')}}">Loan Types</a>                  -->
+            <a class="dropdown-item" href="{{route('claimant_respondant_type.index')}}">Claimant/ Respondent Type</a>
+            <a class="dropdown-item" href="{{route('FAQ_module.index')}}">Module(FAQ)</a>
+            <a class="dropdown-item" href="{{route('FAQ.index')}}">Manage FAQ</a>
+          </div>
+        </li>
+        <li class="nav-item nav123 dropdown no-arrow mx-3">
+          <a class="nav-link " href="{{route('registrationfees.index')}}"  >
+           Fee Schedule<i class="fas fa-angle-down"></i>
+         </a>                 
+         
+      </li>                   
+      <li class="nav-item nav123 dropdown no-arrow mx-3">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Case Details<i class="fas fa-angle-down"></i>
+       </a>
+       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+        <a class="dropdown-item" href="{{route('claimantsnoticelist.index')}}">Claim Notice</a>
+        <a class="dropdown-item" href="{{route('arbitratorconfiguration.index')}}">Arbitrator Allocation</a>
+        <a class="dropdown-item" href="{{route('ClaimPetition.index')}}">Claim Petition</a>
+        <a class="dropdown-item" href="{{route('AwardedClaim.index')}}">Awards</a>
+        <a class="dropdown-item" href="{{route('respondentdetailupdate.index')}}">Respondent Details Update</a>           
+      </div>                
+    </li>
+     <li class="nav-item nav123 dropdown no-arrow mx-3">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Manage Video Hearings<i class="fas fa-angle-down"></i>
+     </a>
+     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+       <a class="dropdown-item" href="{{route('videoconferencing.create')}}">Create Link</a>
+       <a class="dropdown-item" href="{{route('videoconferencing.index')}}">View Link</a>
+     </div>                
+   </li>
+    <li class="nav-item nav123 dropdown no-arrow mx-3">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+       Reports<i class="fas fa-angle-down"></i>
+     </a>
+     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+       <a class="dropdown-item" href="{{route('claimantslist.index')}}">Claimants Registration Report</a>
+       <a class="dropdown-item" href="{{route('respondantlist.index')}}">Respondant Information Report</a>
+       <a class="dropdown-item" href="{{route('invoice.index')}}">Invoice Report</a>
+       <a class="dropdown-item" href="{{url('report/noticereport')}}">Claim Notice Report</a>
+       <a class="dropdown-item" href="{{url('report/petitionreport')}}">Claim Petition Report</a>
+        <a class="dropdown-item" href="{{url('report/hearingreport')}}">Hearing Conversation Report</a>
+        <a class="dropdown-item" href="{{url('report/videoreport')}}">Video Conference Report</a>
+        <!-- chart -->
+        <a class="dropdown-item" href="{{url('report/typeofdisputereport')}}">Types of Dispute</a>
+        <a class="dropdown-item" href="{{url('report/domesticrevenuereport')}}">Domestic Revenue</a>
+          <a class="dropdown-item" href="{{url('report/durationreport')}}">Duration Report</a>
+        <!-- chart -->
+<!-- <a class="dropdown-item" href="{{route('misclaimantdetails.index')}}">MIS Report</a> -->
+
+     </div>                
+   </li>
+   
+   <li class="nav-item nav123 dropdown no-arrow mx-3">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       MIS Reports<i class="fas fa-angle-down"></i>
+     </a>
+     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+       <a class="dropdown-item" href="{{route('misclaimantdetails.index')}}">Claimant Details Report</a> 
+        <a class="dropdown-item" href="{{route('misrespondentdetails.index')}}">Respondent Details Report</a> 
+         <a class="dropdown-item" href="{{route('misclaimnotice.index')}}">Claim Notice Report</a> 
+          <a class="dropdown-item"  href="{{route('miscounter.index')}}">Counter Claim Report</a> 
+           <a class="dropdown-item" href="{{route('misclaimpetition.index')}}">Claim Petition Report </a> 
+     </div>                
+   </li>
+ </ul>
+
+</div>
+@endrole
+
+@role('claiment')
+<div id="navbarSupportedContent" class="collapse navbar-collapse">
+
+  <ul class="navbar-nav ml-auto">
+
+   <li class="nav-item nav123 dropdown no-arrow mx-3">
+    <a class="nav-link" href="{{route('registrationfees.index')}}" >
+     Fee Structure <i class="fas fa-angle-down"></i>
+   </a>                  
+  
+</li>
+
+<li class="nav-item nav123">
+ <a class="nav-link" href="{{route('claimnotice.index')}}" style="
+ /* margin-right: 0px; */
+ padding-right: 36px;">File / View Claim Notice</a>
+</li>
+
+
+<li class="nav-item nav123">
+ <a class="nav-link" href="{{route('ClaimPetion.index')}}" >File / View Claim Petition</a> 
+</li>
+
+<!-- <li class="nav-item nav123">
+ <a class="nav-link" href="{{route('payadministationfees.index')}}" style="
+ margin-right: -112px;
+ margin-left: 28px;">Payment Info</a> 
+</li> -->
+<li class="nav-item nav123">
+ <a class="nav-link" href="{{route('payadministationfees.index')}}" style="
+   
+    padding-left: 38px;">Payment Info</a> 
+</li>
+<li class="nav-item nav123">
+ <a class="nav-link" href="{{route('claimnotice.trash')}}" style="
+   
+    padding-left: 38px;"
+>Trash</a> 
+</li>
+</ul>
+</div>
+@endrole
+
+@role('respondent')
+<div id="navbarSupportedContent" class="collapse navbar-collapse">
+  <ul class="navbar-nav ml-auto">
+   <li class="nav-item nav123 dropdown no-arrow mx-3">
+    <a class="nav-link" href="{{route('registrationfees.index')}}">
+     Fee Structure<i class="fas fa-angle-down"></i>
+   </a>    
+  <!--  <a class="nav-link" href="{{route('registrationfees.index')}}" 
+ >Fee Structure</a> -->              
+  
+</li>
+
+<li class="nav-item nav123">
+  <a class="nav-link" href="{{route('claimantrespondantaccess.index')}}">View Claim Notice</a>
+</li>
+
+
+<li class="nav-item nav123">
+  <a class="nav-link" href="{{route('ClaimPetion.respodentclaimpetition')}}" style="
+  margin-right: -354px;
+  margin-left: 32px;
+  ">View / File Objection / Counter Claim
+</a> 
+</li>
+</ul>
+</div>
+@endrole
+
+@role('arbitrator')
+
+<div id="navbarSupportedContent" class="collapse navbar-collapse">
+ <ul class="navbar-nav ml-auto">
+  <li class="nav-item nav123">
+    <a href="{{route('ArbitratorAllocatedClaims.index')}}" class="nav-link">Cases</a>
+  </li>
+  <li class="nav-item nav123 dropdown no-arrow mx-3">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Manage Video Hearings<i class="fas fa-angle-down"></i>
+     </a>
+     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
+       <a class="dropdown-item" href="{{route('videoconferencing.create')}}">Create Link</a>
+       <a class="dropdown-item" href="{{route('videoconferencing.arbitratorlist')}}">View Link</a>
+     </div>                
+   </li>
+</ul>
+
+</div>
+@endrole    
+@role('respondent')
+
+
+<div id="navbarSupportedContent" class="collapse navbar-collapse">
+
+</div>
+@endrole          
+</div>              
+</nav>             
+
+
+<!-- Breadcrumbs-->
+<ol class="breadcrumbs">
+ <li>
+   <i class="fa fa-home"></i>
+   <a href="{{route('home')}}">HOME</a> 
+ </li>
+<!--  <li>
+   <?php $link = url('/'); ?>
+   &nbsp; &raquo; &nbsp;
+   @for($i = 1; $i <= 1; $i++)
+
+   @if($i < count(Request::segments()) & $i > 0)
+   <?php $link .= "/" . Request::segment($i); ?>
+
+   <a href="{{ $link }}">{{ ucwords(str_replace('-',' ',Request::segment($i)))}}</a> 
+
+   @else {{strtoupper(str_replace('-',' ',Request::segment($i)))}}
+   @endif
+   @endfor
+ </li> -->
+</ol>
+@yield('content')
+
+</div>
+
+
+<!-- Create Modal-->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">create</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <form  action="{{ route('claimantinformation.store') }}" method="POST">
+        @csrf  
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group row">
+              <label for="category_name" style="font-size: larger;" class="col-sm-4 col-form-label"><strong>Category Name:</strong></label>
+              <div class="col-sm-6">                
+                <input type="text" name="category_name" class="form-control"  style="background-color: #ececec;">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group row">
+              <label for="category_name" style="font-size: larger;" class="col-sm-4 col-form-label"><strong>Category Description:</strong></label>
+              <div class="col-sm-6">
+                <textarea class="form-control"  name="category_description"  style="background-color: #ececec;height:150px;"></textarea>     
+                
+              </div>
+            </div>
+
+
+          </div>       
+          <div class="mx-auto">
+            <button type="submit" class="btn btn-success btn-space">Save</button>
+            <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+            <a class="btn btn-danger btn-space" href="{{ route('disputecategory.index') }}">Cancel</a>
+
+
+          </div> 
+        </div>          
+      </form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href=" {{ URL::to('logout') }} "
+        onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+      </a>
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
+    </div>         
+
+
+  </div>
+</div> 
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+      </a>
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
+    </div>
+  </div>
+</div>
+</div>  
+
+
+
+<div class="floating-chat">
+  <span class="chat-logo-text"> <img src="{{ url(asset('images/court.jpg')) }}" style="width: 39px;"></span>
+   <!-- <span class="chat-logo-text"><i class="fa fa-comments" aria-hidden="true"></i></span> -->
+  <div class="chat">
+    <div class="header">
+      <button>
+        <i class="fa fa-minus" aria-hidden="true"></i>
+      </button> 
+      <span class="title">
+        Online Hearing
+      </span>
+      <button>
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <!-- <img src="{{ url(asset('images/currency.png')) }}" style="width: 41px;"> -->
+      </button>                         
+    </div>
+    <div class="messages">
+      <iframe src="{{ route('online.chat') }}" class="chat-frame"></iframe>
+    </div>
+
+  </div>
+</div> 
+
+
+</body>
+
+
+<style>
+  .chat-frame {
+    width: 100%;
+    border-radius: 4px;
+    height: 100%;
+    border: 0px;
+  }
+  .chat-logo-text {
+    font-size: 3em;
+  }
+  .floating-chat {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    width: 60px;
+    height: 60px;
+    transform: translateY(70px);
+    transition: all 250ms ease-out;
+    border-radius: 50%;
+    opacity: 0;
+    background: #343464;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 1em;
+  }
+  .floating-chat.enter:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    opacity: 1;
+  }
+  .floating-chat.enter {
+    transform: translateY(0);
+    opacity: 1;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.14);
+  }
+  .floating-chat.expand {
+    width: 80%;
+    max-height: 80%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: auto;
+    opacity: 1;
+    background: #343464;
+    z-index:999;
+  }
+  .floating-chat :focus {
+    outline: 0;
+    box-shadow: 0 0 3pt 2pt rgba(14, 200, 121, 0.3);
+  }
+  .floating-chat button {
+    background: transparent;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .floating-chat .chat {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    transition: all 250ms ease-out;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .floating-chat .chat.enter {
+    opacity: 1;
+    border-radius: 0;
+    margin: 10px;
+    width: auto;
+    height: auto;
+  }
+  .floating-chat .chat .header {
+    flex-shrink: 0;
+    padding-bottom: 10px;
+    display: flex;
+    background: transparent;
+    margin: -9px;
+  }
+  .floating-chat .chat .header .title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0 5px;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 900;
+  }
+  .floating-chat .chat .header button {
+    flex-shrink: 0;
+  }
+  .floating-chat .chat .messages {
+    padding: 0px;
+    margin: 0;
+    flex-grow: 1;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-left: -6px;
+    margin-right: -6px;
+    margin-bottom: -6px;
+      height: 100%;
+  overflow: hidden;
+  }
+  .floating-chat .chat .messages::-webkit-scrollbar {
+    width: 5px;
+  }
+  .floating-chat .chat .messages::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: rgba(25, 147, 147, 0.1);
+  }
+  .floating-chat .chat .messages::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(25, 147, 147, 0.2);
+  }
+  .floating-chat .chat .footer {
+    flex-shrink: 0;
+    display: flex;
+    padding-top: 10px;
+    max-height: 90px;
+    background: transparent;
+  }
+  .floating-chat .chat .footer .text-box::-webkit-scrollbar {
+    width: 5px;
+  }
+  .floating-chat .chat .footer .text-box::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: rgba(25, 147, 147, 0.1);
+  }
+  .floating-chat .chat .footer .text-box::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(25, 147, 147, 0.2);
+  }
+
+  @keyframes show-chat-even {
+    0% {
+      margin-left: -480px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
+  @-moz-keyframes show-chat-even {
+    0% {
+      margin-left: -480px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
+  @-webkit-keyframes show-chat-even {
+    0% {
+      margin-left: -480px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
+  @keyframes show-chat-odd {
+    0% {
+      margin-right: -480px;
+    }
+    100% {
+      margin-right: 0;
+    }
+  }
+  @-moz-keyframes show-chat-odd {
+    0% {
+      margin-right: -480px;
+    }
+    100% {
+      margin-right: 0;
+    }
+  }
+  @-webkit-keyframes show-chat-odd {
+    0% {
+      margin-right: -480px;
+    }
+    100% {
+      margin-right: 0;
+    }
+  }
+</style>
+
+<script>
+  var element = $('.floating-chat');
+
+  setTimeout(function() {
+    element.addClass('enter');
+  }, 1000);
+
+  element.click(openElement);
+
+  function openElement() {
+    element.find('>i').hide();
+    element.addClass('expand');
+    element.find('.chat').addClass('enter');
+    element.off('click', openElement);
+    element.find('.header button').click(closeElement);
+  }
+
+  function closeElement() {
+    element.find('>i').show();
+    element.removeClass('expand');
+    element.find('.header button').off('click', closeElement);
+    setTimeout(function() {
+      element.find('.chat').removeClass('enter').show()
+      element.click(openElement);
+    }, 500);
+  }
+
+</script>
+<script type="text/javascript">
+  var dateClass='.datechk';
+$(document).ready(function ()
+{
+  if (document.querySelector(dateClass).type !== 'date')
+  {
+    var oCSS = document.createElement('link');
+    oCSS.type='text/css'; oCSS.rel='stylesheet';
+    oCSS.href='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css';
+    oCSS.onload=function()
+    {
+      var oJS = document.createElement('script');
+      oJS.type='text/javascript';
+      oJS.src='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js';
+      oJS.onload=function()
+      {
+        $(dateClass).datepicker({ dateFormat: 'yy-mm-dd'});
+      }
+      document.body.appendChild(oJS);
+    }
+    document.body.appendChild(oCSS);
+  }
+  
+});
+
+  
+
+</script>
+<script type="text/javascript">
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+
+
+<style type="text/css">
+  .tab-slider--nav {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+  }
+
+  .tab-slider--tabs {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    border-radius: 35px;
+    overflow: hidden;
+    background: #fff;
+    height: 35px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .tab-slider--tabs:after {
+    content: "";
+    width: 50%;
+    background: #345F90;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
+    border-radius: 35px;
+  }
+
+  .tab-slider--tabs.slide:after { left: 50%; }
+
+  .tab-slider--trigger {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: bold;
+    color: #345F90;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 11px 20px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-transition: color 250ms ease-in-out;
+    transition: color 250ms ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .tab-slider--trigger.active { color: #fff; }
+
+  .tab-slider--body { margin-bottom: 20px; }
+</style>
+<script type="text/javascript">
+  $("document").ready(function(){
+    $(".tab-slider--body").hide();
+    $(".tab-slider--body:first").show();
+  });
+
+  $(".tab-slider--nav li").click(function() {
+    $(".tab-slider--body").hide();
+    var activeTab = $(this).attr("rel");
+   // alert(activeTab);
+   $("#"+activeTab).fadeIn();
+   if($(this).attr("rel") == "idresponantinformation"){
+    $('.tab-slider--tabs').addClass('slide');
+  }
+  else if($(this).attr("rel") == "idresponantinformation")
+  {
+   $('.tab-slider--tabs').addClass('slide');
+ }
+ else if($(this).attr("rel") == "idclaimantinformation")
+ {
+   $('.tab-slider--tabs').addClass('slide');
+ }
+ else if($(this).attr("rel") == "idreliefrequest")
+ {
+   $('.tab-slider--tabs').addClass('slide');
+ }
+ else if($(this).attr("rel") == "idfees")
+ {
+   $('.tab-slider--tabs').addClass('slide');
+ }
+ else{
+  $('.tab-slider--tabs').removeClass('slide');
+}
+$(".tab-slider--nav li").removeClass("active");
+$(this).addClass("active");
+});
+</script>
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [{ extend: 'excel',
+                title: 'Data export'}
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+            
+        ]
+    } );
+} );
+</script> -->
+
+
+<script type="text/javascript">
+function date_field(){
+// alert("time");
+var dateClass='.datechk';
+$("#renewal_date2").datepicker( {dateFormat: 'yy-mm-dd'});
+// if (document.querySelector(dateClass).type !== 'date')
+// {
+// var oCSS = document.createElement('link');
+// oCSS.type='text/css'; oCSS.rel='stylesheet';
+// oCSS.href='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css';
+// oCSS.onload=function()
+// {
+// var oJS = document.createElement('script');
+// oJS.type='text/javascript';
+// oJS.src='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js';
+// oJS.onload=function()
+// {
+// $(dateClass).datepicker();
+// }
+// document.body.appendChild(oJS);
+// }
+// document.body.appendChild(oCSS);
+// }
+}
+
+
+
+</script>
+
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    // alert ("jhgjhg");
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+ -->
+<!-- <script type="text/javascript">
+  $('#dataTable').dataTable({
+    "oLanguage": {
+        "sEmptyTable": "My Custom Message On Empty Table"
+    }
+});
+</script> -->
+<!-- Sticky Footer -->
+
+<footer class="sticky-footer" style="width: 100%;position: fixed;">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright © <a href="{{route('home')}}">Lexquisite.</a> {{ now()->year }}</span>
+    </div>
+  </div>
+</footer>
+</html>

@@ -1,0 +1,90 @@
+    <div class="row register-form" style="pointer-events: none;">
+      <div class="col-md-12">
+         <div class="col-md-12">
+       <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+        <!-- <label><b>Please fill in the applicable details  pertaining to the dispute</b></label> -->
+      </div>            
+      <div class="form-group text-center" style="margin-bottom: 1.4em">
+        <label><u><b>Loan Details</b></u></label>
+      </div>
+    </div>
+  
+
+     <?php $__currentLoopData = $respodentcounterclaimbanking_relief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $banking_reliefs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+     <?php if($banking_reliefs->relief_id = $details->id): ?>
+     <div class="row">
+      <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div>
+      <div class="col-md-5" > 
+        <div class="form-group">
+          <input type="text" id="smortgaged_property" value="<?php echo e($banking_reliefs->mortgaged_property); ?>" readonly class="form-control<?php echo e($errors->has('mortgaged_property') ? ' is-invalid' : ''); ?>" >
+          <label class="form-control-placeholder" for="mortgaged_property">Mortgaged Property/ Pledged Property/ Hypothecated property:</label> 
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    
+      
+      
+  
+    <div class="row">
+      <div class="col-md-3"> 
+        <div class="form-group">
+         <input type="text" id="sdebt_recovery"  value="<?php echo e($details->debt_recovery); ?>" class="form-control<?php echo e($errors->has('debt_recovery') ? ' is-invalid' : ''); ?>" name="debt_recovery" placeholder=" " >
+         <label class="form-control-placeholder" for="debt_recovery">Total Aggregate amount including interest and charges</label>
+         <?php if($errors->has('debt_recovery')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('debt_recovery')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+      <div class="col-md-3"> 
+        <div class="form-group">
+          <input type="text" id="snumber" value="<?php echo e($details->rate_of_interest); ?>"   class="form-control<?php echo e($errors->has('rate_of_interest') ? ' is-invalid' : ''); ?>" name="rate_of_interest" >
+          <label class="form-control-placeholder" for="rate_of_interest">Enforcement of Security Interest: 
+          </label>
+        </div>
+      </div>
+    
+    
+
+   
+      <div class="col-md-3"> 
+        <div class="form-group">
+          <input type="text" id="samount_of_debt"   value="<?php echo e($details->amount_of_debt); ?>" class="form-control<?php echo e($errors->has('amount_of_debt') ? ' is-invalid' : ''); ?>" name="amount_of_debt" >
+          <label class="form-control-placeholder" for="amount_of_debt">Enforcement of Guarantees:</label>
+          
+        </div>
+      </div>
+
+      <div class="col-md-3"> 
+        <div class="form-group">
+          <input type="text" id="sdamages_rs"  value="<?php echo e($details->damages_rs); ?>"  class="form-control<?php echo e($errors->has('damages_rs') ? ' is-invalid' : ''); ?>" name="damages_rs" >
+          <label class="form-control-placeholder" for="damages_rs">Future Interest During Pendency of Arbitration:
+          </label>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="text" id="srate_of_penal_interest"  value="<?php echo e($details->rate_of_penal_interest); ?>"  class="form-control<?php echo e($errors->has('rate_of_penal_interest') ? ' is-invalid' : ''); ?>" name="rate_of_penal_interest" >
+          <label class="form-control-placeholder" for="rate_of_penal_interest">Future Interest from the Date of Award:</label>
+         
+        </div>
+      </div>
+      <div class="col-md-6"> 
+        <div class="form-group">
+          <input type="text" id="sdamage_with_interest"   value="<?php echo e($details->damage_with_interest); ?>" class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" >
+          <label class="form-control-placeholder" for="damage_with_interest">Total Aggregate Amount<span style="color: red">*</span>:</label>
+          
+        </div>
+      </div>
+
+    </div>
+
+</div>
+</div>

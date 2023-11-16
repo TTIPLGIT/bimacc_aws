@@ -1,0 +1,358 @@
+<style>
+  #modal {
+  width:100% !important;
+}
+ .razorpay-payment-button
+{
+  background-color: #1bcd6b !important;
+    padding: 10px;
+    border: 1px; 
+    color: white;
+    border-radius: 10px;
+    font-weight: bolder;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+</style>
+@extends('layouts.admin')
+@section('content')
+
+@foreach ($claimnotices as $notice)
+<div>
+  <div class="container con" >
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+      <p>{{ $message }}</p>
+    </div>
+    @endif 
+    <div class="row">
+     <div class="col-lg-12 margin-tb" style="    text-align: center;
+     color: black;
+     font-weight: 900;
+     font-size: 17px;
+     text-decoration: underline;">                    
+     <b>{{$notice->arbitration_petionno}} </b>
+   </div>
+ </div>
+ @include('showpagejavascript/showpageheadertab') 
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration" id="idclaimnoticedetails" style="display: block">
+      @include('ClaimNoticeShowScreens/ClaimNoticeHeaderShow')      
+</div>
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"   style="margin-top: 10px;" id="idclaimantinformation" >
+  <div class="modal-body"> 
+    <div   class="row register-form" style="margin-top: 10px;" >
+      @foreach ($claimantinformations as $claimant)
+      @include('ClaimNoticeShowScreens/ClaimantInformationShow')      
+      @endforeach
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration" id="idresponantinformation">
+  <div class="modal-body"> 
+    <div  class="row register-form">             
+      @foreach ($respondantdetails as $respondant)              
+       @include('ClaimNoticeShowScreens/RespondentInformationShow')
+      @endforeach 
+  </div>
+</div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"  id="idclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      @foreach ($claimant_information as $claimantinformation)
+      @foreach ($claimandrelief as $details)
+      @include('ShowPageClaimDetails/ClaimDetails') 
+      @endforeach 
+      @endforeach 
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaim"  id="idcounterclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      
+      @include('CounterClaimShowPageClaimDetails/Listcounterclaim') 
+      
+    </div>
+    </div>
+  </div>
+
+
+<div class="modal-content modelcontentheightclaimArbitratorConfiguration"  id="idoveralclaimstatus" >
+  <div class="modal-body"> 
+    <div  class="row register-form">
+      @foreach ($ClaimNoticeStatus as $ClaimNoticeStatuss)
+       @include('ClaimNoticeShowScreens/OverallClaimStatusShow')
+     @endforeach
+   </div>
+ </div>
+
+</div> 
+
+@if($notice->isstageinitiated =='Y')
+@if($ClaimNoticeStatusCount != 0)
+@include('ClaimNoticeStage/respondantdocument')
+@endif
+<div class="container" style="max-width: 100%" > 
+  <div class="modal-content" style="margin-top: 10px;">
+    <div class="modal-body">       
+
+      <div class="row">
+       <div class="col-lg-12 margin-tb" style="    text-align: center;
+       color: black;
+       font-weight: 900;
+       font-size: 17px;
+       text-decoration: underline;">                    
+       <b>{{$notice->arbitration_petionno}} </b>
+     </div>
+   </div>
+
+   <div class="table-responsive" style="margin-bottom: 30px;">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead class="theadalign">
+        <tr>
+          <th>Stage</th>
+          <th>Stage Name</th>
+          <th>Stage Description</th>
+          
+          <th>Stage Start Date</th>
+          <th>Stage End Date</th>
+          <th>Stage Status</th>
+          <th>Claimant Documents</th>
+          <th>Respondent Documents</th>
+          <th>Upload Document</th>
+        </tr>
+      </thead>  
+      <tbody>
+       @foreach ($ClaimNoticeStage as $key => $ClaimNoticeStages)
+       <tr>
+        <td>{{ $loop->iteration}}</td>  
+          <td>{{ $ClaimNoticeStages->claimantnotice_Stage }}</td>                  
+        <td>{{ $ClaimNoticeStages->claimantnotice_stage_description }}</td>
+         
+        <td>{{ $ClaimNoticeStages->stagefromdate }}</td>  
+        <td>{{ $ClaimNoticeStages->stagetodate }}</td>      
+       <td style="    font-size: 16px;
+            font-weight: 900;
+            color: black;">
+            {{$ClaimNoticeStages->claimantnotice_stage_status}}<br>
+
+            @if($ClaimNoticeStages->claimantnotice_stage_status == "Award Initiated By Arbitrator")
+            <!-- <br>Award Intiated Document:
+            <table>
+              @foreach ($AwardedDcouments as $key => $AwardedDcouments1)
+              @if($AwardedDcouments1->id == $ClaimNoticeStages->id)
+              <tr>
+               <td style="border: none;">
+                 <a href="{{ route('getClaimPetionStageDocuments',$AwardedDcouments1->documentid) }}" target="blank">
+                  {{ $loop->iteration}}.{{$AwardedDcouments1->document_name}}
+                </a>
+              </td>
+            </tr>
+            @endif
+            @endforeach
+          </table>   -->
+          @elseif ($ClaimNoticeStages->claimantnotice_stage_status == "Disposed")
+<!--           Arbitrator Award Document Initiated.
+          <table>
+            @foreach ($AwardedDcouments as $key => $AwardedDcouments1)
+            @if($AwardedDcouments1->id == $ClaimNoticeStages->id)
+            <tr>
+             <td style="border: none;">
+               <a href="{{ route('getClaimPetionStageDocuments',$AwardedDcouments1->documentid) }}" target="blank">
+                {{ $loop->iteration}}.{{$AwardedDcouments1->document_name}}
+              </a>
+            </td>
+          </tr>
+          @endif
+          @endforeach
+        </table>  -->
+        <br>
+      Award:
+         <table>
+            @foreach ($AdminAwardedDocuments as $key => $AdminAwardedDocuments1)
+            @if($AdminAwardedDocuments1->id == $ClaimNoticeStages->id)
+            <tr>
+             <td style="border: none;">
+               <a href="{{ route('getClaimPetionStageDocuments',$AdminAwardedDocuments1->documentid) }}" target="blank" download>
+                {{ $loop->iteration}}.{{$AdminAwardedDocuments1->document_name}}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border: none;">
+              Nature Of Award:
+              <br>
+        @foreach ($claimnoticenatureofaward as $key => $claimnoticenatureofawards)
+        {{$claimnoticenatureofawards->nature_of_award}}
+       
+        @endforeach
+            </td>
+          </tr>
+          @endif
+          @endforeach
+        </table> 
+
+        @endif
+      </td> 
+      <td> 
+        <table>
+          @foreach ($ClaimantclaimNoticeStageDocuments as $key => $claimNoticeStageDocuments1)
+          @if($claimNoticeStageDocuments1->id == $ClaimNoticeStages->id)
+          <tr>
+           <td style="border: none;">
+            <span title="{{$claimNoticeStageDocuments1->remarks}}" >
+             <a href="{{ route('getClaimPetionStageDocuments',$claimNoticeStageDocuments1->documentid) }}" target="blank" download>
+              {{ $loop->iteration}}.{{$claimNoticeStageDocuments1->document_name}}
+            </a></span>
+          </td>
+        </tr>
+        @endif
+        @endforeach
+      </table> 
+    </td>
+    <td>
+      <table>
+        @foreach ($RespondentclaimNoticeStageDocuments as $key => $resclaimNoticeStageDocuments1)
+        @if($resclaimNoticeStageDocuments1->id == $ClaimNoticeStages->id)
+        <tr>
+         <td style="border: none;">
+          <span title="{{$resclaimNoticeStageDocuments1->remarks}}" >
+           <a href="{{ route('getClaimPetionStageDocuments',$resclaimNoticeStageDocuments1->documentid) }}" target="blank" download>
+            {{ $loop->iteration}}.{{$resclaimNoticeStageDocuments1->document_name}}
+          </a></span>
+
+        </td>
+      </tr>
+      @endif
+      @endforeach
+    </table> 
+  </td>
+  <td style="vertical-align: middle;
+  float: unset;">
+  @if($notice->claimnoticestatus =="Disposed")
+
+  @else
+  
+  @if($ClaimNoticeStages->claimantnotice_stage_status =="Initiated" || $ClaimNoticeStages->claimantnotice_stage_status =="InProgress" )
+  <form action="{{ route('claimantrespondantaccess.destroy',$ClaimNoticeStages->id) }}" method="POST"> 
+    <a class="btn btn-success"  title="Download Document"  data-toggle="modal" data-target="#editclaimstageTypeModal{{$ClaimNoticeStages->id}}" data-backdrop="static" data-keyboard="false"  style="
+    margin-left: 25px;">Show</a>
+  </form>
+  @endif
+  @endif
+  <br/>
+  <br/>
+  @if($ClaimNoticeStages->claimantnotice_stage_status =="Additional Payment Link Released by Centre" )
+   @if(!empty($additional_fees))
+          <form  action="{{ route('claimpetion.additionalfees') }}" method="POST" enctype="multipart/form-data">
+  
+        @csrf  
+        
+
+           @if($notice->adminstration_fees != Null)
+           <input type="hidden" name="stage_id" value="{{$ClaimNoticeStages->id}}">
+           <div class="row">
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="Additional" value="{{ number_format((float)$amount_additional, 2, '.', '') }}" class="form-control{{ $errors->has('Additional') ? ' is-invalid' : '' }}" name="Additional" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="adminstration_fees">Additional Fee</label>
+       @if ($errors->has('adminstration_fees'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('adminstration_fees') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+ 
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="additional_amount"  
+ class="form-control{{ $errors->has('total_fee') ? ' is-invalid' : '' }}" value="{{ number_format((float)$rextra_amt, 2, '.', '') }}" name="additional_amount" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="additional_amount">Platform Fee</label>
+       @if ($errors->has('total_fee'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('total_fee') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="total_pay_amt"  
+ class="form-control{{ $errors->has('total_fee') ? ' is-invalid' : '' }}" value="{{ number_format((float)$total_pay_amt_check, 2, '.', '') }}" name="total_pay_amt" placeholder=" " readonly>
+       <label class="form-control-placeholder" for="total_amount">Total Amount</label>
+       @if ($errors->has('total_fee'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('total_fee') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+</div>
+</div>
+
+   
+  @endif
+
+ 
+
+         <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                            data-key="{{ env('RAZORPAY_KEY') }}"
+                                             data-amount="{{$rtotal_pay_amt}}"
+                                            data-buttontext="Pay Additionl Fee"
+                                            data-name="Online Arbitartion System"
+                                            data-description="EAS"
+                                             data-image="http://ttci-demo.com:1001/images/pic.png"
+                                            data-prefill.name="name" 
+                                            data-prefill.email="email"
+                                            data-theme.color="#343464">
+                                    </script>
+                                   
+        
+ 
+
+
+                   
+
+
+
+
+       </form>
+     @endif
+  @endif
+</td> 
+</tr>
+@endforeach
+</tbody>
+</table>
+</div>
+</div> 
+<div class="modal-footer" style="margin-bottom: 50px;">
+  <div class="mx-auto" style="display: inline-flex;">
+   <a class="btn btn-danger btn-space" href="{{ route('claimantrespondantaccess.index') }}"> Back</a>
+ </div> 
+</div> 
+@else
+<div class="modal-footer" style="margin-bottom: 50px;">
+  <div class="mx-auto" style="display: inline-flex;">
+   <a class="btn btn-danger btn-space" href="{{ route('claimantrespondantaccess.index') }}"> Back</a>
+ </div> 
+</div> 
+@endif
+
+
+</div>             
+</div>
+</div>
+</div>
+@include('showpagejavascript/showscript') 
+
+@endforeach
+@endsection

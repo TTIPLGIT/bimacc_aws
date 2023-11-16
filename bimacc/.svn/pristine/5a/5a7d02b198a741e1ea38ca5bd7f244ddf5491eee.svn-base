@@ -1,0 +1,218 @@
+<div class="row register-form" style="pointer-events: none;">
+    <div class="col-md-12">
+      <div class="row"> 
+       <div class="col-md-12">
+         <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+          <!-- <label><b>Please fill in the applicable details  pertaining to the dispute</b></label> -->
+        </div>
+        <div class="form-group text-center" style="margin-bottom: 1.4em">
+          <label><u><b>Total Value of Contract</b></u></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+     
+      
+      <div class="col-md-6">  
+        <div class="form-group">
+         <input type="text" id="csescalation_of_costs" class="form-control<?php echo e($errors->has('escalation_of_costs') ? ' is-invalid' : ''); ?>" name="escalation_of_costs"  value="<?php echo e($details->escalation_of_costs); ?>">
+         <label class="form-control-placeholder" for="escalation_of_costs">Escalation of Costs:</label>
+         <?php if($errors->has('escalation_of_costs')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('escalation_of_costs')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-6">  
+      <div class="form-group">
+       <input type="text" id="csclaim_for_damages" class="form-control<?php echo e($errors->has('claim_for_damages') ? ' is-invalid' : ''); ?>" name="claim_for_damages" value="<?php echo e($details->claim_for_damages); ?>">
+       <label class="form-control-placeholder" for="claim_for_damages">Damages:</label>
+       <?php if($errors->has('claim_for_damages')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('claim_for_damages')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<?php $__currentLoopData = $contract_relief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contract_reliefs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<?php if($contract_reliefs->relief_id == $details->id): ?>
+<div class="row">
+   <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div>
+  <div class="col-md-5">  
+    <div class="form-group" >
+     <input type="number" id="cscontract_price1" value="<?php echo e($contract_reliefs->contract_price); ?>" class="form-control<?php echo e($errors->has('contract_price') ? ' is-invalid' : ''); ?>"  readonly >
+     <label class="form-control-placeholder" for="contract_price">Contract Price:</label>
+     <?php if($errors->has('contract_price')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('contract_price')); ?></strong>
+    </span>
+    <?php endif; ?>
+
+  </div>
+</div>
+<div class="col-md-6" >  
+  <div class="form-group">
+   <input type="text" id="csclaim_for_refund_lines1" class="form-control<?php echo e($errors->has('claim_for_refund_lines') ? ' is-invalid' : ''); ?>" value="<?php echo e($contract_reliefs->claim_for_refund_lines); ?>" readonly >
+   <label class="form-control-placeholder" for="claim_for_refund_lines">Claim for Refund:</label>
+   <?php if($errors->has('claim_for_refund_lines')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('claim_for_refund_lines')); ?></strong>
+  </span>
+  <?php endif; ?>
+
+</div>
+
+</div>
+</div>
+<?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+<div class="row">
+  <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>Specific Performance</b></u></label>
+   </div>
+ </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" id="csspecific_performance_of_contract" value="<?php echo e($details->specific_performance_of_contract); ?>" class="form-control<?php echo e($errors->has('specific_performance_of_contract') ? ' is-invalid' : ''); ?>" name="specific_performance_of_contract" >
+      <label class="form-control-placeholder" for="specific_performance_of_contract">Specific Performance of Contract:</label>
+      <?php if($errors->has('specific_performance_of_contract')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('specific_performance_of_contract')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>  
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" id="csspecific_estimated_value_of_contract" class="form-control<?php echo e($errors->has('specific_estimated_value_of_contract') ? ' is-invalid' : ''); ?>" name="specific_estimated_value_of_contract" value="<?php echo e($details->specific_estimated_value_of_contract); ?>" >
+      <label class="form-control-placeholder" for="specific_estimated_value_of_contract">Estimated Value of Material: </label>
+      <?php if($errors->has('specific_estimated_value_of_contract')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('specific_estimated_value_of_contract')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+    
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>To Return Materials</b></u></label>
+   </div>
+
+ </div>
+ <div class="col-md-6"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>To Cancel/ Invoke Performance Guarantees</b></u></label>
+   </div>
+ </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" id="cstocancel_estimated_value_of_contract" class="form-control<?php echo e($errors->has('tocancel_estimated_value_of_contract') ? ' is-invalid' : ''); ?>" name="tocancel_estimated_value_of_contract" value="<?php echo e($details->tocancel_estimated_value_of_contract); ?>">
+      <label class="form-control-placeholder" for="tocancel_estimated_value_of_contract">Estimated Value of Material: </label>
+      <?php if($errors->has('tocancel_estimated_value_of_contract')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('tocancel_estimated_value_of_contract')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+    
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" id="csamount_guaranteed" class="form-control<?php echo e($errors->has('amount_guaranteed') ? ' is-invalid' : ''); ?>" name="amount_guaranteed"  value="<?php echo e($details->amount_guaranteed); ?>">
+      <label class="form-control-placeholder" for="amount_guaranteed">Amount Guaranteed:</label>
+      <?php if($errors->has('amount_guaranteed')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('amount_guaranteed')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+    
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+      <input type="number" id="csinterest_amount"  class="form-control<?php echo e($errors->has('interest_amount') ? ' is-invalid' : ''); ?>" name="interest_amount" value="<?php echo e($details->interest_amount); ?>">
+      <label class="form-control-placeholder" for="interest_amount">Interest Amount:</label>
+      <?php if($errors->has('interest_amount')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('interest_amount')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4"> 
+    <div class="form-group">
+      <input type="number" id="csdamage_with_interest"  value="<?php echo e($details->damage_with_interest); ?>" class="form-control<?php echo e($errors->has('damage_with_interest') ? ' is-invalid' : ''); ?>" name="damage_with_interest" >
+      <?php if($claimantinformations[0]->currency =='INR'): ?> 
+      <label class="form-control-placeholder" for="damage_with_interest">Total Claim (INR)<span style="color: red">*</span>:</label>
+      <?php else: ?>
+      <label class="form-control-placeholder" for="damage_with_interest">Total Claim (USD) <span style="color: red">*</span>:</label>
+      <?php endif; ?>
+      <?php if($errors->has('damage_with_interest')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('damage_with_interest')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="text" id="csclaim_for_contract_price" value="<?php echo e($details->claim_for_contract_price); ?>" class="form-control<?php echo e($errors->has('claim_for_contract_price') ? ' is-invalid' : ''); ?>" name="claim_for_contract_price" >
+     <label class="form-control-placeholder" for="claim_for_contract_price">Damages:</label>
+     <?php if($errors->has('claim_for_contract_price')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('claim_for_contract_price')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="number" id="csclaim_for_contract_price_interest" value="<?php echo e($details->claim_for_contract_price_interest); ?>" class="form-control<?php echo e($errors->has('claim_for_contract_price_interest') ? ' is-invalid' : ''); ?>" name="claim_for_contract_price_interest" >
+    <label class="form-control-placeholder" for="claim_for_contract_price_interest">Interest (%): </label>
+    <?php if($errors->has('claim_for_contract_price_interest')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('claim_for_contract_price_interest')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+   <label class="form-control-placeholder" for="refund_withoutinterest" style="margin-left: 32px;">Without Interest: </label>
+   <input type="checkbox" class="form-control" id="csrefund_withoutinterest"  name="refund_withoutinterest" style="width:7%" value="yes" <?php echo e($details->refund_withoutinterest == 'yes' ? 'checked' : ''); ?>>
+ </div>
+</div>
+
+</div>
+
+</div>
+</div>

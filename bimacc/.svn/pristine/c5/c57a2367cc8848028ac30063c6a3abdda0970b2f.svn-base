@@ -1,0 +1,615 @@
+    @extends('layouts.admin')
+    @section('content') 
+
+    <div id="wrapper" style="padding-left: 2%;
+    padding-right: 2%;">       
+
+    <div id="content-wrapper">
+      <div class="container-fluid">              
+        <!-- Area Chart Example-->
+        <div class="col-xl-12 col-sm-12 col-md-12">
+          <div class="row">
+
+            <div class="col-xl-7 col-sm-7">      
+
+              <div class="row" style="margin-bottom: 17px;">
+
+                @role('centre')
+                 <div class="col-xl-12 col-sm-12 mb-12" >
+                  <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                         @foreach ($total_claim_counts as $total_claim_counts_n)
+                        <div class="col mr-2"> 
+                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-3">
+                          <a class="text-xs font-weight-bold text-warning text-uppercase mb-3" href="{{url('report/totalclaimnoticereport')}}"> Total Claim Notices Filed :  {{$total_claim_counts_n->totalclaimcount}}</a></div>
+                         @endforeach
+                         <div class="h5 mb-0 font-weight-bold text-gray-600">
+                          @foreach ($total_Draft_count as $total_Draft_count_n)
+                          <a  href="{{url('report/totalnoticedraftreport')}}"> 
+                          Draft: {{$total_Draft_count_n->Draft}}</a> | 
+                          @endforeach
+
+                          @foreach ($total_Send_count as $total_Send_count_n)
+                          <a href="{{url('report/totalnoticesendreport')}}"> 
+                          Sent : {{$total_Send_count_n->Send}}</a> | 
+                          @endforeach
+
+                          @foreach ($total_Await_count as $total_Await_count_n)
+                          <a href="{{url('report/totalnoticeawaitreport')}}"> 
+                          Awaiting respondent reply: {{$total_Await_count_n->Await}}</a> | 
+                          @endforeach
+
+                          @foreach ($total_Closed_count as $total_Closed_count_n)
+                          <a href="{{url('report/totalnoticeclosedreport')}}"> 
+                          Closed : {{$total_Closed_count_n->Closed}}</a> 
+                          @endforeach
+                         </div>
+                          
+
+                         <!-- <div class="h5 mb-0 font-weight-bold text-gray-800"> --><!-- {{App\models\Claimantregister::count()}} -->
+                          <!-- </div> -->
+                        </div>
+
+                        <div class="col-auto">
+                          <i class="fas fa-user fa-2x" style="color: #343464"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @endrole
+                @role('claiment')
+                
+                <div class="col-xl-6 col-sm-6" >
+                  <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2"> 
+                          <a href="{{route('claimnotice.index')}}"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1"> Number of Claim Notices filed </div></a>
+
+                         
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">
+                           {{$respondentcount}}
+                         </div>
+                        
+                       </div>
+                       <div class="col-auto">
+                        <i class="fas fa-user fa-2x" style="color: #343464"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endrole
+              @role('arbitrator')
+              <div class="col-xl-6 col-sm-6 mb-6" >
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                     <div class="col mr-2"> 
+                     
+                      <a href="{{route('ArbitratorAllocatedClaims.index')}}"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Number of Total Arbitrations</div></a>
+                     
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                       {{$totalclaimbyarbitrator}}
+                     </div>
+                   
+                   </div>
+                   <div class="col-auto">
+                    <i class="fas fa-user fa-2x" style="color: #343464"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endrole
+          @role('respondent')
+          <div class="col-xl-6 col-sm-6 mb-6" >
+            <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2"> 
+                   <a href="{{route('claimantrespondantaccess.index')}}"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Claim Notices Overview</div>
+                   </a>
+
+                   
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">
+                     {{$counterclaimbyrespodent}}
+                   </div>
+                  
+                 </div>
+                 <div class="col-auto">
+                  <i class="fas fa-user fa-2x" style="color: #343464"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endrole
+
+
+        <div class="col-xl-6 col-sm-6 mb-6" >
+
+          @role('claiment')
+          <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                 <a href="{{route('ClaimPetion.index')}}"> <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Number of Claim Petitions filed</div></a>
+                
+                 <div class="h5 mb-0 font-weight-bold text-gray-800">
+                   {{$claimantDashboardClaimpetioncount}}
+                 </div>
+               
+               </div>
+               <div class="col-auto">
+                <i class="fas fa-layer-group fa-2x " style="color: #1cc88a"></i>
+                <i class="fab fa-buffer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        @endrole
+                    <!--  @role('centre')
+                     <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">No Of Claim Petitions</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{App\models\ClaimNotice::count()}}
+                      </div>
+                    </div>
+                    @endrole -->
+                    @role('arbitrator')
+                    <div class="card border-left-success shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ongoing Arbitrations</div>
+                             
+                        
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                             {{$ongoingarbitration}}
+                           </div>
+                           
+                         </div>
+                         <div class="col-auto">
+                          <i class="fas fa-layer-group fa-2x " style="color: #1cc88a"></i>
+                          <i class="fab fa-buffer"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  @endrole
+                  @role('respondent')
+                  <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                       <div class="col mr-2">
+                        
+                         <a href="{{route('ClaimPetion.respodentclaimpetition')}}"> <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Claim Petitions/ Counter Claims</div></a>
+                       
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                         {{$AllocatedArbitratorCount}}
+                       </div>
+                      
+                     </div>
+                     <div class="col-auto">
+                      <i class="fas fa-layer-group fa-2x " style="color: #1cc88a"></i>
+                      <i class="fab fa-buffer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              @endrole
+
+              
+            </div>                  
+          </div> 
+          <div class="row" style="margin-bottom: 17px;">
+            <div class="col-xl-6 col-sm-6 mb-6" >
+
+                 <!--  @role('centre')
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number Of Ongoing Arbitration</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">1000</div>
+                  @endrole -->
+                  @role('claiment')
+                  <div class="card border-left-primary shadow h-100 py-2" style="display: none;">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number Of Ongoing Arbitration </div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">1000</div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-file-medical-alt fa-2x" style="color: #4e73df;"></i>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  @endrole
+                  <!-- @role('arbitrator')
+                  <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">No Of Closed Claims</div>
+                  @foreach ($ClosedClaimsCountByArbitrator as $ClosedClaimsCountByArbitrator1)
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                   {{$ClosedClaimsCountByArbitrator1->closedclaims}}
+                 </div> RespondentAllocatedArbitrator
+                 @endforeach
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="col-auto">
+                <i class="fas fa-file-medical-alt fa-2x" style="color: #4e73df;"></i>
+
+              </div>
+              @endrole -->
+                 <!-- @role('respondent')
+                 <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Allocated Arbitrator</div>                          
+                   @foreach ($RespondentAllocatedArbitrator as $RespondentAllocatedArbitrator1)
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                   {{$RespondentAllocatedArbitrator1->allocatedarbitrator}}
+                 </div> 
+                 @endforeach
+               </div>
+             </div>
+           </div>
+         </div>
+          <div class="col-auto">
+                <i class="fas fa-file-medical-alt fa-2x" style="color: #4e73df;"></i>
+
+              </div>
+              @endrole -->
+            </div>
+
+            
+            <div class="col-xl-6 col-sm-6 mb-6" >
+
+             <!-- @role('respondent')
+              <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Borrowed Amount</div>
+             <div class="row no-gutters align-items-center">
+               <div class="col-auto">
+                
+                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                 10,000
+                 </div>
+                
+               </div>
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+      <div class="col-auto">
+        <i class="fas fa-rupee-sign fa-2x" style="color: #36b9cc"></i>
+      </div>
+      @endrole -->
+            <!--  @role('centre')
+             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Number Of Awards</div>
+             <div class="row no-gutters align-items-center">
+               <div class="col-auto">
+                
+                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                10,000
+                 </div>
+                 
+               </div>
+
+             </div>
+             @endrole -->
+             <!-- @role('arbitrator')
+              <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Number Of Awards</div>
+             <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+
+              
+               <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                10,000
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div> <i class="fas fa-rupee-sign"></i>
+    <div class="col-auto">
+        <i class="fas fa-rupee-sign fa-2x" style="color: #36b9cc"></i>
+      </div>
+      @endrole -->
+      @role('claiment')
+      <div class="card border-left-info shadow h-100 py-2" style="display: none;">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Net value of Awards</div>
+             <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+               <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                 10,000
+               </div>
+             </div>
+
+           </div>
+         </div>
+         <div class="col-auto">
+          <i class="fas fa-rupee-sign fa-2x" style="color: #36b9cc"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @endrole
+
+
+
+</div>
+</div>
+
+<div class="row" style="margin-bottom: 17px;">
+  <div class="col-xl-6 col-sm-6 mb-6" >
+
+          <!-- @role('centre')
+          <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #e3342f;">Total Amount of Money Recovered this year</div>
+          
+          <div class="h5 mb-0 font-weight-bold " style="color: #e3342f;">
+          10,000
+         </div>
+         @endrole -->
+
+        <!--  @role('arbitrator')
+          <div class="card border-left-pri shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+         <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #e3342f;">Current Year Recovered</div>
+         <div class="h5 mb-0 font-weight-bold " style="color: #e3342f;">
+          10,000
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+  <div class="col-auto">
+        <i class="fas fa-rupee-sign fa-2x " style="color: #e3342f;"></i>
+      </div>
+         
+      @endrole -->
+      @role('claiment')
+       <!--    <div class="card border-left-pri shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+         <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #e3342f;">Current Year Recovered</div>
+         
+         <div class="h5 mb-0 font-weight-bold " style="color: #e3342f;">
+         10,000
+         </div>
+         </div>
+         <div class="col-auto">
+        <i class="fas fa-rupee-sign fa-2x " style="color: #e3342f;"></i>
+      </div>
+       </div>
+     </div>
+   </div> -->
+
+   @endrole
+        <!--  @role('respondent')
+          <div class="card border-left-pri shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+         <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #e3342f;">Current Year Borrowed Amount</div>
+         
+         <div class="h5 mb-0 font-weight-bold " style="color: #e3342f;">
+           10,000
+         </div>
+         </div>
+       </div>
+     </div>
+   </div>
+    <div class="col-auto">
+        <i class="fas fa-rupee-sign fa-2x " style="color: #e3342f;"></i>
+      </div>
+      @endrole -->
+    </div>
+
+
+    <div class="col-xl-6 col-sm-6 mb-6" >
+
+         <!--  @role('centre')
+          <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #6f48a9">Number Of Arbitrators</div>
+          <div class="h5 mb-0 font-weight-bold " style="color: #6f48a9">{{App\models\ArbitrationMaster::count()}}</div>
+          @endrole -->
+          @role('claiment')
+          <div class="card border-left-succ shadow h-100 py-2" style="display: none;">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #6f48a9">Number Of Disposed Arbitrations</div>
+                  <div class="h5 mb-0 font-weight-bold " style="color: #6f48a9">{{App\models\ArbitrationMaster::count()}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-gavel fa-2x" style="color: #6f48a9"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          @endrole
+          <!-- @role('arbitrator')
+           <div class="card border-left-succ shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #6f48a9">Claimants List</div>
+          <div class="h5 mb-0 font-weight-bold " style="color: #6f48a9">{{App\models\ClaimantRegister::count()}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto">
+          <i class="fas fa-gavel fa-2x" style="color: #6f48a9"></i>
+        </div>
+        @endrole -->
+
+        <!--   @role('respondent')
+           <div class="card border-left-succ shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color: #6f48a9">Claimants List</div>
+          <div class="h5 mb-0 font-weight-bold " style="color: #6f48a9">{{App\models\ClaimantRegister::count()}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto">
+          <i class="fas fa-gavel fa-2x" style="color: #6f48a9"></i>
+        </div>
+        @endrole -->
+      </div>
+
+
+    </div>
+
+  </div>
+   @role('centre')
+ 
+  <div class="col-xl-8 col-sm-8 mb-8" >
+                  <div class="card border-left-warning shadow h-69 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        @foreach ($total_claim_counts as $total_claim_count_ne)
+                        <div class="col mr-2"> 
+                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-4">
+                          <a class="text-xs font-weight-bold text-warning text-uppercase mb-4" href="{{url('report/totalclaimpetitionreport')}}"> Total Claim Petitions : {{$total_claim_count_ne->totalclaimcount}} </a></div> 
+                        @endforeach    
+                         <div class="h5 mb-0 font-weight-bold text-gray-600">
+                          @foreach ($total_Filed_count as $total_Filed_count_n)
+                          <a href="{{url('report/totalnoticefiledreport')}}"> 
+                          Filed :  {{$total_Filed_count_n->Filed}}</a> |
+                          @endforeach 
+
+                          @foreach ($total_Pending_count as $total_Pending_count_n)
+                          <a href="{{url('report/totalnoticependingreport')}}"> 
+                           Pending :  {{$total_Pending_count_n->Pending}}</a> |
+                          @endforeach 
+
+                          @foreach ($total_Disposed_count as $total_Disposed_count_n)
+                           <a href="{{url('report/totalnoticedisposedreport')}}"> 
+                            Disposed : {{$total_Disposed_count_n->Disposed}}</a>
+                          @endforeach 
+
+                         </div>
+                        
+
+                         <!-- <div class="h5 mb-0 font-weight-bold text-gray-800"> --><!-- {{App\models\Claimantregister::count()}} -->
+                          <!-- </div> -->
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-user fa-2x" style="color: #343464"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  @endrole
+  
+  @role('claiment')
+  
+  <!-- <div class="col-xl-5 col-sm-5">
+    <div class="card border-left-warning shadow h-100 py-2" style="
+    
+
+    height: 63% !important;
+    
+    ">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2"> 
+          <a href="{{route('payadministationfees.index')}}"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1"> Administration and Arbitrator's Fee </div></a>
+
+          @foreach ($payadministration_fees as $payadministration_fees1)
+          <div class="h5 mb-0 font-weight-bold text-gray-800">
+           {{$payadministration_fees1->total_count_fees}}
+         </div>
+         @endforeach
+       </div>
+       <div class="col-auto">
+         <img src="{{ url(asset('images/currency.png')) }}" style="width: 41px;">
+      </div>
+    </div>
+  </div>
+</div>
+</div> -->
+@endrole
+</div>
+</div>
+
+</div>
+
+
+<!-- Icon Cards-->
+<div class="col-xl-12 col-sm-12 col-md-12">
+
+</div>               
+
+</div>                      <!-- /.container-fluid --> 
+
+
+
+</div>
+<!-- /.content-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<script src="{{ asset('js/barchart.js') }}" defer></script>
+<script src="{{ asset('js/Chart.min.js') }}" defer></script>
+ @role('arbitrator')
+ <a class="btn btn-primary" title="Edit"  href="{{url('userfaq')}}" style="
+    position: fixed;
+    bottom: 41px;
+">FAQ</a>  
+ @endrole
+  @role('claiment')
+ <a class="btn btn-primary" title="Edit"  href="{{url('userfaq')}}" style="
+    position: fixed;
+    bottom: 41px;
+">FAQ</a>  
+ @endrole
+  @role('respondent')
+ <a class="btn btn-primary" title="Edit"  href="{{url('userfaq')}}" style="
+    position: fixed;
+    bottom: 41px;
+">FAQ</a>  
+ @endrole
+@endsection

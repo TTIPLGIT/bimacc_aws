@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+ Hello <?php echo e($data3['firstname']); ?>,
+  <br/><br/><br/>
+  This is with Reference to Online Arbitration System - Claim Notice ( No:<?php echo e($data3['claimnoticeno']); ?>), your case reference numbers is now Claim Petition (No:<?php echo e($data3['ArbitrationNo']); ?>)
+<br/><br/>
+  
+  Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a>
+  <br/><br/>
+ With Reference to the Claim Petition (<?php echo e($data3['claimnoticeno']); ?>) we are pleased to infom you the appointment of an Arbitrator who has been selected after obtaining his consent and disclosure of conflict of interest if any. Use above link to participate in the proceedings. <br/><br/>
+   
+  This is System Generated Mail Please Do not Reply.<br/><br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

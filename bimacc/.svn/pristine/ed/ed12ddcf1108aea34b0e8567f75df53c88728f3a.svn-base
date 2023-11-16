@@ -1,0 +1,6 @@
+<div class="col-md-4">
+        <div class="form-group">
+         <strong><u><?php echo e($ClaimNoticeStatuss->claimantnoticestatus); ?> By & Date  </strong></u><br>
+         <?php echo e($ClaimNoticeStatuss->creatorname); ?> & <?php echo e($ClaimNoticeStatuss->created_at); ?> 
+       </div>
+     </div> 

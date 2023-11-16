@@ -1,0 +1,27 @@
+<table class="table table-bordered dataTable no-footer" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+        <thead class="theadalign">
+          <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sl. No.: activate to sort column descending" style="width: 77px;">Sl. No.</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Claimant Name: activate to sort column ascending" style="width: 156.2px;">Claimant Name</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Username
+            : activate to sort column ascending" style="width: 110.6px;">Username
+            </th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Claimant Email: activate to sort column ascending" style="width: 240.2px;">Claimant Email</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Claimant Contact Number: activate to sort column ascending" style="width: 249px;">Claimant Contact Number</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Claimant Type: activate to sort column ascending" style="width: 147.4px;">Claimant Type</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="City: activate to sort column ascending" style="width: 62.6px;">City</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="State: activate to sort column ascending" style="width: 82px;">State</th></tr>
+        </thead>
+
+        <tbody>
+
+
+          
+         
+        
+      <tr role="row" class="odd">
+          <td class="sorting_1">1</td>
+         
+          <td>keerthi devi</td>
+          <td>keerthi</td>
+          <td>keeruthika1998@gmail.com</td>
+          <td>08695703787</td>  
+           <td>Individual</td>  
+           <td>chennai</td>  
+           <td>tamilnadu</td>  
+          <!-- <td>
+            <form action="http://localhost:1000/claimantslist/1" method="POST">
+
+              <a class="btn btn-info" href="http://localhost:1000/claimantslist/1" data-toggle="modal"  data-target="

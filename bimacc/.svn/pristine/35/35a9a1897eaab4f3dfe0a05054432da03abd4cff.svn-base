@@ -1,0 +1,149 @@
+<?php $__env->startSection('content'); ?>
+<?php $__currentLoopData = $claimnotices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+<div class="container con"> 
+  <?php if($message = Session::get('success')): ?>
+<div class="alert alert-success">
+  <p><?php echo e($message); ?></p>
+</div>
+<?php endif; ?> 
+ <div class="row">
+   <div class="col-lg-12 margin-tb" style="    text-align: center;
+   color: black;
+   font-weight: 900;
+   font-size: 24px;
+   text-decoration: underline;">                    
+   <b><?php echo e($notice->claimnoticeno); ?> </b>
+ </div>
+</div>
+<?php echo $__env->make('showpagejavascript/showpageheadertab', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+
+<div class="modal-content modelcontentheightclaim" id="idclaimnoticedetails" style="display: block">
+      <?php echo $__env->make('ClaimNoticeShowScreens/ClaimNoticeHeaderShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+</div>
+<div class="modal-content modelcontentheightclaim"   style="margin-top: 10px;" id="idclaimantinformation" >
+  <div class="modal-body"> 
+    <div   class="row register-form" style="margin-top: 10px;" >
+      <?php $__currentLoopData = $claimantinformations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ClaimNoticeShowScreens/ClaimantInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+  </div>
+</div>
+
+<div class="modal-content modelcontentheightclaim" id="idresponantinformation">
+  <div class="modal-body"> 
+    <div  class="row register-form">             
+      <?php $__currentLoopData = $respondantdetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $respondant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>              
+       <?php echo $__env->make('ClaimNoticeShowScreens/RespondentInformationShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+  </div>
+</div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_information; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $claimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('ShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+<div class="modal-content modelcontentheightclaim"  id="idcounterclaiminformation" style="overflow-y: none"  >
+  <div class="modal-body"> 
+    <div class="row register-form"> 
+      <?php $__currentLoopData = $claimant_information; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimantinformation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $respodentcounterclaimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php echo $__env->make('CounterClaimShowPageClaimDetails/ClaimDetails', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content modelcontentheightclaim"  id="idoveralclaimstatus" >
+  <div class="modal-body"> 
+    <div  class="row register-form">
+      <?php $__currentLoopData = $ClaimNoticeStatus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ClaimNoticeStatuss): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+       <?php echo $__env->make('ClaimNoticeShowScreens/OverallClaimStatusShow', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   </div>
+ </div>
+
+</div>
+
+<div class="modal-content" style="margin-top: 10px; border:none !important">
+  <div class="modal-body">
+    <form action="<?php echo e(route('arbitratorconfiguration.store',$notice->id)); ?>" method="POST" style="width: 100%">
+      <?php echo csrf_field(); ?> 
+      <?php if( $notice->claimnoticestatus == 'Payment Completed' || $notice->claimnoticestatus=='Arbitrator Rejected'): ?>   
+      <div class="modal-footer">
+        <div class="col-md-6">
+          <div class="form-group">
+            <strong>Select Arbitrator : </strong>
+            <select  name="arbitrator_id[]" id="arbitrator_id" class="arbitrator_id form-control">
+              <?php $__currentLoopData = $arbitratorlist; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $arbitrator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <option value="<?php echo e($arbitrator->user_id); ?>"><?php echo e($arbitrator->username); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <strong>Remarks : </strong>
+            <textarea class="form-control" id="remarks" name="remarks"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" style="    max-width: 100%;">
+        <div class="form-group">
+          <p>
+           Please give us your consent and disclose your interest. For the sake of your reference you may view the notice of arbitration in the said matter however the same will be available for download only after your appointment is confirmed.Kindly respond to this within 5 working days.<br> 
+           If we fail to receive communication, this offer stands withdrawn without further notice .
+
+          </p><br>
+          <p>
+            You are advised not to share this information, including the contents of the notice of arbitration with anyone else. 
+          </p>
+        </div>
+      </div>
+
+      <?php endif; ?>
+
+      <div class="col-md-6">
+        <div class="form-group" style="display: none;">
+         <input type="hidden" name="claimnoticeid" id="claimnoticeid" value="<?php echo e($notice->id); ?>">
+         <input type="hidden" name="claiment_id" id="claiment_id" value="<?php echo e($notice->userid); ?>">
+       </div>
+     </div>
+     <div class="mx-auto" style="text-align: center; border:none !important" >
+      <?php if($notice->claimnoticestatus== 'Respondent Denying and Choose to participate' || $notice->claimnoticestatus== 'Payment Completed' || $notice->claimnoticestatus=='Arbitrator Rejected'): ?>
+      <button class="btn btn-success btn-space" type="submit" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Allocate Arbitrator</button>
+      <?php endif; ?>
+      <a class="btn btn-danger btn-space" href="<?php echo e(route('arbitratorconfiguration.index')); ?>"> Back</a>    
+    </div>
+  </div>
+
+</div>
+</form>
+</div> 
+</div>             
+</div>
+</div>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+<script type="text/javascript">
+  $(".arbitrator_id").select2({
+    maximumSelectionLength: 50
+  });
+</script> 
+
+<?php echo $__env->make('showpagejavascript/showscript', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>       
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

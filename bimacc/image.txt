@@ -1,0 +1,3 @@
+	<br/><br/>
+  <img src="{{ $message->embed(url(asset('images/pic.png'))) }}" style="
+    width: 73px;">

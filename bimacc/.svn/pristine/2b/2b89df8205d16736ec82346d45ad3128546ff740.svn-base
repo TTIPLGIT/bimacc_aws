@@ -1,0 +1,83 @@
+<?php $__env->startSection('content'); ?>
+<div class="limiter">
+
+  <div style="width:42%; float:left;margin-top: 8%;
+  ">            
+  <div class="login100-form-avatar">
+    <h1 class="bold">E-Online Arbitration System</h1>
+    <img src="<?php echo e(url(asset('images/logo1.png'))); ?>" class="img1001" />
+    <div>
+        <h4 style="
+        padding-top: 20px;
+        padding-bottom: 20px;
+        ">If you don’t have an account</h4>
+        <a class="login100-form-btnnew" title="Register" href="<?php echo e(route('claimantregister.create')); ?>"><?php echo e(__('Please Register')); ?></a>     </div>
+    </div>
+</div>
+
+<div class="container-login100" style="width:58%; float:right;">
+  <img src="images/login_page.png"   class="loginimg">
+  <form method="POST" action="<?php echo e(route('login')); ?>" class="login100-form validate-form" autocomplete="off">
+    <?php echo csrf_field(); ?>                
+    <div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+        <div>
+         <h1 class="boldnew">LOGIN</h1>
+     </div>
+     <input id="email" type="text" class="input100 form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" placeholder="Enter Email ID or Mobile Number" value="<?php echo e(old('email')); ?>" required autofocus>
+
+     <?php if($errors->has('email')): ?>
+     <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('email')); ?></strong>
+    </span>
+    <?php endif; ?>
+    <span class="symbol-input100" style="    margin-bottom: 42px;">
+        <img src="<?php echo e(url(asset('images/usericon.png'))); ?>" class="inputicon" />
+    </span>
+</div>
+
+<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+    <input id="password" type="password" placeholder="Enter Password" class="input100 form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" name="password" required  placeholder="Password">
+    <?php if($errors->has('password')): ?>
+    <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('password')); ?></strong>
+    </span>
+    <?php endif; ?>
+    <span class="symbol-input100" style="    margin-bottom: 50px;
+    ">
+    <img src="<?php echo e(url(asset('images/passicon.png'))); ?>" class="inputicon" />
+</span>
+</div>
+<div class="m-t-15">
+    <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
+
+    <label class="rememberme" for="remember">
+        <?php echo e(__('Remember Me')); ?>
+
+    </label>
+</div>
+<div class="container-login100-form-btn p-t-10">
+    <button type="submit" class="login100-form-btn"><div><img src="<?php echo e(url(asset('images/Layer3.png'))); ?>" class="imgicon" /></div>
+        <?php echo e(__('')); ?>
+
+    </button>
+    <?php if(Route::has('password.request')): ?>
+    <a class="text-center w-full p-t-25 p-b-0 txt1 btn btn-link" href="<?php echo e(route('password.request')); ?>">
+        <?php echo e(__('Forgot Password!')); ?>
+
+    </a>
+    <?php endif; ?>
+</div>
+</form>
+</div>
+<div style="width: 100%">
+ <div class="footercredits">
+    <a href="JavaScript:Void(0);">Privacy policy</a> 
+    <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p> 
+    <i class="fa fa-copyright" style="color: black; "></i><p><?php echo e(now()->year); ?> <a href="<?php echo e(url('https://www.bimacc.org/')); ?>" target="blank" style="color: red"> &nbsp;Lexquisite. &nbsp;</a> &nbsp; All Rights Reserved. &nbsp;</p>
+
+</div>
+</div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.basic', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

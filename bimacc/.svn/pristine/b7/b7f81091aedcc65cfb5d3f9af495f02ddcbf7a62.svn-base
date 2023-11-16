@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+  Hello <?php echo e($data1['claimantname']); ?>,
+  <br/><br/><br/>
+ This is with Reference to Online Arbitration System - Claim Notice ( No:<?php echo e($data1['claimnoticeno']); ?>)<br/><br/>
+   Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a><br/><br/>
+  
+  Use the above link to access/ view the Claim Notice Status and Payment Link as per the invoice attached in this mail.
+  <br/><br/>
+  This is System Generated Mail Please Do not Reply
+  <br/><br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+
+
+

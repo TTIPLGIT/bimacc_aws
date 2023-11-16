@@ -1,0 +1,248 @@
+
+<?php $__currentLoopData = $ClaimNoticeStage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ClaimNoticeStages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<!-- create Arbitration modal -->
+<div class="modal hide fade" id="BIMACCclaimstageTypeModal<?php echo e($ClaimNoticeStages->id); ?>" tabindex="-1" role="dialog" aria-labelledby="createclaimstagelabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+    <div class="modal-content">  
+      <div class="modal-header">
+        <h5 class="modal-title" id="editclaimstagelabel">Edit Stage for <?php echo e($notice->claimnoticeno); ?></h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"> 
+       <form id="createForm" action="<?php echo e(route('ClaimPetition.update',$ClaimNoticeStages->id)); ?>" 
+        method="POST" enctype="multipart/form-data" >
+        <?php echo csrf_field(); ?> 
+        <?php echo method_field('PUT'); ?> 
+        <div class="row register-form">
+         <div class="col-md-6">
+          <div class="form-group">
+            <label  >Case Status</label>
+              <input type="text" id="claimnoticeid" name="claimnoticeid" class="form-control"  
+            value="<?php echo e($ClaimNoticeStages->claimnoticeid); ?>"style="display: none;">
+            <input type="text" id="claimantnotice_Stage1" name="claimantnotice_Stage1" class="form-control"  
+            value="<?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?>" required disabled>
+
+            <?php if($errors->has('claimantnotice_Stage1')): ?>
+            <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('claimantnotice_Stage1')); ?></strong>
+            </span>
+            <?php endif; ?>  
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+           <label>Claim Stage Description</label>
+           <textarea id="claimantnotice_stage_descriptions" name="claimantnotice_stage_descriptions" class="form-control" required  value="<?php echo e($ClaimNoticeStages->claimantnotice_stage_description); ?>" disabled><?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?></textarea>
+
+           <?php if($errors->has('claimantnotice_stage_description')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('claimantnotice_stage_description')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="stagefromdate">Stage Start Date</label>
+          <input type="date" id="stagefromdate" name="stagefromdate" class="form-control" required value="<?php echo e($ClaimNoticeStages->stagefromdate); ?>" disabled>
+          <?php if($errors->has('stagefromdate')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('stagefromdate')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  for="stagetodate">Time ends by midnight of</label>
+          <input type="date" id="stagetodate" name="stagetodate" class="form-control" required value="<?php echo e($ClaimNoticeStages->stagetodate); ?>" disabled>
+          <?php if($errors->has('stagetodate')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('stagetodate')); ?></strong>
+          </span>
+          <?php endif; ?>  
+        </div>
+        <input type="hidden" name="claimantnotice_stage_description"  value="<?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?>" >
+      </div>
+      <?php if($ClaimNoticeStages->claimantnotice_stage_status !="Award Initiated" && $ClaimNoticeStages->claimantnotice_stage_status !="Additional Payment Paid"): ?>
+      <div class="col-md-6">
+        <div class="form-group">
+         <label  for="claimantnotice_stage_status">Stage Status </label><span style="color: red">*</span>
+         <select class="form-control" name="claimantnotice_stage_status" id="claimantnotice_stage_change" onchange="stage_decription(this,<?php echo $loop->iteration;?>)" required>
+          <option value="" >Select Stage Status</option>
+           <option value="Send Back To Arbitrator">Send Back To Arbitrator</option>
+          <!-- <option value="Disposed ">Award Pronounced</option> -->
+          <option value="Additional Payment Link Released by Centre ">Award Pronounced</option>
+        </select>
+      </div>
+    </div>
+
+      <!-- <div class="col-md-6">
+        <div class="form-group">
+          <label  for="nature_of_award">Nature Of Award</label><span style="color: red">*</span> 
+        
+        <select class="form-control" name="nature_of_award" id="nature_of_award " required>
+          <option value="">Select</option>                
+          <option value="Claim Petition Allowed">Claim Petition Allowed</option>
+          <option value="Claim Petition Party Allowed">Claim Petition Partly Allowed</option> 
+          <option value="Claim Petition Dismissed">Claim Petition Dismissed</option>     
+          <option value="Claim Petition Dismissed Counter Claim Allowed">Claim Petition Dismissed Counter Claim Allowed</option>
+          <option value="Claim Petition Dismissed Counterclaim Party Allowed">Claim Petition Dismissed Counterclaim Partly Allowed</option>     
+          <option value="Claim Petition and Counter Claim Allowed">Claim Petition and Counter Claim Allowed
+          </option>     
+          <option value="Claim Petition and Counter Claim Party Allowed">Claim Petition and Counter Claim Partly Allowed</option>  
+          <option value="Claim Petition Party Allowed,Counter Claim Dismissed">Claim Petition Partly Allowed,Counter Claim Dismissed</option>     
+          <option value="Claim petiton and Counter Claim Dismissed">Claim petiton and Counter Claim Dismissed</option>        
+
+        </select>
+      </div>
+    </div> -->
+     
+   <!--  <div class="col-md-6" id="document_field<?php echo e($loop->iteration); ?>" style="display: none;">
+      <div class="form-group">
+        <label  for="awardedstatementdocumentbycenter">Awarded Statement Document Upload</label><span style="color: red">*</span>
+        <input type="file" name="awardedstatementdocumentbycenter" id="awardedstatementdocumentbycenter" class="form-control">
+        <?php if($errors->has('awardedstatementdocumentbycenter')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('awardedstatementdocumentbycenter')); ?></strong>
+        </span>
+        <?php endif; ?>  
+      </div>
+    </div> -->
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label  for="awardedstatementdocumentbycenter">Notes</label>
+        <textarea id="stage_notes" name="stage_notes" class="form-control" required ></textarea>
+      </div>
+    </div>
+     <div class="col-md-6" id="document_field<?php echo e($loop->iteration); ?>" style="display: none;">
+            <div class="form-group">
+              <label>Select Email Addresses<span style="color: red">*</span></label>
+              <select class="col-xs-12 col-sm-12 col-md-12 form-control mail_id" id="mail_id<?php echo e($loop->iteration); ?>" name="mail_id[]" multiple >
+                <option value="" selected>Select Email Addresses<span style="color: red">*</span></option>
+              </select>
+            </div>
+          </div>
+         
+    <?php endif; ?>
+     <?php if($ClaimNoticeStages->claimantnotice_stage_status =="Additional Payment Paid"): ?>
+     <div class="col-md-6" >
+      <div class="form-group">
+        <label  for="awardedstatementdocumentbycenter">Disposed Statement Document Upload</label><span style="color: red">*</span>
+        <input type="file" name="awardedstatementdocumentbycenter" id="awardedstatementdocumentbycenter" class="form-control">
+        <?php if($errors->has('awardedstatementdocumentbycenter')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('awardedstatementdocumentbycenter')); ?></strong>
+        </span>
+        <?php endif; ?>  
+      </div>
+    </div>
+
+    <?php endif; ?>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="hidden" id="claimnoticeid" name="claimnoticeid" value="<?php echo e($notice->id); ?>">
+        <input type="hidden" id="claimantnotice_Stage" name="claimantnotice_Stage" value="<?php echo e($ClaimNoticeStages->claimantnotice_Stage); ?>">
+        <input type="hidden" id="claimnoticestageid" name="claimnoticestageid" value="<?php echo e($ClaimNoticeStages->id); ?>">
+        <input type="hidden" id="claimnoticeno" name="claimnoticeno" value="<?php echo e($notice->claimnoticeno); ?>">
+        <input type="hidden" id="claimantnotice_stage_description" name="claimantnotice_stage_description" value="<?php echo e($ClaimNoticeStages->claimantnotice_stage_description); ?>">
+        <input type="hidden" id="arbitration_petionno" name="arbitration_petionno" value="<?php echo e($notice->arbitration_petionno); ?>">
+        <input type="hidden" id="alfresco_stage_folderuniqueid" name="alfresco_stage_folderuniqueid" value="<?php echo e($ClaimNoticeStages->alfresco_stage_folderuniqueid); ?>">
+      </div>
+    </div>
+    
+  </div>            
+</div>
+<div class="modal-footer">
+  <div class="mx-auto">
+
+   <!--  <button type="submit" id="register" class="btn btn-success btn-space" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();">Relese Final Award/Send Back To Arbitrator</button> -->
+ <!--   <a class="btn btn-primary"  data-toggle="modal" data-target="#paymentaward" style="
+  color: white;">Amend</a> -->
+  <?php if($ClaimNoticeStages->claimantnotice_stage_status =="Additional Payment Paid"): ?>
+    <button type="submit" id="register" class="btn btn-success btn-space">Release Final Award</button>
+    <?php else: ?>
+    <button type="submit" id="register" class="btn btn-success btn-space">Release Payment Link/Send Back To Arbitrator</button>
+    <?php endif; ?>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">Cancel</span>
+    </button>              
+  </div>
+</div> 
+</div>             
+</form>
+</div>
+</div>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<!-- End of create Arbitration modal -->
+<script>
+
+ function stage_decription(e,index)
+ {
+  var inputvalue = e.value;
+// alert(inputvalue);
+
+  if( inputvalue==="Send Back To Arbitrator"){
+
+    $("#document_field"+index).hide();
+    
+
+    
+  }
+  else 
+  {
+   $("#document_field"+index).show();
+   
+
+ }
+ 
+
+
+}
+</script>
+<script type="text/javascript">
+  $( document ).ready(function()
+  {
+    var claim_array=<?php echo json_encode($ClaimNoticeStage);?>;
+    var claim_notice_id = $('#claimnoticeid').val();
+
+   // alert('<?php echo e(url('/videoconferencing/getemail')); ?>' + '/' + claim_notice_id);
+    
+
+    $.ajax({
+      url: '<?php echo e(url('/videoconferencing/getemail_repay')); ?>' + '/' + claim_notice_id,  
+      // alert()  
+      method:'GET',  
+      success:function(data){
+        console.log(data);        
+        for (var i = 1; i <= claim_array.length; i++) {
+        $('#mail_id'+i).empty();
+             $('#mail_id'+i).append('');
+              // $('#mail_id'+i).append('<option value=""></option>');
+          for(var count = 0; count < data.length; count++)
+          {
+            optionText = data[count].email; 
+              optionValue = data[count].id; 
+    
+              $('#mail_id'+i).append(`<option value="${optionValue}"> 
+                                         ${optionText} 
+                                    </option>`);  
+          }
+        }
+        
+      },
+      error:function(){
+
+
+      }
+    });
+
+
+    
+
+  });
+</script>

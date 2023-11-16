@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<title>Online Arbitration Systems</title>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="{{ url('/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('/js/dataTables.buttons.min.js') }}"></script>
+<link href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.css') }}" rel="stylesheet">
+
+<link href="{{ url(asset('css/dataTables.bootstrap4.min.css')) }}" rel="stylesheet" type="text/css">
+<link href="{{ url('/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+
+<link href="{{ url('/css/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+
+<style>
+    /* Add some padding on document's body to prevent the content
+    to go underneath the header and footer */
+
+    
+    #footer {
+      color: white !important;
+      padding: 10px 10px 0px 10px;
+      bottom: 0 !important;
+      width: 100%;
+      /* Height of the footer*/ 
+      height: 40px;
+      background: #602e9e  !important;
+    }
+    .container{
+      width: 80%;
+      margin: 0 auto; /* Center the DIV horizontally */
+    }
+    nav a{
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 25px;
+      display: inline-block;
+    }
+
+    #more {display: none;}
+
+    .centered { 
+      font-family: "Nunito", sans-serif !important;
+
+      position: absolute;
+      top: 45%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+      font-size:35px !important;
+      color:  gold !important;
+    }
+
+    .centereds {
+      font-family: "Nunito", sans-serif !important;
+
+      position: absolute;
+      top: 55%;
+      left: 25%;
+      transform: translate(-50%, -50%);
+      font-size:24px !important;
+      color:white !important;
+    }
+    p {
+    line-height: 2;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+ul {
+    line-height: 2;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+li {
+   
+    list-style: none;
+}
+
+strong {
+    color: blueviolet;
+}
+h2{
+font-size: 32px;
+    color: #e12864;
+}
+html ,body{
+   background-color: #e9ecff  !important;
+}
+.navbar-inverse {
+    background-color: #222;
+    border-color: #f8f5f5;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" style="background:#bfc1ff">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" >
+          <img src="/images/pic.png" width="100"  class="d-inline-block align-top" alt="">
+        </a> 
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <h5 style="color:#602e9e !important; padding:20px !important; font-weight:600 !important; margin-top:20px !important;  font-size:25px !important;">Electronic Arbitration System</h5>
+        </li>
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right"> 
+        <li>
+          <a type="button" href="{{url('claimantregister/create')}}"  style="margin-top: 30px !important;   font: 18px Arial, sans-serif!important; padding:10px !important;   color: #602e9e  !important; " class="btn"  title="Register"><b>Register</b></a>    
+        </li>
+        <li>
+          <a type="button" href="{{route('login')}}"  style="margin-top: 30px !important;  font: 18px Arial, sans-serif!important; padding:10px !important;   color: #602e9e  !important; " class="btn"  title="Login"><b>Login</b></a>    
+        </li>
+        <li>
+          <a type="button" href="{{url('https://www.bimacc.org/')}}"  style=" " class="btn"  title="Bimacc"><img src="/images/logo1.png" class="img-responsive" width="110px" style="margin-top:5px !important;"></a>    
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+       <ul>
+<li style="list-style-type: none;">
+<ul>
+<li>
+<p><strong>&nbsp;</strong></p>
+
+ 
+ <ul>
+<li style="list-style-type: none;">
+<ul>
+<li>
+<h2>&nbsp; &nbsp; &nbsp; TERMS OF USE OF ELECTRONIC ARBITRATION SYSTEM</h2>
+<h2>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Powered by BIMACC</h2>
+</li>
+</ul>
+</li>
+</ul>
+<p></p>
+
+<li>1.These Terms shall be called BIMACC&rsquo;S<strong> ELECTRONIC ARBITRATION SYSTEM RULES (EAS RULES)</strong></li>
+
+<p></p>
+
+<li>2.These rules shall come into effect from the 2<sup>nd</sup> Oct 2021</li>
+
+<p></p>
+
+<li>3.By agreeing to adopt these rules the parties to a contract are irrevocably bound by these rules and the term parties shall include their respective successors-in-interest, successors-in-title, assigns,legal representative, executors,administrators, insolvency professionals and liquidators</li>
+
+<p></p>
+
+<li>4.These rules shall be applicable to all the signatory countries of the New York Convention.</li>
+
+<p></p>
+
+<li>5.The parties who adopt these rules are deemed to have knowledge about these rules, the process offast track arbitration which are summary in nature adhering to the principles of natural justice.</li>
+
+<p></p>
+
+<li>6.An contract containing the following online arbitration clause or parties agree to have their disputes resolved byway of online arbitration clause are eligible to initiate the process in accordance with theserules.</li>
+
+
+<ul>
+<li>i)The parties here in agree that all disputes pertain to the contract including such disputes that might arise out of drafting, performance and enforcement of the contract shall be referred for Arbitration by a sole arbitrator, appointed by Bangalore International Mediation, Arbitration and Conciliation Centre&rsquo;s </em><strong>ELECTRONIC ARBITRATION SYSTEM RULES (EAS)</strong>.The parties agree that the EAS will be binding on successors-in-interest, successors-in-title, assigns,legal representative, executors,administrators, insolvency professionals and liquidators.Further that each of the parties shall prescribe in the agreement the respective email addressas well as postal address and mobile phone number shall not be changed or abandoned at all times.In the event ofa change pf email address, postal address and mobile phone number, such a change shall be communicated in writing to the other parties to this agreement, within seven days from such a change coming to effect. Communication made to the email address given in this agreement shall be binding on the recipient party, irrespective of the person having gained access to the said communication or not. To ensure the generation of an email communication, each of the parties shall mention their respective mobile phone numbers in this agreement.The sender of any email communication made with respect to the online arbitrationto the disclosed email address, shall send a short messageto the recipient/s&rsquo; mobile phone advice the recipient to checkemail box for the email despatched</li>
+<li>ii) The parties agree that the applicable law shall be the law of&hellip;&hellip;&hellip;</li>
+<li>iii)The parties agree and understand that the even though the arbitration shall be online, the seat of arbitration shall be &hellip;&hellip;&hellip;</li>
+
+
+<p><strong>&nbsp;</strong></p>
+</ul>
+
+<li><strong>7.DEFINITIONS</strong></li>
+
+<p></p>
+<p>For the purpose of these rules, the following terms defined</p>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;">Access means the capability to digitally access the webpage of EAS and use the same.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Administration means the process of managing the EAS portal by BIMACC</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Administration Fee means the provisional or final fee payable by the user of EAS facility towards administration of the EAS portal.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Advocate is a lawyer who has been qualified to practice law by Bar Council of country</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Agreement means a contract containing the Arbitration Clause.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Amendis a procedure to correct the name or address of partiesto a an Arbitration process &ndash; be it notice of arbitration or pleadings.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Affidavit is a statement made on oath by a person, who is administered oath by a Notary Public or a Magistrate as to its content to be true and correct.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Affidavit in Lieu-of-Examination in Chief means an affidavit filed a witness supporting the pleading of a party and with reference to the documents filed along with the pleadings.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitration means EAS arbitration, which is alternative dispute resolution process, done electronically using computer or any digital devise with internet capability, without requiring physical presence of the parties or the arbitrator at any given point of time or place and without the requirement of documents and pleadings being filed physically for the purpose of resolution of the dispute.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitration Case means an arbitration case that is either pending or disposed in the EAS Arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitration Clause Means an agreement byparties to a contract to refer disputes if any for EAS arbitration or</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitration Fee means Provisional as well as final fee payable by the claimant or the person making a counter claim to EAS arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitrator means a neutral independent person appointed buy the Centre to resolve a dispute through EAS Arbitration</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Arbitrator&rsquo;s consent means disclosure of interest by an arbitrator to be appointed so with reference to a particular dispute and disclosing there is no conflict of interest.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Association means an registered society orgroup of persons including a not-for-profit company, for the welfare or promotion of general public or set of persons.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Audio recording means recording of a voice of a person digitally and transmitting it through internet as part of the arbitration hearing.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Auditor means a chartered accountant or a Certified Public Accountant as the case may be in accordance with the law of the country where such a person resides and is licenced to practice the profession of accountancy and auditing.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Authorisation means document in the nature of power of attorney issued by an individual or on behalf of a HUF or a Board Resolution of Company/Society/Association/Trust/Limited Liability Partnership or Letter by apartnership firm, empowering a person to represent such person in the EAS arbitration proceedings, including signing the pleadings, affidavits, etc.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Authorised Representative means a person holding an authorisation.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Award means the document marking the finality of the EAS arbitration with respect to a particular case passed by the Arbitrator.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Banking means the business activity of banks, financial institutions and non-banking financial companies of money lending of all kinds.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">BIMACC means Bangalore International Mediation, Arbitration and Conciliation Centre.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Cancel means to nullify a Notice for Arbitration that has been generated partially or fully, but sent bythe claimant .</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Case means an Arbitration Case</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Centre means the registry of EAS</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claim means the demand made by the claimant in the Notice of Arbitration and the Statement of Claim and also includes demand made in a Counter Claim statement by Respondent/s.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claim Details means the information that areto be entered by the Claimantwhile registering theNotice of Arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claim Case Number means a unique number assigned to a case, normally similar to the Claim Notice Number.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claim Notice Number means a unique number assigned to Notice of Arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claim Status means the status of a Notice of Arbitration</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claimantmeans the person who initiates the Notice of Arbitration</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Claimant Details means the information that a claimant needs to enter at the time of registering the Notice of Arbitration</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Company means a Company Incorporated under laws of ancountry and is also referred to as Corporation or Joint-stock Company.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">CompanySecretary means a professional who is authorised by the law of the land where such a person resides to carryout compliance of the corporate procedures under the company law of such a country.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Contractmeans an agreement between the parties to the Arbitration, containing the EAS Arbitration Clause.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Counter-claimmeans a demand made by a respondent/s against a claimantwhich may include a demand for set-off.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Counter-claim feemeans fee payable by the respondent/s on the value of the counter claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Counter-Affidavit means an affidavit filed by a party in response to the Affidavit in Lieu of Examination-in-chief of a party.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Costmeansthe aggregate of any fee that has been paid by a party towards</li>
+</ul>
+<ul>
+<p></p>
+
+<ol>
+  <li>a)Registration</li>
+<li>b) Administration</li>
+<li>c) Arbitrationand such other amount that may be determined by the Arbitrator.</li>
+</ol>
+<p></p>
+</ul>
+<ul>
+<li style="
+    list-style: circle;
+">Cross Examinationmeans examination of a witness of one party by the Arbitrator and notthe other party to the arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Dispute Categorymeans the various types of disputes which the claimant has to too select while registering the Notice of Arbitration or by the Respondent while registering the Counter Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Documents means any document that has been cited in the pleadings and uploaded to the EAS portal along with the pleadings.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Domestic Disputemeans a dispute where all the parties are Indian entities.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Downloadis the process of accessingNotice of arbitration, pleadings, affidavits and documents which have been uploaded in the EAS portal, and storing the same in computer device by a party or the Arbitrator. This may include the Award passed by the Arbitrator.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">EASmeans Electronic Arbitration System of BIMACC</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">EAS Portal means the website of EAS</li>
+</ul>
+<p></p>
+<ul style="
+    list-style: circle;
+">
+<li>Email means electronic communication of any information be it written message, graphs, attachment of documents of any kind, videos or audio bits between two or more persons with respective electronic communication devices such as computers, laptops, tablets or smart-phones,and such exchange occurs from one person&rsquo;s email address to the email address of another person and such communication occurs using the internet.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Email ID or Email Address means a dedicated mail box created electronically using the internet, by one person to send or receive emails to or from others who has/ have email address or addresses using the internet</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Editis a limited option available to the Claimant at the time of entering the details forcreation of the Notice of Arbitration, to edit Claimant Details, Respondent Details and Claim Relief.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Entitymeans include any person &ndash; be it an individual, HUF, Limited Liability Company, Association, Society, Co-operative, Trust, Partnership firms, Limited Liability Partnership,Government, Government bodies, Statutory Authorities, Government Companies, International Agencies created by the United Nations or by bilateral or multilateral treaties.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Evidencemeans an Affidavit of a witness in lieu of examination-in-chief and the documents referred to in the pleading.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Examination-in-chiefmeans an Affidavit in lieu of examination-in-chiefofa witness</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Expert&rsquo;s Evidencean affidavit of an expertin support of a party.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Feemeans any fee, provisional or finial payable by the party to the centre.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Firmmeans a registered partnership firm including an LL.P.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Government means any department of a government &ndash; be it Union of India, or a State Government or a Government of any Union Territory of India, any foreign government,government bodies, statutory corporations created by any government, Statutory Authorities of a Government, Government owned corporation or business entity.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Governing law means the law of country by which the parties had agreed to abide with in terms of their agreement. In the absence of a specific governing law the law of India shall be made applicable.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">HUF means a Hindu Undivided Family or Hindu Joint family within the meaning of &hellip;..Indian Income Tax Act 1961.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Hybrid EAS means a specific programme within the EAS mechanism exclusive meant for the banking sector, when the claimant is not aware of the email address of one or more respondents, and the communication occurs by physically despatching printed notice of arbitration and other notification from the centre to the respective respondents while the actual arbitration will remain online.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">INR means Indian National Rupee</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Individual means a natural person, who is of 18 years and above and not being deprived by any law to enter into a contract.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">International Dispute means any dispute between
+<ul>
+<li >1.One or more Indian entity and one or more foreign entity or</li>
+<li >2.One or moreforeign entities.</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Jurisdiction means the binding authority of the EAS arbitration Clause on the parties to a contract, subjecting themselves to the jurisdiction of the EAS Arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">LLP means a Limited Liability Partnership duly incorporated in a country.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Lawyer means an Advocate as defined above.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Material notice means notice generated by the Claimant in an Hybrid EAS arbitration to respondent/s without email address/sees but having postal address,the print copy of the said digital notice is forwarded by the Centre to the Respondent/s seeking response.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Material Notifications mean posting of any notification to the postal address of the respondents under the Hybrid system.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Mediation has the same meaning as explained in the website of BIMACC.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Message Alerts means the messages sent to the mobile phone, email address of a party to check the respective claim notice status or case statusof a particular case.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Mobile Phone Number mean dedicated number assigned to a party&rsquo;smobile smart phone also referred to as&ldquo;smart phone&rdquo; smart cell phone&rdquo; or &ldquo;smart cellular phone&rdquo; .</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Non-Banking Finance Companies (NBFC) means a companyin the business of money lending, leasing, hire-purchase, factoring and other kinds, mutual funds, Asset Recovery, etc.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Notice of Arbitrationmeans the digital notice, generated by a claimant using the EAS portal, sent to respondent/s with respect to an Arbitration Case, initiating the commencement of the EAS Arbitration</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Notification means a communication either as an email or message that can be accessed through the EAS portal or sent to the mobile phone of the parties to the arbitration.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Objection means statement of objection to the Statement of Claim Petition or to the Counter Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Password means unique key characters to be used by a party or the Arbitrator to access the EAS portal with</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Payment Gateway means a third party facility utilised by EAS to enable parties to make payment of fees though the EAS portal</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Person means any natural person or artificial juridical person and in the contest of EAS it would include an entity that is a party to the arbitration proceedings</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Registration means the registering the name of the claimant in the EAS portal</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Registration fee means the fee payable by the claimant or the respondent at the time of registration of a claim or counter claims as the case maybe</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Registrymeans the EAS Centre</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Relief means an action required by a claimant against the respondent/s in the Notice of Arbitration and the Statement of Claim as well as an action required by Respondent/s to be taken against the Claimant in the Statement of Counter Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Respondent means a person against who the Notice of Arbitration has been sent and been arrayed as a party to defend the Statement of Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Respondent Details means the information about the Respondent/s that the Claimant needs enter at the time of registration of the Notice of Arbitration which may include amendments to such an information.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Rebuttal Affidavit means a counter-affidavit.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Seat of Arbitration shall mean the place of arbitration that the parties to an arbitration contact have agreed.In the absence of any specific reference to the seat of arbitration in the contract,the seat of arbitration shall be treated as virtual and deemed to be in Bangalore , India.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Set-off is a claim made by the respondent/s against the claimant to appropriate dues by the claimant to the respondent/s from the amount claimed by the Claimant against the respondent/s</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Society means an association of persons duly registered with a government or licenced by a government to promote certain objectives for the welfare of a group of persons or for the benefit of the public at large and the income of the said society not being distributed among its members.For the purpose of EAS it will include a Co-operative Society duly incorporated under any law of the country.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Statement of Claim means the written document of a claimant containing brief description of the parties to the dispute, facts of the case, grounds, an details of the claim reliefs against the respondent/s.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Statement of Counter Claimmeans the written document of a Respondent/s being part ofthe Statement of Objection along withfacts of the counter claim, grounds and details ofthe counterand the counter claimreliefs against the Claimant.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Statement of Objection is statement of the Respondent/s specifically admitting or denyingany contents of the Statement of Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Statement of Objection to Counter Claim is statement of the Claimant specifically admitting or denyingany contents of the Statement of Claim.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Termination means the conclusion of the EAS Arbitration by and Award or dismissal of the claim petition for non-prosecution or withdrawal.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Trust means creation of a group of trustees by an author/s for to manage certain assets for the benefit of certain person or persons or for the public at large and shall not mean any oral trust.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">USD means United States Dollar</li>
+<li style="
+    list-style: circle;
+">Under valuation means value of claim or counter claim made by a party at the time of registeringthe Notice of Arbitration or at the time of lodging the Statement of Claim or Statement of Counter Claim</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Upload means the process of transferring any information or document to the server of EAS to enablea party to the Arbitration or the Arbitrator to gain access to the same and store the same in their respective computer devise.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">User ID means the unique identity created by or for a party to the arbitration as well to an arbitrator.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Valuation means assessing the value of the claimsmade in the Notice of Arbitration or in the Statement of Claim or Statement of Counter Claim or at the end of the Arbitration before any Award is passed for the purpose of payment of fee, provisional or final as the case maybe.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Verification is affirmation of the averments made in a Statement of Claim or Statement of Objections and or Statement of Counter Claim to be true and correct by the Authorised representative.</li>
+</ul>
+<p></p>
+<ul>
+<li style="
+    list-style: circle;
+">Witness is a natural person has volunteered to give evidence in a case, in support of any party to the proceeding and would include an expert witness.</li>
+</ul>
+<p></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>CLAIM NOTICE REGISTRATION</strong></p>
+
+
+<li>8.A claimant other than a claimant opting to Hybrid EAS,intending to invoke EAS to resolve a dispute shall</li>
+
+<p></p>
+<ul>
+<ol>
+<li>a.Have a communication device such as a computer, laptop, tablet or a smart phone having uninterrupted power supply and uninterrupted internet connection of not less the 3G bandwidth.</li>
+<li>b.Log in to <a href="http://www.eas.org">eas.org</a>or access the said website through <a href="http://www.bimacc.org">www.bimacc.org</a> and clickon ONLINE ADR.</li>
+<li>c.The claimant shall login to the EAS \ with a unique USER ID and password which shall not be shared by the claimant to any unauthorised person or persons.</li>
+<li>d.The claimant shall have an option to choose mediation instead of arbitration. If the claimant desires to opt for mediation, the claimant can go to the webpage of <strong>BIMACC</strong> and follow the procedure registering for mediation.</li>
+<li>e.If the Claimant opts for EAS, theclaimant shall access the CLAIMANT REGISTRATION page, and fill in the information, and the mandatory information which are indicated with (*) sign.</li>
+<li>f.On completion of the CLAIMANT REGISTRTIONpage, move to the RESPONDENT INFOMRAITON page and provide all the details required in the that page including the mandatory information which are indicated with (*) sign.</li>
+<li>g.On completion of the RESPONDENT INFOMRATION page, the Claimant shall move to the Claim Details page and fill all the relevant columnsincluding the mandatory information which are indicated with (*) sign.</li>
+<li>h.On completion the Respondent information, the Claimant shall move to the Claim Details page and fill in all the relevant particulars including mandatory informationwhich are indicated with (*) sign.</li>
+<li>i.On completion the Claim Details, the Claimant shall move to the Claim Relief page and fill in all the relevant particulars including mandatory informationwhich are indicated with (*) sign.</li>
+<li>j.The Claimant shall review the information that has been fed in the relevant page click the appropriate edit or amend buttons as the case may be and correctmistakes if any, upload the documentsas required in (j) below..</li>
+<li>k.It is the duty of the Claimant to upload the following documents as proof of:</li>
+
+<ul>
+<li>i)Identity of the individual/entity/ Company</li>
+<li>ii)Proof of postal address, email address and mobile phone number of the claimant or the authorised representative of the claimant</li>
+<li>iii)Document evidencing the authority to register to lodge the Notice of Arbitration, Despatch of Notice of Arbitration, Participation in the Arbitration Proceedings, affirming to affidavits and uploading the same</li>
+<li>iv)Agreement or contract evidencing the proof of email addresses and mobile phone numbers, postal address of the respondents and the arbitration clause.</li>
+</ul>
+
+<li>l.The claimant on clicking the Submit button the payment gateway advice window will appear on the screen.</li>
+<li>m.The claimant maywithinSeven days pay the registration fee as indicated the payment gateway windowwhich will generate the claim notice to the respondent/s</li>
+<li>n.It is the duty of the claimant to verify the status of Notice of Arbitration and ensure payment of the registration fee to enable dispatch or cancel the issuance of the Notice of Arbitration.</li>
+<li>o.If the claimant fails to pay the registration fee within eight days the claim registration will lapse.</li>
+</ol>
+</ul>
+<p></p>
+<p><strong>CLAIM NOTICE DESPATCH</strong></p>
+
+
+<li>9.The EAS Registry/ Portal , except in a case of Hybrid EAS, shall forward the Notice of Arbitration,to the registered email address of the Respondent/ Respondents and also generate a short message to the registered mobile phone of the Respondent/s as well as to the claimant.</li>
+
+<p></p>
+
+<li>10.It is the duty of theClaimant to ensure that the email address of the Respondent/s and the respective mobile phone numbers of the each of the respondents are correct and updated.</li>
+
+<p></p>
+
+<li>11.The Registry of BIMACC will not be responsible for any change in postal address, or email address or mobile phone number of any of the respondent.</li>
+
+<p></p>
+
+<li>12.It is the duty of the parties to an arbitration agreement to mutually inform about change in postal address, email address and their mobile phone numbers.</li>
+
+<p><strong>&nbsp;</strong></p>
+<p><strong>RESPONDENT/S RESPONSE TO CLAIM NOTICE</strong></p>
+
+<p>13.On receipt of the Notice of Arbitration, the Respondent/ S shalllog in to the EAS with a uniqueUser ID and password.</p>
+<p></p>
+
+<li>14.On logging into the EAS the Respondent/s shall have the following options available on the screenand may click either of the three responses</li>
+
+<p></p>
+<ul>
+<li>i)Admit the claim as stated in theNotice of Arbitration.</li>
+<li>ii)Dispute either partially or fully,the claim stated in the Notice of Arbitration</li>
+<li>iii)Dispute the claim mentioned in the Notice of Arbitration as well as prefer acounter claim or claim for set off.</li>
+</ul>
+<p></p>
+
+<li>15.If the Respondent/s fail to exercise any option within 30 days, it is deemed that the respondent/s has/ have accepted the claim notice without demur and the dispute will be eligible for referring to the arbitrator.</li>
+
+<p></p>
+
+<li>16.On the Respondent/s choosing any of the above said option, the arbitration process commences in the following manner:
+<ul>
+<li>a.The Claimant is notified about the option exercised by the Respondent/s</li>
+<li>b.By exercising any of the option, the claimant as well as the respective Respondents should be aware that dispute will be referred to a sole arbitrator appointed by the EAS registry.</li>
+<li>c.When there are multiple respondents in a dispute and each of the respondent exercises different options, the dispute will be referred to a sole arbitrator appointed by the EAS registry.</li>
+<li>d.The appointment of sole arbitrator by the registry is subject to the claimant paying the appropriate Administration fee and Arbitration fee.</li>
+<li>e.The Administration fee and Arbitration fee shall be system generated based on the in claim made by put made by the Claimant and are provisional only.</li>
+</ul>
+</li>
+</ol>
+<p></p>
+<ol>
+<li>f.The Administration fee and the Arbitration fee shall be subject to revision, based on the nature of relief and actual value, which shall be determined by the Arbitrator.</li>
+</ol>
+<p></p>
+<ol>
+<li>g.If the Claimant fails to pay in full the provisional Administration Fee andor the provisional Arbitration Fee within eight days from the Respondent&rsquo;s response, it shall be deemed that the Claimant has abandoned the claim and the registration fee and any partly paid administration fee or arbitration fee will not be refunded.</li>
+<li>h.An abandoned claim may be reviewed by repeating the entire process mentioned in Rule 8 of these Rules and payment appropriateprovisional administration and arbitration fee.</li>
+<li>k.The Claimant shall constantly monitor the status of the Notice of Arbitration sent to the Respondent/s by logging into the EAS system</li>
+</ol>
+<p><strong>&nbsp;</strong></p>
+<p><strong>APPOINTMENT OF ARBITRATOR</strong></p>
+
+
+<li>17.On the claimant effecting the provisional administration fee and the provisional arbitration feeEAS registry shall identify an appropriateArbitratorsfrom its panel, seek their respective disclosure of interest and undertaking of confidentiality by giving limited online access thenotice of arbitration and response to the notice of arbitration.</li>
+
+<p></p>
+
+<li>18.Every Arbitrator shall respond onlinewithin five working days either giving consent and disclose interest or decline the offer to be appointed as arbitrator. I if the Arbitrator fails to respond within five working failing it will deemed that the Arbitrator has declined consent andchoose an appropriate arbitrator observing the similar protocol of selection.</li>
+
+<p></p>
+
+<li>19.The EAS being a fast track process,the selection and appointment of an arbitrator shall be at the discretion of the EAS Registry and neither the parties to the arbitration or their lawyers are privy to the process mentioned in Rules 15 and 16.</li>
+
+<p></p>
+<p><strong>CLAIM NOTICE DESPATCH IN HYBRID EAS </strong></p>
+
+<li>20.Where a Claimant being a banking companydoes not have the email address or the mobile phone number of the respondent&rsquo;scan chose the Hybrid EAS registration process, and enter all information including the correct postal address or addresses of the respondent/s without the email addresses of the respondents and or the mobile phone nos.</li>
+
+<p></p>
+
+<li>21.On registration of theNotice of Arbitration by the claimant using the Hybrid EAS option, and paying the additional fee that may be prescribed from time to time, the Centre will get a Notice of Arbitration printed and post the same to the Respondent/s last known postal address along with a covering letter informing about the registration of the Notice of Arbitration and advice the respondent/s to participate in the online arbitration of EAS sharing an access link to portal with reference to the Claim Notice number, urging the respondent/s tosend an email to the Centre with reference to the Claim Notice number to enable the centre to give access to Arbitration proceedings. The said communication shall be in Form A.</li>
+
+<p></p>
+
+<li>22.The Claimant shall pay additional registration fee in case of Hybrid EAS that may be determined time to time by the Centre, which may vary from case to case depending upon theplace or country of residence of the Respondent/s and the manual hours spent by the registry.</li>
+
+<p></p>
+
+<li>23.The Respondent/s shall be given 30 days time to respond to the said Notice of Arbitration, failing which on the 31<sup>st</sup> daythe Centre will assign the dispute to an arbitrator and the proceedings will commence without waiting for the Respondent to participate.</li>
+</ol>
+<p></p>
+
+<li>24.In the event the Respondent/s fail to participate,the arbitrator shall inform the centre about the next date ofarbitration, to enable the Centre to generate appropriate notification to the Respondent/sdespatched to the last known postal address of the Respondent/still the pronouncement of Award.</li>
+
+<p></p>
+
+<li>25.In the event the Respondent/s desires to participate in the proceedings at any subsequent date and stage fixed by the Arbitrator, but not after the stage of Award being reserved,the Arbitrator may permit the participation provided the Respondent/s files Statement of Objections along with Affidavit in lieu of Examination-in-Chief simultaneously along with the request for participation. Further under such circumstances the Respondent/s will notbe allowed to prefer a counter-claim or set-off, however the Respondent/s is/ are at liberty to initiate independent arbitration proceedings using the EAS platform.</li>
+
+<p></p>
+
+<li>26.The Registry of BIMACC will not be responsible for any change in postal address, or email address or mobile phone number of any of the respondent.</li>
+
+<p></p>
+
+<li>27.It is the duty of the parties to an arbitration agreement to mutually inform about change in postal address.</li>
+
+<p></p>
+<p><strong>PLEADINGSAND PAYMENT OF PROVISIONAL FEE</strong></p>
+
+
+<li>28.On the Respondent/sresponding to the Notice of Arbitration, the Centre shall notify the Claimant to pay theprovisional Administration Fee and provisional Arbitration fee to the centre and generate the payment gateway window to facilitate the claimant to pay the said amount to the centre.The shall be determined on the basis valuation of the Claims made in the Statement of Claim in accordance with Schedule 1 to these rules.</li>
+
+<p></p>
+
+<li>29.In the event the Respondent/s fails to respond within eight days from the despatch of the Notice of Arbitration in the normal EAS arbitrationor in the case of Hybrid EAS Arbitration the Respondent/s fail to respond within 30 days from the date of despatch of the Notice of Arbitration as per Rule 21 above , the claimant shall upload Statement of Claim within 10 working days.</li>
+
+<p></p>
+
+<li>30.The Statement of Claim shall be in Form B with scanned copies of the original documents in possession of the claimant.</li>
+
+<p></p>
+
+<li>31.On uploading of Statement of Claim, the Centre shall direct the Respondent/s to upload the Statement of Objections in Form C, with or without the counter claim within 30 days.</li>
+
+<p></p>
+
+<li>32.However only in the case of Hybrid EAS, where respondent/s have failed to respond to the Notice of arbitration sent under Rule 21, the centre shall direct the Claimant to despatch the Statement of Claim along with a covering letter to the last known address of the Respondent/s by Registered Post or Recorded delivery or by Courieras the case may be with a covering letter and lodge the copy of the said letter with proof of despatch or delivery (acknowledgment-due-card along with proof of delivery of the postal/courier tracking system). The Respondent/s shall be given 30 days toupload the statement of objection with or without counter claims.</li>
+
+<p></p>
+
+<li>33.On uploading of the Statement of objections along with Counter Claim the Centre shall communicate to the Respondent/s the provisional Administrative fee and the Arbitration fee payable to Centre in terms ofthe Schedule of Fee in Schedule&hellip;.. to these rules on the basis of provisional valuation of Counter claims if any. within 10 days from the date of communication.</li>
+
+<p></p>
+
+<li>34.When a party to the arbitration fails to pay the prescribed fee or part there of,to the centre the other party maypay the fee of the defaulting party and proceed with the matter.In such an event, if the defaulting party does not succeed in opposing the claim or the counter claim as the case may be, will be liable tothe other party successful party who paid the fees to return thefee with interest at the rate of 6 % per annum which shall be part of the award.</li>
+
+<p></p>
+<p><strong>APPOINTMENT OF ARBITRATOR</strong></p>
+
+<li>35.On receipt of the fee as stated in Rules 28,32 and 33,the Centre shall communicate to the parties the name of the Arbitrator.</li>
+<p></p>
+
+<li>36.The Centre shall appoint an arbitrator using an appropriate depending upon the nature of claim and claim value, experience of the arbitrator and number of arbitrations that are pending with him or her.</li>
+
+<p></p>
+
+<li>37.The Centre gives limited access to the Arbitrator to view the Claimant Detail and Respondent/s detail and calls for disclosure of interest and acceptance within three days.</li>
+</ol>
+<p></p>
+
+<li>38.If the Arbitrator does not respond within three days or declines to give consent, the Centre will opt for another arbitrator fitting the requirement as well as one who does not have conflict of interest.</li>
+
+<p></p>
+<p><strong>ARBITRATION PROCEEDINGS</strong></p>
+
+<p><strong><u>Evidence Stage</u></strong></p>
+
+
+<li>39.The arbitrator on completion of the pleadings, conducts the proceedings in consultation of the parties to the dispute initiating the Evidence Stage in the following manner:</li>
+<ul>
+<p></p>
+<ol>
+<li>a.Fixes a time of not later than 10 days from the date of communication for the respective parties to upload affidavits in lieu of evidence. However, in the case of Hybrid EAS, where the Respondent/s has or have failed to participate in the proceedings, the shall be posted to the last known postal addresses of the Respondent/s the centre shall direct the Claimant to despatch by postthe Affidavit in lieuof Examination-in-Chiefof the Claimant&rsquo;s witnesses,along with a covering letter to the last known address of the Respondent/s by Registered Post or Recorded delivery or by Courier as the case may be with a covering letter and lodge the copy of the said letter with proof of despatch or delivery (acknowledgment-due-card along with proof of delivery of the postal/courier tracking system) within seven days from the uploading the Affidavit in lieu of Examination-in-Chief. The Respondent/s shall be given 30 days from the date of posting of the said communication to the Respondent/s to upload the statement of objection with or without counter claims.</li>
+</ol>
+<p></p>
+<ol>
+<li>b.On uploading of the respective affidavits,the Arbitrator shall fix a period for submissions and opens the Court Chat Room.</li>
+</ol>
+<p></p>
+<p></p>
+<ol>
+<li>c.The parties log in to the Court Chat Room during the prescribed period and may type their written comments.The comments may be in the nature of admittance or denial of facts or documents</li>
+</ol>
+<p></p>
+<p></p>
+<ol>
+<li>d.The Court Chat Room window shall be accessible to the respective parties for alimited period of five working days only.</li>
+</ol>
+<p></p>
+<p></p>
+<ol>
+<li>e.None of the parties to the EAS Arbitration have a right to cross examine any witness. However in response to any affidavit in lieu of Examination-in-Chief a party may upload a counter-affidavit rebutting the evidence tendered in such an affidavit.The counter-affidavit if any shall be uploaded within 10 days from the date of uploading the affidavit in lieu of Examination-in-chief.</li>
+</ol>
+<p></p>
+<p></p>
+<ol>
+<li>f.EAS Arbitration being a fast track The time fixed for uploading affidavits shall not be extended under any circumstances.</li>
+</ol>
+</ul>   
+
+<p><strong><u>Hearing Stage</u></strong></p>
+
+
+<li>40.On completion of the stage of evidence, the arbitrator shall initiate the Hearing Stage and notify a date not later than 30 days from the conclusion of Evidence stage for the parties to upload their respective written arguments and such a communication shall be notified in the EAS portal as well as will be communicatedby email to the respective parties.</li>
+
+
+<p>41.In the Hybrid EAS, the Centre will send by post the notification to the respondent/s who have failed to participate in the proceeding, to the last known postal address of the respondent/s giving them 30 days from the date of despatch of the notification to upload the written submissions.</p>
+
+<p><strong><u>VIRTUAL HEARING</u></strong></p>
+
+
+<li>42.EAS Arbitration being a fast track process, there parties shall not expect to have or all submissions of final arguments. However in addition to the written submission and if all the parties to the dispute request for a virtual hearing,the Arbitrator to his or her sole discretion may agree have avideo using any secure video conference platform, onmutually agreed date and time,and the submissions of each of the party shall not exceed 10 minutes and the total time for video hearing shall not exceed 45 minutes.</li>
+
+<p></p>
+
+<li>43.Except for technical difficulties that an Arbitrator may experience, the date and time for video conference shall not be extended or altered, however the Arbitrator may for any valid reason reschedule the date and time for virtual hearing.</li>
+
+<p></p>
+
+<li>44.The Arbitrator before the conclusion of the Hearing stage or before passing the award, may invite the parties for a video conference to seek clarifications if any with respect to the pleadings, evidence or arguments, and valuation of any claims that might include value of the assets or properties which are subject matter of the dispute.</li>
+
+<p></p>
+<p><strong><u>FINAL VALUATION OF CLAIMS</u></strong></p>
+<p></p>
+
+<li>45.The Arbitrator may direct the parties to produce documents with respect to valuation of any asset &ndash; movable or immovable, rights, interest as the case may be.If the parties fail to produce such valuation,the Arbitrator in consultation with the Centre determine the value ofsuch an asset, right or interest which is the subject matter of the dispute orpart or whole of the claim</li>
+
+<p></p>
+
+<li>46.The Centre in consultation with the Arbitrator generator invoice or invoices towards the final Administration Fee and Arbitration fee with respect to the claims and counter-claims made by the parties and calling upon each of the party to paysuch fees by generating the payment window to enable the respective parties to effect thepayments.Such payments shall be made not later than 10 days from the date of notification of the demand.</li>
+
+<p></p>
+
+<li>47.If the Claimant fails to pay the final Administration fee and or the final Arbitration fee on the revised valuation of the claim within the time specified the EAS proceeding will remain suspended.If the Claimant fails to make the payment within 30 days from the date of notification, the Arbitrator shall dismiss the claim petition for default and no review or revision is possible.</li>
+
+<p></p>
+
+<li>48.If the Respondent/sfails to pay the final Administration fee and or the final Arbitration fee on therevised valuation of the counter- claim within the time specified the EAS proceeding will remain suspended.If the Respondent/s fails to make the payment within 30 days from the date of notification, the Arbitrator shall dismiss the counter-claim for default and no review or revision is possible.</li>
+
+<p></p>
+<p><strong><u>AWARD</u></strong></p>
+<p></p>
+
+<li>49.On completion of the Hearing Stage and the parties paying the respective final Arbitration fee and Final Administration Fee, the Arbitrator will initiate the stage of &ldquo;Award Reserved&rdquo;</li>
+
+<p></p>
+
+<li>50.The Arbitrator shall within a period of 20 days from reserving the award be send the draft Award to the Centre to authenticate the same by affixing the digital seal of the centre and the Centre shall return the same to the Arbitrator within five working days.</li>
+
+<p></p>
+
+<li>51.On receipt of the authenticated award Arbitrator shall release the Award, either allowing the claim partially or fully or dismissing the claim or allowing the counter-claim partially or fully or dismissing the counter claim.</li>
+
+<p></p>
+<p><strong><u>INTEREST</u></strong></p>
+<p></p>
+<li>52.The Arbitrator may award interest if the contract provides for the same.In the absence of any specific reference to interest in the contract, the Arbitrator may at his or her discretion award interest not in excess of 6% per annum on the claim value or counter claim value, provided such a request is made inthe claim or counter claim as the case may be.</li>
+
+<p></p>
+<p><strong><u>COSTS</u></strong></p>
+<p></p>
+
+<li>53.The Arbitrator while allowing or dismissing a claim or counter claim shall award cost of the Arbitration proceeding as follows:</li>
+
+<p></p>
+<ul>
+<ol>
+<li>A.When the Claimpetition is partly or fully allowed and the counter-claims if any is rejected fully the cost shallbe:</li>
+<ul>
+<li>a.The entire Administration fee as well as the entire Arbitration fee paid by the Claimant</li>
+<li>B.Cost of lawyer&rsquo;s fee paid or payable by the Claimant, provided the claimant has submitted the proof of having paid the fee to the lawyer or the contract evidencing the terms of engagement and fee structure between the claimant.</li>
+</ul>
+
+<p></p>
+<p>The cost shall be payable by the Respondent to the claimant and&nbsp; If there are more than one Respondents, the Arbitrator may determine Respondent/s who has or have to pay the cost to the Claimant.</p>
+<p></p>
+</ol>
+
+<ol>
+<li>b.When claim petition is partly or fully allowed and the counter-claim is partly or fully allowed
+
+  <ul>
+<li>a.The proportionate Administration fee as well as the proportionate Arbitration fee paid by the Claimant.</li>
+<li>b.Cost of lawyer&rsquo;s fee paid or payable by the claimant, proportionate to the Award, provided the claimant has submitted the proof of having paid the fee to the lawyer or the contract evidencing the terms of engagement and fee structure between the claimant.</li>
+<li>c.The Arbitrator shall at his or her discretion determine the proportionate costs</li>
+</ul>
+
+</li>
+
+<p></p>
+<p>The cost shall be payable by the Respondent to the claimant and If there are more than one Respondents, the Arbitrator may determine Respondent/s who has or have to pay the cost to the Claimant. The respondent/s shall bear his/her/their own costs.</p>
+<p></p>
+</ol>
+<ol>
+<li>C.Where the claim petition as well as the counter-claims are rejected fully the cost shall be borne by the respective parties.</li>
+</ol>
+<p></p>
+<ol>
+<li>D.When the claim petition is rejected and the Counter-claim is fully or partially allowed.</li>
+<ul>
+<li>(i)The proportionate Administration fee as well as the proportionate Arbitration fee paid by the Respondent/s</li>
+<li>(ii)Cost of lawyer&rsquo;s fee paid or payable by the respondent/s proportionate to the Award,provided the claimant has submitted the proof of having paid the fee to the lawyer or the contract evidencing the terms of engagement and fee structure between the claimant.</li>
+<li>(iii)The Arbitrator shall at his or her discretion determine the proportionate costs.</li>
+</ul>
+
+<p>&nbsp;The cost shall be payable by the claimant to the Respondent/s as the case may be.</p>
+</ol>
+<p></p>
+<p><strong><u>INTERIM RELIEF AND INTERLOCUTORY APPLICATIONS</u></strong></p>
+
+
+<li>54.EAS Arbitration does provide for interim relief of any kind.</li>
+</ol>
+<p></p>
+
+<li>55.There is no provision for filing or uploading rejoinder to the pleadings and no request should be made in this regard.There are no provisions for any interlocutory application.Hence parties are cautioned as follows:</li>
+
+<p></p>
+<p></p>
+<ol>
+<li>A.Please ensure by checking and rechecking before uploading the Notice of Arbitration,the pleadings, affidavits, counter-affidavits, written arguments, documents in support of the pleadings for any errors, as the no application shall me entertained for any amendment by way of additions, alterations, deletions to the pleadings, additional affidavits or introduction of additional documents or proposing additional respondents,or proposingthe name of new witnesses or expert witnesses who were not cited in the pleadings.</li>
+</ol>
+<p></p>
+<ol>
+<li>B.A party to the proceeding shall be permitted to amend the following without any formal application provided such an amendment is supported by documents which have to be uploaded at the time of effecting the amendment:</li>
+</ol>
+<p></p>
+<ul>
+<ol>
+<li>a.Change of name of the Claimant or a Respondent,and such a person being an Individual or Karta of a HUF is permissible on account of the death of such a person, the name shall be substituted by the legal heirs with proper succession certificate or legal heir certificate or a will along with a certificate by a notary public.</li>
+</ol>
+<p></p>
+<ol>
+<li>b.An executor of the estate of a deceased person or a court appointed administrator or court appointed receiver may also be substituted in place of the deceased person along with the copy of the court order attested by a Notary Public or by a lawyer.</li>
+</ol>
+<p></p>
+<ol>
+<li>c.Name of an authorised presentative be it a power-of-attorney holder, manager, director, trustee may be substituted provided the same is supported by notice of revocation of power of attorney alongwith the new power of attorney, Board Resolution orletter of authority as the case may along with a certificate issued by a lawyer or auditor or company secretary as the case may be.</li>
+</ol>
+<p></p>
+<ol>
+<li>d.Change in the name of the Claimant or Respondent with necessary proof of such a change along with certificate in this regard issued by a lawyer or auditor or company secretary as the case may be.</li>
+</ol>
+<p></p>
+<ol>
+<li>e.Change of name of the Claimant or a Respondent on account merger, acquisition or demerger along with copy of the court/ tribunal order and a certificate in this regard issued by a lawyer or auditor or company secretary as the case may be.</li>
+</ol>
+<p></p>
+<ol>
+<li>f.Name of the representative of a partnership firm / Association / Society When a court or a tribunal appoints a Insolvency Resolution Professional or Liquidator or Receiver during the tenure of Insolvency Resolution or liquidation of an entity along with copy of the court/ tribunal order and a certificate in this regard issued by a lawyer or auditor or company secretary as the case may be.</li>
+</ol>
+<p></p>
+<ol>
+<li>g.Change of address, telephone number/s and email address with proof of such a change and a certificate in this regard issued by a lawyer or auditor or company secretary as the case may be.</li>
+</ol>
+</ul>
+<p></p>
+<p><strong><u>ADJOURNMENTS AND SUSPENSION OFARBITRATION PROCEEDINGS</u></strong></p>
+
+
+<li>56.Each party shall co-operate with Centre as well as the Arbitrator in strictly adhering the time schedule fixed for an arbitration.</li>
+</ol>
+<p></p>
+
+<li>57.As the proceedings are online, there is no necessity for all the parties to a proceeding to be log in at any given to upload the pleadings, affidavits or written submissions and parties shall effectively use the period of time given for each stage to complete the process.</li>
+
+<p></p>
+
+<li>58.Video conference is not mandatory and is at the discretion of the Arbitrator. There may be difficulty in organising video conference on account of different time zones as well as different language of the parties and transcription of the same.Hence parties are encouraged to upload detail written submissions.</li>
+
+
+<p><strong><u>LANGUAGE OF THE PROCEEDINGS</u></strong></p>
+<p></p>
+
+<li>59.The proceedings shall be conducted in English language only. However the Centre may introduce additional phases with upgrades to enable notifications being sent in different languages which is solely at the discretion of the Centre.</li>
+
+
+<p><strong><u>CURRENCY</u></strong></p>
+
+
+<li>60.Fee payable by parties to a domestic arbitration shall be in INR only.</li>
+
+<p></p>
+
+<li>61.Fee payable by parties to an International arbitration shall be in USDonly.</li>
+
+<p></p>
+<p></p>
+<p><strong><u>PRINCIPLES OF NATURAL JUSTICE</strong></u></p>
+
+
+<li>62.Since EAS Arbitration including Hybrid EAS being fast track process, fair amount of time has been allocated to the parties with adequate notice to participate in the proceedings and such a process is been developed taking into consideration of Principles of Natural Justice. Hence no procedural law of any country or any evidence law of any country is applicable. Parties who have adopted EAS Arbitration Rules of BIMACC are deemed to have knowledge about the process and exclusion of Civil law and evidence law as stated above.</li>
+
+<p></p>
+
+<li>63.All the parties to EAS Arbitration are notified at each stage by way of alerts to the registered mobile phones and by emails sent to the registered email address even if a  respondent has not participated in the proceedings and all such communications are deemed to be valid communication.</li>
+
+<p></p>
+
+<li>64.In Hybrid EAS where the respondent/s mobile phone numbers and or email addresses are not provided, communication shall be despatched by the Centre and or the Claimant as provided in these rules. On the respondent/s choosing to participate in the Hybrid EAS, each respondent shall duly register the mobile phone number and the email address used by the respondent with the Centre and all subsequent communication shall be by way of message alerts on mobile phone and emails only.</li>
+
+<p></p>
+
+<li>5.A respondent who had chosen not to participate In the EAS Arbitration or Hybrid EAS, may choose to participate at a later stage. In such an event the arbitrator may permit such respondent, provided the respondent upload the Statement of Objection and Affidavit in lieu of Examination-in-chief,and counter-affidavit if any at the time of seeking permission provided that such a respondent seeks permission before the case is reserved for award andshall have no right to upload anycounter claim .Nothing prevents such a respondent from instantiating independent action against the claimant under EAS Arbitration.</li>
+
+<p></p>
+
+<li>66.All Domestic Arbitration shall be governed by these rules, without any conflict with the Arbitration and Conciliation Act, 1996.</li>
+
+<p></p>
+
+<li>67.All International arbitration shall be governed by these rules.</li>
+
+<p></p>
+
+<li>68.Awards passed in domestic arbitration shall be enforced in accordance with the Arbitration and conciliation Act 1996.</li>
+
+<p></p>
+
+<li>69.Awards passed in international arbitration shall be enforceable as per the New York Convention.</li>
+
+
+<p><strong><u>INDEMNITY</u></strong></p>
+
+
+<li>70.All acts done by the Arbitrator, the Centre, the management and staff of the centre are deemed to be done in good faith.</li>
+
+<p></p>
+
+<li>71.The Centre and its management and staff shall not be liable for any malfunction or virus attack or malware of any computer device or communication device of the user of the EAS Portal.</li>
+
+<p></p>
+
+<li><strong> </strong>72.Each of the party to EAS Arbitration or witness involved in an EAS Arbitration shall in demnify the Arbitrator, the Centre, its management and staff from any claims or damages or legal proceedings and keep them indemnified for ever<strong>.</strong></li>
+
+
+<p><strong><u>PRIVACY AND CONFIDENTIALITY</u></strong></p>
+<p></p>
+
+<li>73.The Centre shall maintain utmost confidentiality of the proceedings and there shall not be any wilful breach of confidentiality, except when compelled to disclose by law enforcing authorities or by a court of law in India. In such an event the Centre shall inform the respective parties ofsharing of such an information.</li>
+
+<p></p>
+
+<li>74.All information entered in the EAS portal are encrypted and secure .</li>
+
+<p></p>
+
+<li>75.It is expected from each of the parties to an EAS Arbitration or Hybrid Arbitration, their respective lawyers and experts and witnesses and the Arbitratorto maintain confidentiality of the process.</li>
+
+<p></p>
+
+<li>76.The Centre shall not be held liable in any mannerfor any breach of confidentiality by aparty or partiesto the arbitration or lawyer lawyers or experts who assisted the parties in the arbitrationor arbitrator or on account of any breach beyond the control of the Centre.</li>
+
+<p></p>
+
+<li>77.The liability of the Centre, in the event of wilful breach of confidentiality shall be limited to the Administration fee paid by a party to the proceedings.</li>
+
+<p></p>
+
+<li>78.The parties are bound by privacy policy of the Centre which is displayed separately.</li>
+
+<p><strong><u>CHANGE OF ARBITRATOR</u></strong></p>
+
+
+<li>79.The Centre may replace an Arbitrator only when the said Arbitrator has taken ill or incapacity of the Arbitrator due to operation of law or death of the Arbitrator and when the Centre has removed the Arbitrator from the Panel of Arbitrators.</li>
+
+<p></p>
+
+<li>80.As the EAS Arbitration is system generated, with minimal interaction with the Arbitrator, request for change of arbitrator will not be entertained by the Centre except if there is definite proof of suppression of Conflict of Interest by the Arbitrator.</li>
+
+<p><em>Explanation: Conflict of interest would mean that Arbitrator is directly interested in the parties to the Arbitration (a) with respect to an individual be it a party or an authorised representative, if such a person is aclose relative ( parent or the spouse or the child or a sibling; by marriage being a son-in-law, daughter-in-law, father-in-law, mother-in-law, brother-in-law, sister-in-law, son-in-law, daughter-in-law, living-in-partner). (b) With respect toparty that is a firm, trust, Company or an Associationthe Arbitrator is directly interested in the affairs of the such an entity as a owner, employer or consultant, lawyer, auditor orcompany secretary or a close relative of the person who controls such an entity. (c) with respect to subject matter of the dispute the Arbitrator is directly interest as an owner or beneficiary.</em></p>
+
+<p><strong><u>CHANGE OF RULE</u></strong></p>
+
+
+<li>81.The Centre shall have the right to alter, modify or replace the EAS Rules or Schedules and Forms partially or fully at any given point of time without notice to anyone and the same shall be available in the website of EAS and be binding all the parties.</li>
+
+<p></p>
+
+<li>82.All the Changes shall be prospective.In an ongoing proceedings the change will be applicable for all future actions only and will not affect the acts done till the date of effect of the change.</li>
+<p><em>&nbsp;</em></p>
+<p><em>&nbsp;</em></p>
+<p><em>&nbsp;</em></p>
+<p></p>
+<p></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong></p>
+<p></p>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+</div>
+</div>
+</div>
+
+<div id="footer">
+  <div class="col-lg-12 text-center">
+    <span2 style="color:white !important; "><a href="{{url('privacypolicy')}}" target="blank" style="color: white">Privacy Policy</a></span2> <span02 style="color:orange !important; padding: 15px !important;"> | </span02> <span style="color:white !important; ">Copyright © <a style="color:white !important; " href="{{route('home')}}">Lexquisite.</a> {{ now()->year }}</span> <span01 style="color:orange !important;  padding: 15px !important;">  
+  </div>
+</div>
+
+
+
+
+<script>
+  function myFunction() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
+
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more"; 
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Read less"; 
+      moreText.style.display = "inline";
+    }
+  }
+</script>
+
+
+
+
+
+</body>
+</html>

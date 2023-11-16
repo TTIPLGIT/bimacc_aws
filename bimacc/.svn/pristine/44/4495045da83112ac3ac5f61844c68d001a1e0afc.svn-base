@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+ Hello <?php echo e($data3['firstname']); ?>,
+  <br/><br/><br/>
+  <!-- Welcome to Online Arbitration System -->
+  This is with Reference to Online Arbitration System - Claim Petition (No:<?php echo e($data3['arbitration_petionno']); ?>).
+<br/><br/>
+  
+  Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a>
+  <br/><br/>
+The Claimant has duly lodged the Evidence by Affidavit . Use the the above link to lodge your evidence by way of Affidavit, if any. Do not introduce documents that have not been referred to in the Statement of Objections/ Counter Claim if any. If the Evidence is not uploaded within the time specified by the Arbitrator, no extension will be granted and the stage will be closed. <br/><br/>
+   
+  This is System Generated Mail Please Do not Reply.<br/><br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

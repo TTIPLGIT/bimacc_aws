@@ -1,0 +1,185 @@
+<style>
+  .razorpay-payment-button
+{
+  background-color: #1bcd6b !important;
+    padding: 10px;
+    border: 1px; 
+    color: white;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+#modal
+{
+  width:50% !important;
+}
+</style>
+
+
+
+@foreach ($claimnotices as $notice)
+<div class="modal fade" id="respondentpayment" tabindex="-1" role="dialog" aria-labelledby="respondentpayment" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="respondentpayment">Payment Details</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form  action="{{ route('claimantrespondantaccess.respondentfees')}}" method="POST" enctype="multipart/form-data">
+
+        @csrf 
+        
+
+        <!-- <div class="row register-form">  -->
+           <!-- <input type="number" name="claimnoticeid"   value="{{$notice->id}}"> -->
+          <input type="text" name="claimnoticeid" style="display: none;"  value="{{$notice->id}}">
+          <input type="text" name="user_id" style="display: none;"  value="{{$user_id}}">
+
+  <div class="row">
+          
+          <div class="col-md-6">
+               <div class="form-group" >
+              @foreach($registrationfees as $registrationfee)
+              <label>Registration Fees({{$claimantinformations[0]->currency}})</label>
+              <input type="number" id="registration_fees" class="form-control" name="registration_fees"  value="{{$registrationfee->registration_fee}}"  readonly >
+
+              
+
+
+              @endforeach
+
+              @if ($errors->has('registration_fees'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('registration_fees') }}</strong>
+              </span>
+              @endif
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+               <div class="form-group" >
+              @foreach($registrationfees as $registrationfee)
+             
+
+               <label>Platform Fee({{$claimantinformations[0]->currency}})</label>
+              <input type="text" id="extra_fees" class="form-control" name="extra_fees"  value=" {{ number_format((float)$extra_amt, 2, '.', '') }}" readonly > 
+
+
+              @endforeach
+
+              @if ($errors->has('registration_fees'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('registration_fees') }}</strong>
+              </span>
+              @endif
+            </div>
+
+          </div>
+          
+          <div class="col-md-6" >
+            <div class="form-group"> 
+              <textarea  class="form-control{{ $errors->has('claim_amount_purpose') ? ' is-invalid' : '' }}" name="claim_amount_purpose" required id="claim_amount_purpose"></textarea>
+              <label class="form-control-placeholder" for="claim_amount_purpose">Nature Of Claim<span style="color: red">*</span></label>
+              @if ($errors->has('claim_amount_purpose'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('claim_amount_purpose') }}</strong>
+              </span>
+              @endif
+            </div>
+
+        </div>
+      </div>
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
+         <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                            data-key="{{ env('RAZORPAY_KEY') }}"
+                                             data-amount="{{ $total_pay_amt }}"
+                                            data-buttontext="Submit & Pay {{ number_format((float)$total_pay_amt_check, 2, '.', '') }}"
+                                            data-name="Online Arbitartion System"
+                                            data-description="EAS"
+                                             data-image="http://ttci-demo.com:1001/images/pic.png"
+                                            data-prefill.name="name" 
+                                            data-prefill.email="email"
+                                            data-theme.color="#343464">
+                                    </script>
+                                   <!--   <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+          <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+           Close
+         </button>  -->
+         
+ 
+
+
+                   
+
+
+<div class="modal-footer"> 
+      
+     </div>
+
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
+
+  @endforeach    
+
+<script type="text/javascript">
+  window.onload=function() {
+    setTimeout(function() {
+      document.getElementById('submitButton').disabled = false;
+    }, 5000); 
+  }
+</script>
+<script>
+  $('#disputecategory_res').change(function(){  
+    //alert("jhghg");
+    var categoryID = $(this).val();     
+    if(categoryID){
+      $.ajax({
+       type:"GET",
+       url:"{{url('/get-dispute-list')}}?dispute_categories_id="+categoryID,
+       success:function(res){                      
+        if(res){
+          $("#subcategory_res").empty();
+          $('#subcategory_res').prop( "disabled", false );  
+          $("#subcategory_res").append('<option value=""> Select Sub Category</option>');
+          console.log(res);
+          for (var i =0; i < res.length; i++) {
+           
+            $("#subcategory_res").append('<option value="'+res[i].id+'">'+res[i].subcategory_name+'</option>');
+          }
+            
+
+        }else{
+         $("#subcategory_res").empty();
+       }
+     }
+   });
+    }     
+  });
+  function sortReponse(data)
+{
+    var sorted = [];
+    $(data).each(function(k, v) {
+        for(var key in v) {
+            sorted.push({key: key, value: v[key]})
+        }
+    });
+
+    return sorted.sort(function(a, b){
+        if (a.value < b.value) return -1;
+        if (a.value > b.value) return 1;
+        return 0;
+    });
+}
+</script>
+
+
+
+
+

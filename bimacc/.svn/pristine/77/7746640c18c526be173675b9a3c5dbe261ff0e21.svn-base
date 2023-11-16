@@ -1,0 +1,502 @@
+<div class="col-md-12" style="pointer-events: none;">
+    <div class="row">
+     <div class="col-md-12">
+       <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+        <!-- <label><b>Please fill in the applicable details  pertaining to the dispute</b></label> -->
+      </div>            
+      <!-- <div class="form-group text-center" style="margin-bottom: 1.4em">
+        <label><u><b>Loan Details</b></u></label>
+      </div> -->
+    </div>
+  </div>
+<div class="row">
+   <?php $__currentLoopData = $bank_account; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bank_accounts): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+ <?php if($bank_accounts->claim_id == $details->claimdetailsid): ?>
+
+   <div class="col-md-1"><input class="form-control" placeholder='Loan<?php echo e($loop->iteration); ?>'  type="text" disabled ></div>
+          <div class="col-md-2"> 
+            <div class="form-group">
+             <input type='number' step='0.01' id="loan_acc" class="form-control<?php echo e($errors->has('loan_acc') ? ' is-invalid' : ''); ?>" name="loan_acc_bank[]"  value="<?php echo e($bank_accounts->loan_acc_bank); ?>" readonly>
+             <label class="form-control-placeholder" for="loan_acc">Loan A/C:</label>
+             <?php if($errors->has('loan_acc')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('loan_acc')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-3">  
+        <div class="form-group">
+          <input type="text" id="sanction_ammount" name="sanction_ammount[]"  class="form-control<?php echo e($errors->has('sanction_ammount') ? ' is-invalid' : ''); ?>" value="<?php echo e($bank_accounts->sanction_ammount); ?>" readonly>
+          
+          <label class="form-control-placeholder" for="sanction_ammount">Sanction Amount:</label>
+          <?php if($errors->has('sanction_ammount')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('sanction_ammount')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+        <div class="col-md-3"> 
+          <div class="form-group">
+            <input type="text" id="date_of_application_bank" class="form-control<?php echo e($errors->has('date_of_application_bank') ? ' is-invalid' : ''); ?>" name="date_of_application_bank[]" value="<?php echo e($bank_accounts->date_of_application_bank); ?>" readonly>
+            <label class="form-control-placeholder" for="date_of_application">Date of Application for Financial Facility:</label>
+            <?php if($errors->has('date_of_application_bank')): ?>
+            <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('date_of_application_bank')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-3"> 
+         <div class="form-group">
+           <input type="text" id="date_of_sanction" class="form-control<?php echo e($errors->has('date_of_sanction') ? ' is-invalid' : ''); ?>"  value="<?php echo e($bank_accounts->date_of_sanction_bank); ?>" readonly>
+           <label class="form-control-placeholder" for="date_of_sanction">Date of Sanction:</label>
+           <?php if($errors->has('date_of_sanction')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('date_of_sanction')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      
+      
+
+    
+<?php $__currentLoopData = $security_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $security): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+ <?php if($security->claim_id == $bank_accounts->bank_id): ?>
+
+    
+<!-- <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div> -->
+     <div class="col-md-3"> 
+      <div class="form-group">
+       <input type="text" id="security_type" class="form-control<?php echo e($errors->has('security_type') ? ' is-invalid' : ''); ?>" name="security_type[]"  value="<?php echo e($security->security_type); ?>" readonly>
+       <label class="form-control-placeholder" for="security_type">Security Type:</label>
+       <?php if($errors->has('security_type')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('security_type')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+
+<?php if($security->security_type =='mortgage'): ?>
+
+    
+  
+
+    <div class="col-md-3"> 
+      <div class="form-group">
+       <input type="text" id="mortgage_property" class="form-control<?php echo e($errors->has('mortgage_property') ? ' is-invalid' : ''); ?>" name="mortgage_property[]"  value="<?php echo e($security->mortgage_property); ?>" readonly>
+       <label class="form-control-placeholder" for="mortgage_property">Description of Property:</label>
+       <?php if($errors->has('mortgage_property')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('mortgage_property')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3"> 
+    <div class="form-group">
+      <input type="text" id="mortgage_value_bank" class="form-control<?php echo e($errors->has('mortgage_value_bank') ? ' is-invalid' : ''); ?>" name="mortgage_value_bank[]"  value="<?php echo e($security->mortgage_value_bank); ?>" readonly>
+      <label class="form-control-placeholder" for="mortgage_value_bank">Value:</label>
+      <?php if($errors->has('mortgage_value_bank')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('mortgage_value_bank')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3"> 
+   <div class="form-group">
+     <input type="text" id="mortgage_schedule" class="form-control<?php echo e($errors->has('mortgage_schedule') ? ' is-invalid' : ''); ?>" name="mortgage_schedule[]" value="<?php echo e($security->mortgage_schedule); ?>" readonly>
+     <label class="form-control-placeholder" for="mortgage_schedule">Schedule and Boundaries:</label>
+     <?php if($errors->has('mortgage_schedule')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('mortgage_schedule')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+
+
+
+  <div class="col-md-3"> 
+    <div class="form-group">
+     <input type="text" id="mortgage_name" class="form-control<?php echo e($errors->has('mortgage_name') ? ' is-invalid' : ''); ?>" name="mortgage_name[]"  value="<?php echo e($security->mortgage_name); ?>" readonly>
+     <label class="form-control-placeholder" for="mortgage_name">Name of the Mortgagaor:</label>
+     <?php if($errors->has('mortgage_name')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('mortgage_name')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+  
+<div class="col-md-3">  
+  <div class="form-group">
+    <input type="text" id="mortgage_date" name="mortgage_date[]"  class="form-control<?php echo e($errors->has('mortgage_date') ? ' is-invalid' : ''); ?>"  value="<?php echo e($security->mortgage_date); ?>" readonly>
+    
+    <label class="form-control-placeholder" for="mortgage_date">Date of Mortgage/ LEDTD:</label>
+    <?php if($errors->has('mortgage_date')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('mortgage_date')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<?php endif; ?>
+<?php if($security->security_type =='hypothecation'): ?>
+
+
+
+
+  <div class="col-md-3"> 
+    <div class="form-group">
+     <input type="text" id="hypo_property" class="form-control<?php echo e($errors->has('hypo_property') ? ' is-invalid' : ''); ?>" name="hypo_property[]"  value="<?php echo e($security->hypo_property); ?>" readonly>
+     <label class="form-control-placeholder" for="hypo_property">Description of Property:</label>
+     <?php if($errors->has('hypo_property')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('hypo_property')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" id="hypo_value" class="form-control<?php echo e($errors->has('hypo_value') ? ' is-invalid' : ''); ?>" name="hypo_value[]"  value="<?php echo e($security->hypo_value); ?>" readonly>
+    <label class="form-control-placeholder" for="hypo_value">Value:</label>
+    <?php if($errors->has('hypo_value')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('hypo_value')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+ <div class="form-group">
+   <input type="text" id="hypo_schedule" class="form-control<?php echo e($errors->has('hypo_schedule') ? ' is-invalid' : ''); ?>" name="hypo_schedule[]" value="<?php echo e($security->hypo_schedule); ?>" readonly>
+   <label class="form-control-placeholder" for="hypo_schedule">Schedule and Boundaries:</label>
+   <?php if($errors->has('hypo_schedule')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('hypo_schedule')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-3"> 
+ <div class="form-group">
+   <input type="text" id="hypo_name" class="form-control<?php echo e($errors->has('hypo_name') ? ' is-invalid' : ''); ?>" name="hypo_name[]" value="<?php echo e($security->hypo_name); ?>" readonly>
+   <label class="form-control-placeholder" for="hypo_name">Hypothecator Name:</label>
+   <?php if($errors->has('hypo_name')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('hypo_name')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+
+   <div class="col-md-3">  
+    <div class="form-group">
+      <input type="text" id="hypo_date" name="hypo_date[]"  class="form-control<?php echo e($errors->has('hypo_date') ? ' is-invalid' : ''); ?>" value="<?php echo e($security->hypo_date); ?>" readonly>
+      
+      <label class="form-control-placeholder" for="hypo_date">Date of Hypothecation:</label>
+      <?php if($errors->has('hypo_date')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('hypo_date')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3">  
+    <div class="form-group">
+      <input type="text" id="hypo_engine" name="hypo_engine[]"  class="form-control<?php echo e($errors->has('hypo_engine') ? ' is-invalid' : ''); ?>"  value="<?php echo e($security->hypo_engine); ?>" readonly>
+      
+      <label class="form-control-placeholder" for="hypo_engine">Vehicle Engine Number:</label>
+      <?php if($errors->has('hypo_engine')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('hypo_engine')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3">  
+    <div class="form-group">
+      <input type="text" id="hypo_chassis" name="hypo_chassis[]"  class="form-control<?php echo e($errors->has('hypo_chassis') ? ' is-invalid' : ''); ?>" value="<?php echo e($security->hypo_chassis); ?>" readonly>
+      
+      <label class="form-control-placeholder" for="hypo_chassis">Chassis Number:</label>
+      <?php if($errors->has('hypo_chassis')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('hypo_chassis')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+ 
+  
+
+ 
+  <?php endif; ?>
+<?php if($security->security_type =='guarntee'): ?>
+ 
+  
+
+
+  <div class="col-md-3"> 
+    <div class="form-group">
+     <input type="text" id="guarntee_name" class="form-control<?php echo e($errors->has('guarntee_name') ? ' is-invalid' : ''); ?>" name="guarntee_name[]"  value="<?php echo e($security->guarntee_name); ?>" readonly>
+     <label class="form-control-placeholder" for="guarntee_name">Guarantor Name:</label>
+     <?php if($errors->has('guarntee_name')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('guarntee_name')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-3"> 
+  <div class="form-group">
+    <input type="text" id="guarntor_agreement" class="form-control<?php echo e($errors->has('guarntor_agreement') ? ' is-invalid' : ''); ?>" name="guarntor_agreement[]" value="<?php echo e($security->guarntor_agreement); ?>" readonly>
+    <label class="form-control-placeholder" for="guarntor_agreement">Guarantor Agreement:</label>
+    <?php if($errors->has('guarntor_agreement')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('guarntor_agreement')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+
+
+
+
+
+
+ <?php endif; ?>
+<?php if($security->security_type =='other'): ?>
+
+
+
+
+  <div class="col-md-3"> 
+ <div class="form-group">
+   <input type="text" id="others_details" class="form-control<?php echo e($errors->has('others_details') ? ' is-invalid' : ''); ?>" name="others_details[]" value="<?php echo e($security->others_details); ?>" readonly>
+   <label class="form-control-placeholder" for="others_details">Other Details</label>
+   <?php if($errors->has('others_details')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('others_details')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+  <div class="col-md-3"> 
+    <div class="form-group">
+     <input type="text" id="others_date" class="form-control<?php echo e($errors->has('others_date') ? ' is-invalid' : ''); ?>" name="others_date[]"  value="<?php echo e($security->others_date); ?>" readonly>
+     <label class="form-control-placeholder" for="others_date">Date:</label>
+     <?php if($errors->has('others_date')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('others_date')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<?php endif; ?>
+<?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php $__currentLoopData = $renewal_date; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $renewal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+ <?php if($renewal->claim_id == $bank_accounts->bank_id): ?>
+
+
+  <!-- <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div> -->
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="renewal_date" class="form-control<?php echo e($errors->has('renewal_date') ? ' is-invalid' : ''); ?>" name="renewal_date[]" value="<?php echo e($renewal->renewal_date); ?>" readonly>
+        <label class="form-control-placeholder" for="renewal_date">Renewal Letter Date:</label>
+        <?php if($errors->has('renewal_date')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('renewal_date')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php $__currentLoopData = $revival_date; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $revival): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+ <?php if($revival->claim_id == $bank_accounts->bank_id): ?>
+ <!-- <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div> -->
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="revival_date" class="form-control<?php echo e($errors->has('revival_date') ? ' is-invalid' : ''); ?>"  value="<?php echo e($revival->revival_date); ?>" readonly>
+        <label class="form-control-placeholder" for="revival_date">Revival Letter Date:</label>
+        <?php if($errors->has('revival_date')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('revival_date')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+      <?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="date_of_dafault" class="form-control<?php echo e($errors->has('date_of_dafault') ? ' is-invalid' : ''); ?>" name="date_of_dafault[]" value="<?php echo e($bank_accounts->date_of_dafault); ?>" readonly>
+        <label class="form-control-placeholder" for="date_of_dafault">Date of Default:</label>
+        <?php if($errors->has('date_of_dafault')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('date_of_dafault')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <?php $__currentLoopData = $legal_notice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $legal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+ <?php if($legal->claim_id == $bank_accounts->bank_id): ?>
+<!--  <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div> -->
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="legal_notice" class="form-control<?php echo e($errors->has('legal_notice') ? ' is-invalid' : ''); ?>" name="legal_notice[]" value="<?php echo e($legal->legal_notice); ?>" readonly>
+        <label class="form-control-placeholder" for="legal_notice">Demand/Legal Notice Date:</label>
+        <?php if($errors->has('legal_notice')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('legal_notice')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+ 
+<?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+ <?php $__currentLoopData = $other_document; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $other): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+ <?php if($other->claim_id == $bank_accounts->bank_id): ?>
+ <!-- <div class="col-md-1"><input class="form-control" placeholder='<?php echo e($loop->iteration); ?>'  type="text" disabled ></div> -->
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="other_document" class="form-control<?php echo e($errors->has('other_document') ? ' is-invalid' : ''); ?>" name="other_document[]" value="<?php echo e($other->other_document); ?>" readonly>
+        <label class="form-control-placeholder" for="other_document">Other Document Details:</label>
+        <?php if($errors->has('other_document')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('other_document')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="npa_date_bank" class="form-control<?php echo e($errors->has('npa_date_bank') ? ' is-invalid' : ''); ?>" name="npa_date_bank[]" value="<?php echo e($bank_accounts->npa_date_bank); ?>" readonly>
+        <label class="form-control-placeholder" for="npa_date_bank">NPA Date:</label>
+        <?php if($errors->has('npa_date_bank')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('npa_date_bank')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="amount_as_account" class="form-control<?php echo e($errors->has('amount_as_account') ? ' is-invalid' : ''); ?>" name="amount_as_account[]" value="<?php echo e($bank_accounts->amount_as_account); ?>" readonly>
+        <label class="form-control-placeholder" for="amount_as_account">Amount as per Account:</label>
+        <?php if($errors->has('amount_as_account')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('amount_as_account')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="interest_bank" class="form-control<?php echo e($errors->has('interest_bank') ? ' is-invalid' : ''); ?>" name="interest_bank[]" value="<?php echo e($bank_accounts->interest_bank); ?>" readonly>
+        <label class="form-control-placeholder" for="interest_bank"> Rate of Interst (%):</label>
+        <?php if($errors->has('interest_bank')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('interest_bank')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    
+  
+ 
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" id="penel_interest_bank" class="form-control<?php echo e($errors->has('penel_interest_bank') ? ' is-invalid' : ''); ?>"  value="<?php echo e($bank_accounts->penel_interest_bank); ?>" readonly>
+        <label class="form-control-placeholder" for="penel_interest_bank">Penal Interest:</label>
+        <?php if($errors->has('penel_interest_bank')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('penel_interest_bank')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="other_charges" class="form-control<?php echo e($errors->has('other_charges') ? ' is-invalid' : ''); ?>" name="other_charges_bank[]" value="<?php echo e($bank_accounts->other_charges_bank); ?>" readonly>
+        <label class="form-control-placeholder" for="other_charges_bank">Other Charges:</label>
+        <?php if($errors->has('other_charges')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('other_charges')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="number" id="outstanding_amount" class="form-control<?php echo e($errors->has('outstanding_amount') ? ' is-invalid' : ''); ?>" name="outstanding_amount" value="<?php echo e($bank_accounts->outstanding_amount); ?>" readonly>
+        <label class="form-control-placeholder" for="outstanding_amount">Outstanding Amount:</label>
+        <?php if($errors->has('outstanding_amount')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('outstanding_amount')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    
+    <div class="col-md-3"> 
+      <div class="form-group">
+        <input type="text" id="amount_as_date" class="form-control<?php echo e($errors->has('amount_as_date') ? ' is-invalid' : ''); ?>" name="amount_as_date" value="<?php echo e($bank_accounts->amount_as_date); ?>" readonly>
+        <label class="form-control-placeholder" for="amount_as_date">Date of outstanding:</label>
+        <?php if($errors->has('amount_as_date')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('amount_as_date')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+   
+    
+  
+ 
+
+<?php endif; ?>
+  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+  
+    <div class="col-md-4"> 
+      <div class="form-group">
+        <input type="number" class="form-control<?php echo e($errors->has('total_amount_bank') ? ' is-invalid' : ''); ?>" value="<?php echo e($details->total_amount_bank); ?>">
+        <label class="form-control-placeholder" for="total_amount_bank">Total Outstanding Amount Due
+:</label>
+        <?php if($errors->has('total_amount_bank')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('total_amount_bank')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+ 
+   </div>
+ </div>
+

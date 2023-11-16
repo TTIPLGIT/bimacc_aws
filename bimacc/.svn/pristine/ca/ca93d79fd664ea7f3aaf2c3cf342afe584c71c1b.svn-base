@@ -1,0 +1,19 @@
+1)File upload is not mandatory in award by centre.--->closed
+2)Hypothecation value is null in bank relief request form.
+3)Bottom buttons are hiding little , while the zoom is 100%.--->closed
+4)personal guarntee address is date field in show page of bank relief, so value is not showing.--->closed
+5)ongoing arbitration is showing wrong data in arbitration dashboard.
+6)sometimes curl error is occur while moving to the next stage.
+
+
+
+ALTER TABLE claimant_informations ADD COLUMN company_name VARCHAR(50);
+ALTER TABLE respondantdetails ADD COLUMN company_name VARCHAR (50);
+ALTER TABLE respondantdetails ADD COLUMN proprietar_name VARCHAR (50);
+ALTER table claimantnotice_stage ADD COLUMN notes VARCHAR (50)
+
+
+payment initiation double
+
+
+

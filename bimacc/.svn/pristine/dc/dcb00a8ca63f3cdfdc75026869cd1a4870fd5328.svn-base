@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+  Hello <?php echo e($data1['username']); ?>,
+  <br/><br/><br/>
+  Welcome to Online Arbitration System
+
+<!-- This is with Reference to Online Arbitration System - Claim Petition (No:<?php echo e($data1['arbitration_petionno']); ?>)
+ --> <br/><br/>
+  Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a>
+  <br/><br/>
+Use above link to view/access the status of Claim Petition and refer for any comments from Arbitrator/Respondent.<br/><br/>
+  This is System Generated Mail Please Do not Reply.<br/><br/>
+  <br/>
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+

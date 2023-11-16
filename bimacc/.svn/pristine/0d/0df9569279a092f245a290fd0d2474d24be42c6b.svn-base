@@ -1,0 +1,132 @@
+<?php if($claimant_respondantcount = 0): ?>
+ $claimant_respondant_type = ClaimantRespondantType::findOrFail($id);
+ <?php endif; ?>
+<?php $__currentLoopData = $claimant_respondant_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimant_respondant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade fade-scale" id="editClaimantRespondantModal<?php echo e($claimant_respondant->id); ?>" tabindex="-1" role="dialog" aria-labelledby="editClaimentRespondantTypelabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editClaimentRespondantTypelabel">Edit Claimant Respondant</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body"> 
+
+        <form  action="<?php echo e(route('claimant_respondant_type.update', $claimant_respondant->id )); ?>" method="POST" id="typeedit_form"> 
+                         
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?> 
+                       
+
+                <div class="row register-form">
+                  <div class="col-md-6">
+                    <div class="form-group">
+<input type="text" id="claimant_respondant_type_Code1" name="claimant_respondant_type_Code"  value= "<?php echo e($claimant_respondant->claimant_respondant_type_Code); ?>" class="form-control" required>
+               <label class="form-control-placeholder" for="claimant_respondant_type_Code">Code*</label>
+               <?php if($errors->has('claimant_respondant_type_Code')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('claimant_respondant_type_Code')); ?></strong>
+              </span>
+              <?php endif; ?>  
+            </div>
+
+                  </div>
+
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 <select name="type" class="form-control<?php echo e($errors->has('type') ? ' is-invalid' : ''); ?>" required="true" id="type1">          
+          <option <?php echo e(old('type',$claimant_respondant->type)=="claimant"? 'selected':''); ?>  value="claimant">Claimant</option>
+          <option <?php echo e(old('type',$claimant_respondant->type)=="respondant"? 'selected':''); ?>  value="respondant">Respondant</option>
+                               
+
+                
+        </select> 
+        <label id="type" class="form-control-placeholder" for="type">Type*</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+<input type="text" id="claimant_respondant_type_name1" name="claimant_respondant_type_name" class="form-control" value="<?php echo e($claimant_respondant->claimant_respondant_type_name); ?>" required>
+               <label class="form-control-placeholder" for="claimant_respondant_type_name">Claimant/Respondant Name*</label>
+               <?php if($errors->has('claimant_respondant_type_name')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('claimant_respondant_type_name')); ?></strong>
+              </span>
+              <?php endif; ?>  
+            </div>
+                           
+                           
+                          
+                    </div>
+                    <div class="col-md-6">
+                         <div class="form-group">
+                          <textarea name="claimant_respondant_type_description" class="form-control" value="<?php echo e($claimant_respondant->claimant_respondant_type_description); ?>" required><?php echo e($claimant_respondant->claimant_respondant_type_description); ?></textarea>
+
+               <label class="form-control-placeholder" for="claimant_respondant_type_description">Description*</label>
+               <?php if($errors->has('claimant_respondant_type_description')): ?>
+               <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('claimant_respondant_type_description')); ?></strong>
+              </span>
+              <?php endif; ?>  
+            </div>
+                    </div>
+                    
+
+             
+        </div>              
+
+                    
+    </div>
+    <div class="modal-footer">
+                <div class="mx-auto">
+              <button type="submit" class="btn btn-success btn-space" >Save</button>                       
+                       
+                         <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">Cancel</span>
+    </button>            
+                </div>
+    </div> 
+            </div>             
+        </form>
+
+    </div>
+    </div>
+    </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <!-- <script>
+function typeeditbuttonclick() {
+    
+  var claimant_respondant_type_Code =  $('#claimant_respondant_type_Code1').val();
+  // alert(security_type_code);
+     if (claimant_respondant_type_Code =='') 
+     {
+       swal("Enter Claimant Respondant Type Code", "", "error");
+     return false;
+     }
+     var type =  $('#type1').val();
+     if (type =='') 
+     {
+       swal("Enter Type  ", "", "error");
+     return false;
+     }
+      var claimant_respondant_type_name =  $('#claimant_respondant_type_name1').val();
+     if (claimant_respondant_type_name =='') 
+     {
+       swal("Enter Name", "", "error");
+     return false;
+     }
+ $("#typeeditbutton").attr("disabled", true);
+     document.getElementById('typeedit_form').submit();
+   }
+     </script> -->
+
+
+
+
+
+
+
+

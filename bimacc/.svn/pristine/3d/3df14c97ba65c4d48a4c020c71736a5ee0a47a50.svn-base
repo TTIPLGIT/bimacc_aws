@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <br/>
+  Hello <?php echo e($data1['username']); ?>
+
+  <br/><br/>
+  Welcome to  Online Arbitration System<br/><br/>
+
+  Use below link to Pay for Administration fees and Arbitration fees (Claim Notice - No:<?php echo e($data1['claimnoticeno']); ?>),
+  <br/><br/>
+  Please find enclosed invoice for the payment.
+  <br/><br/> 
+  Login & Access the Page : <a href="<?php echo e(url('/login')); ?>" ><?php echo e(url('/login')); ?></a>
+  <br/><br/> 
+  
+  This is System Generated Mail Please Do not Reply
+  <br/><br/><br/>
+
+  Thanks & Regards,
+  <br/>
+  Bangalore International Mediation, Arbitration and Conciliation Centre.
+</body>
+</html>
+
+
+
+
+
+
+

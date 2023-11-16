@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online Arbitration Systems</title>	
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link href="<?php echo e(url(asset('css/style.css'))); ?>" rel="stylesheet" type="text/css">
+
+  <link href="<?php echo e(asset('fonts/font-awesome-4.7.0/css/font-awesome.css')); ?>" rel="stylesheet">
+
+</head>
+<body>
+	<?php echo $__env->yieldContent('content'); ?>
+</body>
+</html> 

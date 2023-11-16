@@ -1,0 +1,2629 @@
+@extends('layouts.admin')
+@section('content')
+<style>
+  #frname{
+    color: red;
+  }
+
+  .tabs a.active {
+    color: #fff;
+    background: black;
+    display: inline-block;
+
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    border-radius: 50px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: #05abe0;
+    background: linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+}
+.tabscroll {
+    height: auto !important;
+    overflow-y: scroll;
+}
+.razorpay-payment-button
+{
+  background-color: #1bcd6b !important;
+    padding: 10px;
+    border: 1px; 
+    color: white;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+
+</style> 
+
+
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success">
+  <p>{{ $message }}</p>
+</div>
+@endif
+<!-- <div  style="height: auto; margin-top: 10px"> -->
+  <div class="container con" style="height: auto; margin-top: 10px">
+
+  <div class="row">
+    @if($claimantinformations == null)
+    <nav class="tabs"  style="width: 100%;">
+      <div class="selector"></div>
+      <a href="#" data-toggle="tab" class="active" rel="idclaimantinformation" id="tabclaimantinformation"  ><i class="fas fa-info"></i>Claimant Details</a>
+      <a href="#respondantinformation" data-toggle="tab" class="disabled" rel="idresponantinformation" id="tabrespondantinformation" ><i class="fas fa-info"></i>Respondent/s Details
+</a>
+      <a href="#" class="disabled" rel="idclaiminformation" id="tabclaiminformation" ><i class="fas fa-info"></i>Claim & Relief</a>
+      <a href="#" class="disabled" rel="idreliefrequest" id="tabreliefrequest" style="display: none"><i class="fas fa-retweet"></i>Relief Requested</a>
+      <a href="#" class="disabled" rel="idfees" id="tabfees" ><i class="fas fa-receipt"></i>Payment</a>
+    </nav>
+    @else
+    <nav class="tabs" disabled="false" style="width: 100%;">
+      <div class="selector1"></div>
+      <a href="#" class="active" rel="idclaimantinformation" id="tabclaimantinformation" onclick="idclaimantinformation()" ><i class="fas fa-info"></i>Claimant Details</a>
+      <a href="#" rel="idresponantinformation" id="tabrespondantinformation" disabled onclick="idresponantinformation()"><i class="fas fa-info"></i>Respondent/s Details</a>
+      <a href="#" rel="idclaiminformation" id="tabclaiminformation" disabled onclick="idclaiminformation()"><i class="fas fa-info"></i>Claim & Relief</a>
+     
+      <a href="#" rel="idfees" id="tabfees" disabled onclick="idfees()"><i class="fas fa-receipt"></i>Payment</a>
+
+       <a href="#" rel="idreliefrequest" id="tabreliefrequest" disabled onclick="idreliefrequest()" style="display: none"><i class="fas fa-retweet"></i>Relief Requested</a>
+    </nav>
+ 
+    @endif
+  </div>
+  <div class="tab-slider--container">
+
+    <div id="idclaimantinformation" class="tab-slider--body">
+      @if($claimantinformations == null)
+      <div style="    text-align: center;
+      margin-top: 30px;">
+      <h6 style="color:red; display: block;" id="companyid">Power of Attorney/Resolution/Authorisation Letter and ID Proof Mandatory</h6>
+      <h6 style="color:red; display: none;" id="individualid"></h6>  
+    </div>
+
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 100%">
+      <div class="modal-content">
+        <div class="modal-body"> 
+          <form  action="{{ route('claimantinformation.store') }}" method="POST" name="new_entry" enctype="multipart/form-data" autocomplete="off" id="claimantinformationform">
+           {{ csrf_field() }}
+           <div class="row register-form">
+            @if ($claimanttype[0]->claimant_respondant_type_Code !='BA' && $claimanttype[0]->claimant_respondant_type_Code !='GG')
+            <div class="col-md-4">
+              <div class="form-group" style="text-align: center;">
+                <input type="radio" name="company_individual" id="company_individual" for="company_individual" onchange="checkRadio()" value="Company" checked> Company
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group" style="text-align: center;">
+                <input type="radio" name="company_individual" id="company_individual1" for="company_individual" onchange="checkRadio()" value="Individual"> Individual
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group" style="text-align: center;">
+              </div>
+            </div>
+                        @endif
+
+            <div class="col-md-4">
+              <div class="form-group">
+               <select class="form-control" name="dispute_categories_id" id="disputecategory" required="true">
+                <option value="">Select Main Dispute Category</option>
+                @foreach ($dispute_categories as $category)
+                <option value="{{ $category->id }}"> {{$category->category_name}}</option>
+                @endforeach
+              </select>
+              <label class="form-control-placeholder" for="dispute_categories_id">Main Dispute Category<span style="color: red">*</span></label> 
+            </div>
+          </div>
+          <div class="col-md-4" >
+            <div class="form-group">
+             <select class="form-control" id ="subcategory" name="dispute_subcategories_id" onchange="subdispute_type_select()" required="true" disabled>
+              <option value=""> Select Sub Dispute Category</option>
+              @foreach ($dispute_subcategories as $category)
+              <option value=""> </option>
+              @endforeach
+            </select>
+            <label class="form-control-placeholder" for="dispute_subcategories_id">Sub Dispute Category<span style="color: red">*</span></label>
+          </div>
+        </div>
+         <div class="col-md-4" id="others">
+          <div class="form-group">
+            <input type="text"  id="others_id" class="form-control{{ $errors->has('others') ? ' is-invalid' : '' }}" name="others" required="true">
+            <label class="form-control-placeholder" for="others" >Others<span style="color: red">*</span></label>
+          </div>
+        </div>   
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text" readonly id="claimant_type" class="form-control{{ $errors->has('claimant_type') ? ' is-invalid' : '' }}" name="claimant_type" required="true" value="{{$claimanttype[0]->claimant_respondant_type_name}}">
+            <label class="form-control-placeholder" for="claimant_type" >Claimant Type<span style="color: red">*</span></label>
+          </div>
+        </div>
+       
+        @if ($claimanttype[0]->claimant_respondant_type_Code !='IS' )
+        <div class="col-md-4">
+          <div class="form-group">
+           <!--  <input type="text" onkeydown="return alphaOnly(event);" id="organization_details" class="form-control{{ $errors->has('organization_details') ? ' is-invalid' : '' }}" name="organization_details" required="true"> -->
+            <input type="text"  id="organization_details" class="form-control{{ $errors->has('organization_details') ? ' is-invalid' : '' }}" name="organization_details" required="true">
+            <label class="form-control-placeholder" for="organization_details" >Authorised Representative's Name<span style="color: red">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text"  id="official_designation" class="form-control{{ $errors->has('official_designation') ? ' is-invalid' : '' }}" name="official_designation" required="true">
+            <label class="form-control-placeholder" for="official_designation" >Authorised Representative's Designation<span style="color: red">*</span></label>
+          </div>
+        </div> 
+        @endif 
+         <div class="col-md-4">
+      <div class="form-group">
+       <input type="text" id="age" class="form-control{{ $errors->has('age') ? ' is-invalid' : '' }}" name="age" required="true" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+       <label class="form-control-placeholder" for="age">Age<span style="color: red">*</span></label>
+       @if ($errors->has('age'))
+       <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('age') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+         @if ($claimanttype[0]->claimant_respondant_type_Code !='BA' && $claimanttype[0]->claimant_respondant_type_Code !='GG')
+        <div class="col-md-4" id="company_name_id">
+          <div class="form-group">
+            <input type="text"  id="company_name" class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }}" name="company_name">
+            <label class="form-control-placeholder" for="company_name" >Company's Name<span style="color: red">*</span></label>
+          </div>
+        </div>
+
+        @endif
+        @if ($claimanttype[0]->claimant_respondant_type_Code =='GG' || $claimanttype[0]->claimant_respondant_type_Code =='PA' || $claimanttype[0]->claimant_respondant_type_Code =='CA')
+        <div class="col-md-4" >
+          <div class="form-group"  >
+            <input type="text"  id="organization_name" class="form-control{{ $errors->has('organization_name') ? ' is-invalid' : '' }}" name="organization_name"  value="{{$claimregister[0]->organization_name}}">
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+            <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Name of the Government<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+            <label class="form-control-placeholder" for="organization_name" id="org_name_label" >Firm Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+            <label class="form-control-placeholder" for="organization_name" id="org_name_label" style="display: red">Company Name<span style="color: red">*</span></label>
+            
+            
+            @endif
+          </div>
+        </div>
+        @else
+        @endif
+        @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+        <div class="col-md-4" >
+          <div class="form-group"  >
+            <input type="text"  id="govt_name" class="form-control{{ $errors->has('govt_name') ? ' is-invalid' : '' }}" name="govt_name"  value="{{$claimregister[0]->govt_name}}">
+             
+            <label class="form-control-placeholder" for="govt_name" id="org_name_label" >Name Of the Department<span style="color: red">*</span></label>
+             
+          </div>
+        </div>
+        
+        <div class="col-md-4" >
+          <div class="form-group"  >
+            <input type="text"  id="dept_name" class="form-control{{ $errors->has('dept_name') ? ' is-invalid' : '' }}" name="dept_name"  value="{{$claimregister[0]->dept_name}}">
+           
+            <label class="form-control-placeholder" for="dept_name" id="dept_name" >Officer Designation<span style="color: red">*</span></label>
+            
+          </div>
+        </div> 
+        @else
+        @endif
+         
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text" readonly id="firstname"  class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" name="firstname" required value="{{$claimregister[0]->firstname}}">
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+            
+            <label class="form-control-placeholder" for="firstname">Official's First Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+            <label class="form-control-placeholder" for="firstname">Representative/OL's First Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+            <label class="form-control-placeholder" for="firstname">Partner's First Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+            <label class="form-control-placeholder" for="firstname">Representative's First Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+            <label class="form-control-placeholder" for="firstname" id='individual_fname'>Individual's First Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+            <label class="form-control-placeholder" for="firstname">proprietor's First Name<span style="color: red">*</span></label>
+             @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+            <label class="form-control-placeholder" for="firstname">Bank Name<span style="color: red">*</span></label>
+            
+            
+            @endif
+          </div>
+        </div>
+ @if ($claimanttype[0]->claimant_respondant_type_Code !='BA')
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text" readonly id="middlename"  class="form-control{{ $errors->has('middlename') ? ' is-invalid' : '' }}" name="middlename" required value="{{$claimregister[0]->middlename}}">
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+            
+            <label class="form-control-placeholder" for="middlename">Official's Middle Name</label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+            <label class="form-control-placeholder" for="middlename">Representative/OL's Middle Name</label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+            <label class="form-control-placeholder" for="middlename">Partner's Middle Name</label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+            <label class="form-control-placeholder" for="middlename">Representative's Middle Name</label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+            <label class="form-control-placeholder" for="middlename" id='individual_mname'>Individual's Middle Name</label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+            <label class="form-control-placeholder" for="middlename">proprietor's Middle Name</label>
+            
+            
+            @endif
+          </div>
+        </div>
+         @endif
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text" readonly id="lastname"  class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" required value="{{$claimregister[0]->lastname}}">
+            @if ($claimanttype[0]->claimant_respondant_type_Code =='GG')
+            
+            <label class="form-control-placeholder" for="lastname">Official's Last Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='CA')
+            <label class="form-control-placeholder" for="lastname">Representative/OL's Last Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='PA')
+            <label class="form-control-placeholder" for="lastname">Partner's Last Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='HU')
+            <label class="form-control-placeholder" for="lastname">Representative's Last Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='IS')
+            <label class="form-control-placeholder" for="lastname" id='individual_lname'>Individual's Last Name<span style="color: red">*</span></label>
+            @elseif ($claimanttype[0]->claimant_respondant_type_Code =='TR')
+            <label class="form-control-placeholder" for="lastname">proprietor's Last Name<span style="color: red">*</span></label>
+             @elseif ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+            <label class="form-control-placeholder" for="lastname">Bank Branch Name<span style="color: red">*</span></label>
+            
+            
+            @endif
+          </div>
+        </div>
+        @if ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+        <div class="col-md-4" >
+          <div class="form-group"  >
+            <input type="text" readonly id="dept_name" class="form-control{{ $errors->has('dept_name') ? ' is-invalid' : '' }}" name="dept_name"  value="{{$claimregister[0]->dept_name}}">
+           
+            <label class="form-control-placeholder" for="dept_name" id="dept_name" >Branch / Dept. Code<span style="color: red">*</span></label>
+            
+          </div>
+        </div> 
+        @else
+        @endif
+
+        <div class="col-md-4">
+         <div class="form-group">
+           <input type="text" readonly id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required="true" value="{{$claimregister[0]->email}}">
+           <label class="form-control-placeholder" for="email" >Email<span style="color: red">*</span></label>
+           @if ($errors->has('email'))
+           <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('email') }}</strong>
+          </span>
+          @endif
+        </div>
+      </div>
+      <div class="col-md-4">
+         <div class="form-group">
+           <input type="text" readonly id="aadhar_num" class="form-control{{ $errors->has('aadhar_num') ? ' is-invalid' : '' }}" name="aadhar_num" required="true" value="{{$claimregister[0]->aadhar_num}}">
+           <label class="form-control-placeholder" for="aadhar_num" >Aadhar Number<span style="color: red">*</span></label>
+           @if ($errors->has('aadhar_num'))
+           <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('aadhar_num') }}</strong>
+          </span>
+          @endif
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+         <input type="text" readonly id="daytimetelephone" class="form-control{{ $errors->has('daytimetelephone') ? ' is-invalid' : '' }}" name="daytimetelephone"  maxlength="12" required="true" value="{{$claimregister[0]->phone}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+         <label class="form-control-placeholder" for="daytimetelephone">Contact Number<span style="color: red">*</span></label>
+         @if ($errors->has('daytimetelephone'))
+         <span class="invalid-feedback" role="alert">
+          <strong>{{ $errors->first('daytimetelephone') }}</strong>
+        </span>
+        @endif
+      </div>
+    </div>
+   
+  <div class="col-md-4">
+    <div class="form-group">
+     <input type="text" id="address" readonly class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" required="true" value="{{$claimregister[0]->address}}">
+     <label class="form-control-placeholder" for="address">Address<span style="color: red">*</span></label>
+     @if ($errors->has('address'))
+     <span class="invalid-feedback" role="alert">
+      <strong>{{ $errors->first('address') }}</strong>
+    </span>
+    @endif            
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+    <input type="text" id="city" readonly class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" required="true" value="{{$claimregister[0]->city}}">
+    <label class="form-control-placeholder" for="city">City<span style="color: red">*</span></label>
+    @if ($errors->has('city'))
+    <span class="invalid-feedback" role="alert">
+      <strong>{{ $errors->first('city') }}</strong>
+    </span>
+    @endif
+  </div>      
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+   <input type="text" id="state" readonly class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" name="state" required="true" value="{{$claimregister[0]->state}}">
+   <label class="form-control-placeholder" for="state">State<span style="color: red">*</span></label>
+   @if ($errors->has('state'))
+   <span class="invalid-feedback" role="alert">
+    <strong>{{ $errors->first('state') }}</strong>
+  </span>
+  @endif   
+</div>
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+   <input type="text" id="country" readonly class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" required="true" value="{{$claimregister[0]->country}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+   <label class="form-control-placeholder" for="country">Country<span style="color: red">*</span></label>
+   @if ($errors->has('country'))
+   <span class="invalid-feedback" role="alert">
+    <strong>{{ $errors->first('country') }}</strong>
+  </span>
+  @endif   
+</div>
+</div>
+
+<div class="col-md-4">
+  <div class="form-group">
+   <!-- <input type="text" id="zipcode" readonly class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}" name="zipcode" required="true" value="{{$claimregister[0]->zipcode}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"> -->
+   <input type="text" id="zipcode" readonly class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}" name="zipcode" required="true" value="{{$claimregister[0]->zipcode}}">
+   <label class="form-control-placeholder" for="zipcode">Postal Code<span style="color: red">*</span></label>
+   @if ($errors->has('zipcode'))
+   <span class="invalid-feedback" role="alert">
+    <strong>{{ $errors->first('zipcode') }}</strong>
+  </span>
+  @endif   
+</div>
+</div>
+
+
+      
+      
+      
+    <!-- </div> -->
+    <div class="col-md-4">
+      <div class="form-group">
+       <select class="form-control" name="currency" id="currency" required>
+        <option value="">Select Currency</option>                
+        <option value="INR">INR</option>
+        <option value="USD">USD</option>                
+      </select>
+      <label class="form-control-placeholder" for="currency">Select Currency<span style="color: red">*</span></label> 
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <h7></h7>
+      <input type="file" id="fileupload" onchange="ValidateSize(this)" 
+      class="form-control{{ $errors->has('fileupload') ? ' is-invalid' : '' }}"
+      name="fileupload" >
+      <label class="form-control-placeholder" for="fileupload" id="fileupload_label">Upload Authorisation Document<span style="color: red">*</span></label>
+      @if ($errors->has('fileupload'))
+      <span class="invalid-feedback" role="alert">
+        <strong>{{ $errors->first('fileupload') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <h7></h7>
+      <input type="file" id="fileidproof" 
+      class="form-control{{ $errors->has('fileidproof') ? ' is-invalid' : '' }}"
+      name="fileidproof">
+      <label class="form-control-placeholder" for="fileidproof" id="fileidproof_label">Upload ID Proof<span style="color: red">*</span></label>
+    </div>
+  </div>
+
+
+</div> 
+</div>                   
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="button" class="btn btn-success btn-space" id="claimantinformationbutton" onclick="Claimantinformationbuttonclick()">Save and Next</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <a class="btn btn-danger btn-space" href="{{ route('claimnotice.index') }}">Cancel</a>
+  </div> 
+</div>
+</div>          
+</form>
+
+@else
+<div class="col-lg-12">
+ <div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="row">
+     <div class="col-lg-12 margin-tb">                    
+      <div class="pull-right">
+
+      </div>
+
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered" width="100%" cellspacing="0">
+     <thead class="theadalign">
+      <tr>
+        <th>Sl. No.</th>
+        <th>Name & Address</th>
+        @if ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+        <th>Authorised Representative's Name</th>
+        @endif
+        <th>Age</th>
+        <th>Contact</th>
+        <!-- <th>Email </th> -->
+        <th>Main Dispute Category</th>
+        <th>Sub Dispute Category</th>
+        <th width="230px">Edit</th>                   
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($claimantinformations as $claimantinformation)
+      <tr style="text-align: center;">
+        <td>{{ $loop->iteration}}</td>
+        <td>{{ $claimantinformation->firstname }} & {{ $claimantinformation->address}}</td>
+         @if ($claimanttype[0]->claimant_respondant_type_Code =='BA')
+        <td>{{ $claimantinformation->organization_details }}</td>
+        @endif
+        <td>{{ $claimantinformation->age }}</td>
+        <td>{{ $claimantinformation->daytimetelephone }}</td>
+        <!-- <td>{{ $claimantinformation->email }}</td> -->
+        <td>{{ $claimantinformation->category_name }}</td>
+        <td>{{ $claimantinformation->subcategory_name }}</td>
+        <td>
+          <form action="{{ route('claimantinformation.destroy',$claimantinformation->id) }}" method="POST">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#editclaimantinformationModal">Edit</a>
+          </form>
+        </td>
+      </tr>  
+      @endforeach              
+    </tbody>
+  </table>
+
+ 
+
+  @include('modals/editClaimInformModal')
+</div>
+@endif
+</div>
+</div>
+</div>
+</div>
+<div class="tab-slider--container">
+  <div id="idresponantinformation" class="tab-slider--body">
+    <div class="col-lg-12">
+     <div class="card shadow mb-4 tabscroll">
+      <div class="card-body">
+        <div class="row">
+         <div class="col-lg-12 margin-tb">  
+                          
+           <div class="pull-right">
+            <a class="btn btn-success float-right" title="create"  data-toggle="modal" data-target="#createrespinformModal" >Add Respondent</a>
+          </div>
+         
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered"  width="100%" cellspacing="0">
+         <thead class="theadalign">
+          <tr>
+            <th>Sl. No.</th>
+            <th>Name</th>
+            <th>Particulars</th>
+            
+            <th>Respondent Type</th>
+            <th>Respondent Contact</th>
+            <th>Respondent Email </th>
+            <th width="230px">Action</th>                   
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($respondantinformations as $respondantinformation)
+          <tr style="text-align: center;">
+            <td>{{ $loop->iteration}}</td>
+            @if ($respondantinformation->claimant_respondant_type_Code =='GG')
+      
+            <td>{{ $respondantinformation->firstname }}</td>
+            <td>{{ $respondantinformation->middlename }}</td>
+            @endif
+            @if ($respondantinformation->claimant_respondant_type_Code =='CA' || $respondantinformation->claimant_respondant_type_Code =='PA')
+      
+            <td>{{ $respondantinformation->firstname }}</td>
+            <td>{{ $respondantinformation->lastname }}</td>
+            @endif
+            @if ($respondantinformation->claimant_respondant_type_Code =='HU')
+      
+            <td>{{ $respondantinformation->firstname }}</td>
+            <td>-</td>
+            @endif
+            @if ($respondantinformation->claimant_respondant_type_Code =='IS')
+      
+            <td>{{ $respondantinformation->firstname }} {{ $respondantinformation->middlename }} {{ $respondantinformation->lastname }}</td>
+            <td>-</td>
+            @endif
+            @if ($respondantinformation->claimant_respondant_type_Code =='TR')
+            <td>{{ $respondantinformation->proprietar_name }}</td>
+            <td>{{ $respondantinformation->firstname }} {{ $respondantinformation->middlename }} {{ $respondantinformation->lastname }}</td>
+            
+            @endif
+            
+            <td>{{ $respondantinformation->claimant_respondant_type_name }}</td>
+            <td>{{ $respondantinformation->daytimetelephone }}</td>
+            <td>{{ $respondantinformation->email }}</td>
+            <td>
+              <form action="{{ route('respondantinformation.destroy',$respondantinformation->id) }}" method="POST">
+                <a class="btn btn-primary"  data-toggle="modal" data-target="#editrespondantinformationModal{{$respondantinformation->id}}">Edit</a>
+                @csrf
+                @method('DELETE')
+                <!-- <button type="submit" onclick="return myFunction();" class="btn btn-danger"><i class="far fa-trash-alt"></i></button> -->
+              </form>
+            </td>
+          </tr>  
+          @endforeach              
+        </tbody>
+
+      </table>
+      @if($respondantinformations !=null)
+      @include('modals/editrespinformModal')
+      @endif
+      <div class="tab-content mb30">
+        @include('modals/createrespinformModal')
+      </div>
+
+<div>
+    
+
+
+</div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-slider--container">
+  <div id="idclaiminformation" class="tab-slider--body">
+    <div class="col-lg-12">
+     <div class="card shadow mb-4 tabscroll">
+      <div class="card-body">
+        <div class="row">
+         <div class="col-lg-12 margin-tb">
+          @if($claimandrelief == null && $ReliefRequests == null )
+          <div class="pull-right">
+            <a class="btn btn-success float-right" title="create" data-toggle="modal" data-target="#idclaiminformationdetails" >Add Claim and Relief</a>
+          </div>
+          @endif                    
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+         <thead class="theadalign">
+          <tr>
+            <!-- <th>Sl. No.</th> -->
+            <th>Main Dispute Category</th>
+            <!-- <th>Contract Date</th> category_name -->
+            @if ($claimantinformations != null)
+            
+              <th>Total Claim Amount({{$claimantinformations[0]->currency}})</th>
+            
+            @else
+           
+              <th>Total Claim Amount</th>
+            
+            @endif
+            <!-- <th>Reasons for the Claim</th> -->
+            <th width="230px">Action</th>                   
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($claimandrelief as $claimDetail)
+          <tr style="text-align: center;">
+            <!-- <td>{{ $loop->iteration}}</td> -->
+            <td>{{ $claimDetail->category_name }}</td>
+            <!-- <td>{{ $claimDetail->contractdate }}</td> -->
+            <td>{{ number_format((float)$claimDetail->damage_with_interest, 2, '.', '') }}</td>
+            <!-- <td>{{ $claimDetail->reason_for_claim }}</td>                 -->
+            <td>
+             <form action="{{ route('claimdetails.destroy',$claimDetail->claimnoticeid) }}" method="POST">
+              <a class="btn btn-primary"  data-toggle="modal" data-target="#editClaimantDetailsModal{{$claimDetail->claimnoticeid}}">Edit</a>
+              @csrf
+              @method('DELETE')
+               <button type="submit" onclick="return myFunction();" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>  
+        @endforeach              
+      </tbody>
+    </table>
+    @if($claimandrelief != null )
+    @include('modals/editClaimantDetailsModal') 
+    @endif
+    @include('modals/createClaimantDetailsModal') 
+  </div>  
+  <div>
+
+</div>    
+</div>
+</div>
+</div>
+<div class="tab-slider--container">
+  <div id="idreliefrequest" class="tab-slider--body">
+
+</div>
+<div class="tab-slider--container">
+
+ <div id="idfees" class="tab-slider--body">
+  @if($ClaimFees ==null)
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body"> 
+        <form  action="{{ route('claimfees.store') }}" method="POST" id="feessubmitform">
+          @csrf  
+         <!--  <form action="{{ route('razorpay.payment.store') }}" method="POST" >
+                                    @csrf --> 
+                                   
+                          
+          <div class="row register-form">
+            <div class="col-md-6">
+              <div class="form-group"> 
+               <label>Main Dispute Category</label>              
+               @foreach ($claimnoticedisputecategories as $categories)
+               <select name="dispute_categories_id" class="form-control"  readonly>
+                <option value="{{$categories->dispute_categories_id}}">{{$categories->category_name}}</option>
+              </select>                 
+
+
+            </div>
+            <div class="form-group">
+              <label >Sub Dispute Category</label>
+              <select name="dispute_subcategories_id" class="form-control"  readonly >
+                <option value="{{$categories->dispute_subcategories_id}}">{{$categories->subcategory_name}}</option>
+              </select>
+              @endforeach           
+
+            </div>
+          </div>  
+          <div class="col-md-6">
+           
+            <div class="form-group" >
+            
+              @foreach($registrationfees as $registrationfee)
+                @if($claimantinformations[0]->currency =='INR')
+              @if ($claimantinformations != null)
+            
+              <label>Registration Fees({{$claimantinformations[0]->currency}})</label>
+            
+            @else
+          
+               <label>Registration Fees/label>
+            
+             @endif
+              <input type="text" id="registration_fees" class="form-control" name="registration_fees"  value=" {{ number_format((float)$registrationfee->registration_fee, 2, '.', '') }}" readonly >
+
+               @if ($claimantinformations != null)
+            
+              <label>Platform Fee({{$claimantinformations[0]->currency}})</label>
+            
+            @else
+          
+               <label>Platform Fee/label>
+            
+             @endif
+
+              <input type="text" id="extra_fees" class="form-control" name="extra_fees"  value=" {{ number_format((float)$extra_amt, 2, '.', '') }}" readonly >
+ @endif
+              @endforeach 
+             
+
+              @if ($errors->has('registration_fees'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('registration_fees') }}</strong>
+              </span>
+              @endif
+            </div>
+
+            <div class="form-group"> 
+              <textarea  class="form-control{{ $errors->has('claim_amount_purpose') ? ' is-invalid' : '' }}" name="claim_amount_purpose" required id="claim_amount_purpose"></textarea>
+              <label class="form-control-placeholder" for="claim_amount_purpose">Nature Of Claim<span style="color: red">*</span></label>
+              @if ($errors->has('claim_amount_purpose'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('claim_amount_purpose') }}</strong>
+              </span>
+              @endif
+            </div>
+
+
+          </div>   
+        </div> 
+        
+             
+          @foreach($registrationfees as $registrationfee)
+          @if($claimantinformations[0]->currency =='INR')
+          @if($claimantinformations != null && $ReliefRequests != null  && $ClaimDetails != null  && $respondantinformations != null )
+          <!-- <input type="text" value="{{$total_pay_amt}}"> -->
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
+         <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                            data-key="{{ env('RAZORPAY_KEY') }}"
+                                            data-amount="{{ $total_pay_amt }}"
+                                            data-buttontext="Submit & Pay {{ number_format((float)$total_pay_amt_check, 2, '.', '') }}"
+                                            data-name="Online Arbitartion System"
+                                            data-description="EAS"
+                                            data-image="http://ttci-demo.com:1001/images/pic.png"
+                                            data-prefill.name="name" 
+                                            data-prefill.email="email"
+                                            data-theme.color="#343464">
+                                    </script>
+                                     @endif   
+                                      @endif 
+          @endforeach
+         
+ <a class="btn btn-danger btn-space" href="{{ route('claimnotice.index') }}">Cancel</a>
+                                 
+      </div>                   
+      
+
+    </div>          
+  </form>
+  <div>
+     
+</div>
+
+</div>
+
+@else
+<div class="card-body">
+<div class="table-responsive">
+  <table class="table table-bordered"  width="100%" cellspacing="0">
+   <thead class="theadalign">
+    <tr>
+      <th>Sl. No.</th>
+      <th>Main Dispute Category</th>
+      <th>Sub Category</th>
+      <!-- <th>Claim Amount</th> -->
+      <th>Sub Dispute Category</th>                      
+      <!-- <th width="230px">Action</th>                    -->
+    </tr>
+  </thead>   
+
+  <tbody>
+    @foreach ($ClaimFees as $ClaimFee)
+    <tr>
+      <td>{{ $loop->iteration}}</td>
+      <td>{{ $ClaimFee->dispute_categories_id }}</td>
+      <td>{{ $ClaimFee->dispute_subcategories_id }}</td>
+      <!-- <td>{{ $ClaimFee->claim_amount }}</td> -->
+      <td>{{ $ClaimFee->claim_amount_purpose }}</td>          
+
+     <!--  <td>
+        <form action="{{ route('claimfees.destroy',$ClaimFee->id) }}" method="POST">
+          <a class="btn btn-primary" data-toggle="modal" data-target="#editClaimFeeModal{{$ClaimFee->id}}"><i class="fas fa-pencil-alt"></i></a>
+          @csrf
+          @method('DELETE')
+          <button type="submit" onclick="return myFunction();" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+        </form>             
+      </td> -->
+    </tr>  
+    @endforeach              
+  </tbody>
+</table>
+
+@if($ClaimFees !=null)
+@include('modals/editClaimFeesModal') 
+@endif
+</div> 
+</div>
+@endif
+
+</div>  
+
+<div class="text-center">
+   <button class="prv btn btn-primary" type="button" >Previous</button>
+   <button class="nxt btn btn-primary" type="button">Next</button>
+                   
+                  </div>
+<script>
+  $('#disputecategory').change(function(){  
+    var categoryID = $(this).val();     
+    if(categoryID){
+      $.ajax({
+       type:"GET",
+       url:"{{url('/get-dispute-list')}}?dispute_categories_id="+categoryID,
+       success:function(res){                      
+        if(res){
+          $("#subcategory").empty();
+          $('#subcategory').prop( "disabled", false );  
+          $("#subcategory").append('<option value=""> Select Sub Category</option>');
+          console.log(res);
+          for (var i =0; i < res.length; i++) {
+           
+            $("#subcategory").append('<option value="'+res[i].id+'">'+res[i].subcategory_name+'</option>');
+          }
+            
+          
+
+        }else{
+         $("#subcategory").empty();
+       }
+     }
+   });
+    }     
+  });
+  function sortReponse(data)
+{
+    var sorted = [];
+    $(data).each(function(k, v) {
+        for(var key in v) {
+            sorted.push({key: key, value: v[key]})
+        }
+    });
+
+    return sorted.sort(function(a, b){
+        if (a.value < b.value) return -1;
+        if (a.value > b.value) return 1;
+        return 0;
+    });
+}
+</script>
+@if($claimantinformations != null)
+<script type="text/javascript">
+  var tabs = $('.tabs');
+  var selector = $('.tabs').find('a').length;
+//var selector = $(".tabs").find(".selector");
+var activeItem = tabs.find('.active');
+var activeWidth = activeItem.innerWidth();
+$(".selector1").css({
+  "left": activeItem.position.left + "px", 
+  "width": activeWidth + "px"
+});
+
+$(".tabs").on("click","a",function(e){
+  e.preventDefault();
+  $('.tabs a').removeClass("active");
+  $(this).addClass('active');
+  var activeWidth = $(this).innerWidth();
+  var itemPos = $(this).position();
+  $(".selector1").css({
+    "left":itemPos.left + "px", 
+    "width": activeWidth + "px"
+  });
+});
+
+$('.nxt').on('click', function () {
+
+    moveTab("Next");
+});
+$('.prv').on('click', function () {
+
+    moveTab("Previous");
+});
+
+
+function moveTab(nextOrPrev) {
+   // alert(nextOrPrev);
+
+
+    var currentTab = "";
+    $('.tabs a').each(function () {
+        if ($(this).hasClass('active')) {
+            currentTab = $(this);
+        //alert($(this));
+        }
+    });
+
+
+
+    if (nextOrPrev == "Next") {
+       // alert("inside next");
+
+        if (currentTab.next().length) 
+        {
+          //alert(currentTab.text());
+          if(currentTab.text() == "Claimant Details" )
+          {
+                     idresponantinformation();
+          }
+
+          if(currentTab.text() == "Respondent/s Details" )
+          {
+                     idclaiminformation();
+          }
+
+          if(currentTab.text() == "Claim & Relief" )
+          {
+                     idfees();
+          }
+
+          // if(currentTab.text() == "Relief Requested" )
+          // {
+          //            idclaimantinformation();
+          // }
+
+            currentTab.removeClass('active');
+            $('.selector1 a').removeClass("active");
+         currentTab.next().addClass('active');
+
+       }
+        else {} // do nothing for now
+
+    } else {
+       // alert("inside previous");
+
+        if (currentTab.prev().length) 
+        {
+          
+          if(currentTab.text() == "Payment" )
+          {
+                    idclaiminformation();
+          }
+
+          if(currentTab.text() == "Claim & Relief" )
+          {
+                     idresponantinformation();
+          }
+
+          if(currentTab.text() == "Respondent/s Details" )
+          {
+                     idclaimantinformation();
+          }
+
+
+            currentTab.removeClass('active');
+            currentTab.prev().addClass('active');
+        }
+        else {} //do nothing for now 
+
+    }
+}
+</script>
+@endif
+<script type="text/javascript">
+  function checkRadio()
+  {
+    var companyid = document.getElementById("companyid");
+    var individualid = document.getElementById("individualid");
+    var company_name = document.getElementById("company_name_id");
+
+    if(document.getElementById("company_individual").checked)
+    {
+      //alert ("fhgf");
+     companyid.style.display = "block";
+     individualid.style.display = "none";
+     company_name.style.display = "block";
+      $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+      $('#individual_fname').html("Representative's First Name <span id='frname'> *</span>");
+      $('#individual_mname').html("Representative's Middle Name ");
+      $('#individual_lname').html("Representative's Last Name <span id='frname'> *</span>");
+
+   }
+   else
+   {
+    //alert ("fhgf");
+     companyid.style.display = "none";
+     individualid.style.display = "block";
+     company_name.style.display = "none";
+     $('#fileupload_label').html("Upload Authorisation Document");
+      $('#fileidproof_label').html("Upload ID Proof");
+      $('#individual_fname').html("Individual's First Name <span id='frname'> *</span>");
+      $('#individual_mname').html("Individual's Middle Name ");
+      $('#individual_lname').html("Individual's Last Name <span id='frname'> *</span>");
+   }   
+ }
+</script>
+<!-- <script type="text/javascript">
+  // A $( document ).ready() block.
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+</script> -->
+<script type="text/javascript">
+
+function idclaimantinformation()
+{
+  document.getElementById("idclaimantinformation").style.display="block";
+  document.getElementById("idresponantinformation").style.display="none";
+  document.getElementById("idclaiminformation").style.display="none";
+  document.getElementById("idreliefrequest").style.display="none";
+  document.getElementById("idfees").style.display="none";
+}
+function idresponantinformation()
+{
+  document.getElementById("idclaimantinformation").style.display="none";
+  document.getElementById("idresponantinformation").style.display="block";
+  document.getElementById("idclaiminformation").style.display="none";
+  document.getElementById("idreliefrequest").style.display="none";
+  document.getElementById("idfees").style.display="none" ;
+}
+
+function idclaiminformation()
+{
+  document.getElementById("idclaimantinformation").style.display="none";
+  document.getElementById("idresponantinformation").style.display="none";
+  document.getElementById("idclaiminformation").style.display="block";
+  document.getElementById("idreliefrequest").style.display="none";
+  document.getElementById("idfees").style.display="none" ;
+}
+
+function idreliefrequest()
+{
+  document.getElementById("idclaimantinformation").style.display="none";
+  document.getElementById("idresponantinformation").style.display="none";
+  document.getElementById("idclaiminformation").style.display="none";
+  document.getElementById("idreliefrequest").style.display="block";
+  document.getElementById("idfees").style.display="none" ;
+}
+
+function idfees()
+{
+ document.getElementById("idclaimantinformation").style.display="none";
+ document.getElementById("idresponantinformation").style.display="none";
+ document.getElementById("idclaiminformation").style.display="none";
+ document.getElementById("idreliefrequest").style.display="none";
+ document.getElementById("idfees").style.display="block" ;
+}
+
+
+</script>
+<script type="text/javascript">
+
+</script>
+<!-- <script>
+ var age1=document.getElementById('age').value;
+if(age1 === "") {
+  return true;
+}
+age1 = parseInt(age1, 10);
+if (isNaN(age1) || age1 < 1 || age1 > 100)
+{ 
+  alert("The age must be a number between 1 and 100");
+  return false;
+}
+</script> -->
+ <!-- <script type="text/javascript">
+   function ClaimantInformation()
+  {
+   //alert("Sample");
+   $('#claimantinformationbutton').attr("disabled", true);
+    document.getElementById("claimantinformationform").submit();
+  }
+
+</script> -->
+
+<!--  <script type="text/javascript">
+   function Claimantinformationbuttonclick()
+   {
+    // $('#claimantinformationbutton]').prop('disabled',true);
+
+  //  var claim_details 
+
+   }
+ </script> -->
+
+<!--  <script type="text/javascript">
+   $(document).ready(function() {
+   $('#dispute_subcategories_id').prop( "disabled", false );  
+});
+ </script>
+-->
+<!-- <script type="text/javascript">
+  var claimant_type =  $('#claimant_type').val();
+     // alert (claimant_type);
+     if (claimant_type =='Bank') 
+     {
+        $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       return false;
+     }
+     if (claimant_type =='Government / Government Department') 
+     {
+        $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       return false;
+     }
+      if (claimant_type =='Trust / Society') 
+     {
+       $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       return false;
+     }
+     if (claimant_type =='Partnership / LLP') 
+     {
+       $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       return false;
+     }
+     if (claimant_type =='Limited Liability Company / Official Liquidator') 
+     {
+       $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       return false;
+     }
+</script> -->
+
+<script type="text/javascript">
+  window.onload = function(){
+    var company_individual =  $('#company_individual').prop("checked") ;
+
+     if (company_individual){
+       
+      $('#fileupload_label').html("Upload Authorisation Document <span id='frname'> *</span>");
+      $('#fileidproof_label').html("Upload ID Proof <span id='frname'> *</span>");
+       $('#individual_fname').html("Representative's First Name <span id='frname'> *</span>");
+      $('#individual_mname').html("Representative's Middle Name ");
+      $('#individual_lname').html("Representative's Last Name <span id='frname'> *</span>");
+      
+    }
+    
+
+};
+window.onload = function(){
+
+
+  var inputvalue = document.getElementById("subcategory").value;
+  if (inputvalue=="")
+  {
+     $("#others").hide();
+  }
+
+};
+
+
+  
+var fileupload_size;
+$('#fileupload').on('change', function() { 
+            fileupload_size=this.files[0].size /1024; 
+        });
+var fileupload_size2;
+$('#fileidproof').on('change', function() { 
+            fileupload_size2=this.files[0].size /1024; 
+        });
+ function Claimantinformationbuttonclick() {
+     // body...
+
+     var inputvalue = document.getElementById("subcategory").value;
+     var others =  $('#others_id').val();
+
+    
+  
+      if (inputvalue >= 240 &&  inputvalue <= 255){
+
+if (others =='') {
+       swal("Enter Others", "", "error");
+       return false;
+     }
+}
+else if (inputvalue == 161){
+
+if (others =='') {
+       swal("Enter Others", "", "error");
+       return false;
+     }
+}
+else if (inputvalue == 237){
+
+if (others =='') {
+       swal("Enter Others", "", "error");
+       return false;
+     }
+}
+else{
+ 
+
+}
+
+     var disputecategory =  $('#disputecategory').val();
+     //alert(disputecategory);
+     if (disputecategory =='') {
+       swal("Please Select Dispute Category", "", "error");
+       return false;
+     }
+
+     var disputesubcategory =  $('#subcategory').val();
+     if (disputesubcategory =='') 
+     {
+       swal("Please Select Sub Category", "", "error");
+       return false;
+     }
+
+     
+     var company_name = $('#company_name').val();
+   var company_individual =  $('#company_individual').prop("checked") ;
+    if (company_name ==''&& company_individual) 
+   {
+     
+     swal("Enter Company's Name", "", "error");
+     return false;
+   }
+
+     var name = $('#name').val();
+
+     if (name =='')
+       
+     {
+      swal("Enter Your Name", "", "error");
+      return false;
+    }
+    var email = $('#email').val();
+
+    if (email =='')
+     
+    {
+      swal("Enter Your Email ID", "", "error");
+      return false;
+    }
+    var daytimetelephone = $('#daytimetelephone').val();
+
+    if (daytimetelephone =='')
+     
+    {
+      swal("Enter Your Contact Number", "", "error");
+      return false;
+    }
+
+    var age = $('#age').val();
+
+    if (age =='')
+     
+    {
+      swal("Enter Your Age", "", "error");
+      return false;
+    }
+    if (age < 18)
+     
+    {
+      swal("Claimant's Age should be above 17", "", "error");
+      return false;
+    }
+
+
+    if (age > 120)
+     
+    {
+      swal("Claimant's Age should not be greater than 120", "", "error");
+      return false;
+    }
+    
+    var address = $('#address').val();
+
+    if (address =='')
+     
+    {
+      swal("Enter Your Address", "", "error");
+      return false;
+    }
+    var city = $('#city').val();
+
+    if (city =='')
+     
+    {
+      swal("Enter Your City", "", "error");
+      return false;
+    }
+    var state = $('#state').val();
+
+    if (state =='')
+    {
+      swal("Enter Your State", "", "error");
+      return false;
+    }
+    var zipcode = $('#zipcode').val();
+
+    if (zipcode =='')
+    {
+      swal("Enter Your Postal Code", "", "error");
+      return false;
+    }
+    var country = $('#country').val();
+
+    if (country =='')
+     
+    {
+      swal("Enter Your Country", "", "error");
+      return false;
+    }
+    var currency =  $('#currency').val();
+    if (currency =='') 
+    {
+     swal("Please Select Currency", "", "error");
+     return false;
+   }
+   
+   var fileupload =  $('#fileupload').val();
+   var claimant_type =  $('#claimant_type').val();
+     if (claimant_type =='Bank' && fileupload =='') 
+     {
+       swal("Please upload Authorisation Document ", "", "error");
+       return false;
+     }
+     if (claimant_type =='Government / Government Department' && fileupload =='') 
+     {
+       swal("Please upload Authorisation Document ", "", "error");
+       return false;
+     }
+      if (claimant_type =='Trust / Society' && fileupload =='') 
+     {
+       swal("Please upload Authorisation Document ", "", "error");
+       return false;
+     }
+     if (claimant_type =='Partnership / LLP' && fileupload =='') 
+     {
+       swal("Please upload Authorisation Document ", "", "error");
+       return false;
+     }
+     if (claimant_type =='Limited Liability Company / Official Liquidator' && fileupload =='') 
+     {
+       swal("Please upload Authorisation Document ", "", "error");
+       return false;
+     }
+    
+    
+   var company_name = $('#company_name').val();
+   var company_individual =  $('#company_individual').prop("checked") ;
+   // alert (company_individual);
+   if (fileupload ==''&& company_individual) 
+   {
+     
+     swal("Please upload Authorisation Document", "", "error");
+     return false;
+   }
+   //alert (fileupload_size); 
+   var fileupload1 =  fileupload_size;
+    if (fileupload1 >='2048'&& company_individual) 
+   {
+     
+     swal("File Size Exceed.Please Upload the Maximum File Size of 2MB", "", "error");
+     return false;
+   }
+
+
+   var fileidproof =  $('#fileidproof').val();
+   if (fileidproof =='') 
+   {
+     
+     swal("Please upload ID Proof", "", "error");
+     return false;
+   }
+   if (fileidproof ==''&& company_individual) 
+   {
+     
+     swal("Please upload ID Proof", "", "error");
+     return false;
+   }
+var fileupload2 =  fileupload_size2;
+    if (fileupload2 >='2048'&& company_individual) 
+   {
+     
+     swal("File Size Exceed.Please Upload the Maximum File Size of 2MB", "", "error");
+     return false;
+   }
+
+
+
+   
+
+
+
+
+
+
+   $("#claimantinformationbutton").attr("disabled", true);
+   document.getElementById('claimantinformationform').submit();
+   
+ }
+
+</script>
+<script type="text/javascript">
+  
+   function subdispute_type_select()
+ {
+  
+  var inputvalue = document.getElementById("subcategory").value;
+  
+      if (inputvalue >= 240 &&  inputvalue <= 255){
+
+$("#others").show();
+}
+else if (inputvalue == 161){
+
+$("#others").show();
+}
+else if (inputvalue == 237){
+
+$("#others").show();
+}
+else{
+  $("#others").hide();
+}
+}
+</script>
+
+<script>
+  function feesbuttton() {
+    var claim_amount_purpose =  $('#claim_amount_purpose').val();
+    if (claim_amount_purpose =='') 
+    {
+     swal("Enter Nature Of Claim ", "", "error");
+     return false;
+   }
+   $("#fees_submit").attr("disabled", true);
+   document.getElementById('feessubmitform').submit();
+ }
+</script>
+ @if ($claimantinformations != null)
+<script type="text/javascript">
+  var x1 = 2;
+  $('#commercial_btn').on('click', function () {
+    var max_fields      = 10; 
+    var commercial1       = $("#commercial1");
+    
+   
+    if(x1 < max_fields){ 
+      $(commercial1).append('<div class="row remove_commercial"><div class="col-md-1"><input class="form-control" value='+x1+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-5" > <div class="form-group"><input class="form-control"  type="text"  onkeypress="return isNumberKey(event)" name="contract_price[]"/><label class="form-control-placeholder" for="contract_price">Contract Price({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-5" > <div class="form-group"><input class="form-control"   type="text"  onkeypress="return isNumberKey(event)" name="claim_for_refund_lines[]"/><label class="form-control-placeholder" for="claim_for_refund_lines">Claim for Refund({{$claimantinformations[0]->currency}}):</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x1++;
+        
+      }
+       $("#commercial_del").css('display','block');
+    });
+ $("#commercial_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_commercial");
+        $('.remove_commercial:last').remove();
+        x1--;
+         if($(".remove_commercial").length==0){
+        $("#commercial_del").css('display','none');
+      }
+      });
+
+  </script>
+  
+  <script type="text/javascript">
+  
+  $('#commercial_btn2').on('click', function () {
+    var x1_in = $(".contract").last().val();
+    var max_fields      = 10; 
+    var commercial2       = $("#commercial2");
+    
+   
+    if(x1_in < max_fields){ 
+       x1_in++;
+      $(commercial2).append('<div class="row remove_commercial2"><div class="col-md-1"><input class="form-control contract" value='+x1_in+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-5" > <div class="form-group"><input class="form-control"  type="text"  onkeypress="return isNumberKey(event)" name="contract_price[]"/><label class="form-control-placeholder" for="contract_price">Contract Price({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-5" > <div class="form-group"><input class="form-control"   type="text"  onkeypress="return isNumberKey(event)" name="claim_for_refund_lines[]"/><label class="form-control-placeholder" for="claim_for_refund_lines">Claim for Refund({{$claimantinformations[0]->currency}}):</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+       
+        
+      }
+       $("#commercial_del2").css('display','block');
+    });
+ $("#commercial_del2").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_commercial2");
+        $('.remove_commercial2:last').remove();
+        x1_in--;
+         if($(".remove_commercial2").length==0){
+        $("#commercial_del2").css('display','none');
+      }
+      });
+
+  </script>
+ 
+   <!-- <script type="text/javascript">
+     
+$('#commercial_btn').on('click', function () {
+   var max_fields      = 10; 
+  var commercial1       = $("#commercial1");
+  
+   var x = 0;
+    if(x < max_fields){ 
+      $(commercial1).append('<div class="row"><div class="col-md-3" > </div><div class="col-md-4" > <div class="form-group"><input class="form-control" placeholder="contract Price" id="cccc" type="text" name="contract_price[]"/></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" id="cccc" placeholder="Claim for Refund Lines "name="claim_for_refund_lines[]"/></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+     
+    }
+    $(commercial1).on("click",".remove_field", function(e)
+    { 
+    e.preventDefault(); $(this).parent('div').remove(); x--;
+  })
+  //    $(wrapper2).on("click",".remove_field", function(e)
+  //    { 
+  //   e.preventDefault(); $(this).parent('div').remove(); x--;
+  // })
+  });
+</script> -->
+<script type="text/javascript">
+ var x2 = 2;
+  $('#bankrelief_btn').on('click', function () {
+   var max_fields      = 10; 
+   var mortgaged_prop       = $("#mortgaged");
+   
+   
+   if(x2 < max_fields){ 
+      $(mortgaged_prop).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x2+'  type="text" disabled ></div><div class="col-md-5" > <div class="form-group"><input class="form-control"   type="text" name="mortgaged_property[]"/><label class="form-control-placeholder" for="mortgaged_property">Mortgaged Property/ Pledged Property/ Hypothecated property:</label> </div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>');
+        x2++; 
+        
+      }
+     
+  
+});
+   $("#mortgaged").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x2--;
+      });
+</script>
+<script type="text/javascript">
+  var x3 = 2;
+  $('#family_btn2').on('click', function () {
+   var max_fields      = 10; 
+   var movable       = $("#movable");
+   
+  
+   if(x3 < max_fields){ 
+      $(movable).append('<div class="row remove_family1"><div class="col-md-1"><input class="form-control" value='+x3+'  type="text" disabled style="background-color: antiquewhite;"><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_nature[]"/><label class="form-control-placeholder" for="movable_nature">Nature of Movable property:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_possessor[]"/> <label class="form-control-placeholder" for="movable_possessor">Name of the Possessor:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_owner[]"/><label class="form-control-placeholder" for="movable_owner">Name of the Owner:</label></div></div><div class="col-md-2" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="movable_value[]"/> <label class="form-control-placeholder" for="movable_value">Value of Property({{$claimantinformations[0]->currency}}):</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x3++;
+        
+      }
+      
+ $("#family_del1").css('display','block');
+});
+  $("#family_del1").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_family1");
+        $('.remove_family1:last').remove();
+        x3--;
+         if($(".remove_family1").length==0){
+        $("#family_del1").css('display','none');
+      }
+      });
+</script>
+<script type="text/javascript">
+ 
+  $('#family_btn2_edit').on('click', function () {
+     var x3_in = $(".family2").last().val();
+   var max_fields      = 10; 
+   var movable_edit       = $("#movable_edit");
+   
+  
+   if(x3_in < max_fields){ 
+     x3_in++;
+        
+      $(movable_edit).append('<div class="row remove_family1_edit"><div class="col-md-1"><input class="form-control family2" value='+x3_in+'  type="text" disabled style="background-color: antiquewhite;"><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_nature[]"/><label class="form-control-placeholder" for="movable_nature">Nature of Movable property:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_possessor[]"/> <label class="form-control-placeholder" for="movable_possessor">Name of the Possessor:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="movable_owner[]"/><label class="form-control-placeholder" for="movable_owner">Name of the Owner:</label></div></div><div class="col-md-2" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="movable_value[]"/> <label class="form-control-placeholder" for="movable_value">Value of Property({{$claimantinformations[0]->currency}}):</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+       
+      }
+      
+ $("#family_del1_edit").css('display','block');
+});
+  $("#family_del1_edit").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_family1_edit");
+        $('.remove_family1_edit:last').remove();
+        x3_in--;
+         if($(".remove_family1_edit").length==0){
+        $("#family_del1_edit").css('display','none');
+      }
+      });
+</script>
+<script type="text/javascript">
+  var x4 = 2;
+  $('#family_btn1').on('click', function () {
+   var max_fields      = 10; 
+   var immovable       = $("#immovable");
+   
+  
+   if(x4 < max_fields){ 
+      $(immovable).append('<div class="row remove_family"><div class="col-md-1"><input class="form-control" value='+x4+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_nature[]"/> <label class="form-control-placeholder" for="immovable_nature">Nature of Immovable Property:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_possessor[]"/ > <label class="form-control-placeholder" for="immovable_possessor">Name of the Possessor:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_owner[]"/> <label class="form-control-placeholder" for="immovable_owner">Name of the Property Owner:</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_description[]"/> <label class="form-control-placeholder" for="immovable_description">Description of Property:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  name="immovable_schedule[]"/><label class="form-control-placeholder" for="immovable_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="immovable_market[]"/><label class="form-control-placeholder" for="immovable_market">Market Value of Property({{$claimantinformations[0]->currency}})</label></div></div>'); //add input box
+      
+      x4++;
+    }
+   $("#family_del").css('display','block');
+  //    $(wrapper2).on("click",".remove_field", function(e)
+  //    { 
+  //   e.preventDefault(); $(this).parent('div').remove(); x--;
+  // })
+});
+   $("#family_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_family");
+        $('.remove_family:last').remove();
+        x4--;
+         if($(".remove_family").length==0){
+        $("#family_del").css('display','none');
+      }
+      });
+</script>
+<script type="text/javascript">
+  
+  $('#family_btn1_edit').on('click', function () {
+     var x4_in = $(".family1").last().val();
+   var max_fields      = 10; 
+
+   var immovable_edit       = $("#immovable_edit");
+   
+  
+   if(x4_in < max_fields){ 
+    x4_in++;
+      $(immovable_edit).append('<div class="row remove_family_edit"><div class="col-md-1"><input class="form-control family1" value='+x4_in+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_nature[]"/> <label class="form-control-placeholder" for="immovable_nature">Nature of Immovable Property:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_possessor[]"/ > <label class="form-control-placeholder" for="immovable_possessor">Name of the Possessor:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_owner[]"/> <label class="form-control-placeholder" for="immovable_owner">Name of the Property Owner:</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="immovable_description[]"/> <label class="form-control-placeholder" for="immovable_description">Description of Property:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  name="immovable_schedule[]"/><label class="form-control-placeholder" for="immovable_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="immovable_market[]"/><label class="form-control-placeholder" for="immovable_market">Market Value of Property({{$claimantinformations[0]->currency}})</label></div></div>'); //add input box
+      
+      
+    }
+   $("#family_del_edit").css('display','block');
+  //    $(wrapper2).on("click",".remove_field", function(e)
+  //    { 
+  //   e.preventDefault(); $(this).parent('div').remove(); x--;
+  // })
+});
+   $("#family_del_edit").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_family_edit");
+        $('.remove_family_edit:last').remove();
+        x4_in--;
+         if($(".remove_family_edit").length==0){
+        $("#family_del_edit").css('display','none');
+      }
+      });
+</script>
+<script type="text/javascript">
+ var x5= 2;
+  $('#insurnace_btn1').on('click', function () {
+   var max_fields      = 10; 
+   var insurance1       = $("#insurance1");
+   
+   
+   if(x5 < max_fields){ 
+      $(insurance1).append('<div class="row remove_insurance"><div class="col-md-1"><input class="form-control" value='+x5+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-2"> <div class="form-group"><input class="form-control"  type="text"  onkeypress="return isNumberKey(event)" name="policy_no[]"/> <label class="form-control-placeholder" for="policy_no">Policy Number:<span style="color: red">*</span></label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" name="nature_of_cover[]"/><label class="form-control-placeholder" for="nature_of_cover">Nature of Cover:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_insurance[]"/><label class="form-control-placeholder" for="date_insurance">Date:</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="policy_value[]"/><label class="form-control-placeholder" for="policy_value">Policy Value({{$claimantinformations[0]->currency}}): </label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control" type="date"  name="policy_maturity_date[]"/><label class="form-control-placeholder" for="date_of_notice">Policy Maturity Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="surrender_value[]"/> <label class="form-control-placeholder" for="surrender_value">Surrender Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="claim_nature[]"/><label class="form-control-placeholder" for="claim_nature"> Nature of Claim:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="claim_value_insurance[]"/><label class="form-control-placeholder" for="claim_value_insurance"> Value of Claim({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_claim[]"/><label class="form-control-placeholder" for="date_of_claim">Date of Claim:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_notice_insurance[]"/><label class="form-control-placeholder" for="date_of_notice">Date of Notice:</label></div></div><div class="col-md-4" ><div class="form-group"><input class="datechk form-control" type="date" name="date_of_breach_insurance[]"/><label class="form-control-placeholder" for="date_of_breach">Date of Breach:</label> </div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="claim_amount_insurance[]"/><label class="form-control-placeholder" for="claim_amount_insurance">Claim Amount({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"   name="claim_amount_int[]"/><label class="form-control-placeholder" for="claim_amount_int">Interest:</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control" type="text" name="document_no[]"/><label class="form-control-placeholder" for="document_no">Transport/ Warehousing/ Courier Document No: </label></div></div><div class="col-md-2" > <div class="form-group"><input class="datechk form-control"   type="date" name="date_document[]"/><label class="form-control-placeholder" for="date_document">Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="freight_charges[]"/><label class="form-control-placeholder" for="freight_charges">Freight Charges({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="demurrage_charges[]"/><label class="form-control-placeholder" for="demurrage_charges">Demurrage Charges({{$claimantinformations[0]->currency}}): </label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="goods_nature[]"/>    <label class="form-control-placeholder" for="goods_nature">Nature of Goods:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="value_of_good[]"/><label class="form-control-placeholder" for="value_of_good"> Value of Goods({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="loss_nature[]"/><label class="form-control-placeholder" for="loss_nature"> Nature of Loss:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x5++;
+        
+      }
+     $('#insurance1').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' }); 
+      $("#insurance_del").css('display','block');
+    }); 
+     $("#insurance_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_insurance");
+        $('.remove_insurance:last').remove();
+        x5--;
+         if($(".remove_insurance").length==0){
+        $("#insurance_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+ 
+  $('#insurnace_btn2').on('click', function () {
+     var x5_2 = $(".insurance").last().val();
+   var max_fields      = 10; 
+   var insurance2       = $("#insurance2");
+   
+   
+   if(x5_2 < max_fields){ 
+    x5_2++;
+      $(insurance2).append('<div class="row remove_insurance"><div class="col-md-1"><input class="form-control insurance" value='+x5_2+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-2"> <div class="form-group"><input class="form-control"  type="text"  onkeypress="return isNumberKey(event)" name="policy_no[]"/> <label class="form-control-placeholder" for="policy_no">Policy Number:<span style="color: red">*</span></label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control"   type="text" name="nature_of_cover[]"/><label class="form-control-placeholder" for="nature_of_cover">Nature of Cover:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_insurance[]"/><label class="form-control-placeholder" for="date_insurance">Date:</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="policy_value[]"/><label class="form-control-placeholder" for="policy_value">Policy Value({{$claimantinformations[0]->currency}}): </label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control" type="date"  name="policy_maturity_date[]"/><label class="form-control-placeholder" for="date_of_notice">Policy Maturity Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="surrender_value[]"/> <label class="form-control-placeholder" for="surrender_value">Surrender Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="claim_nature[]"/><label class="form-control-placeholder" for="claim_nature"> Nature of Claim:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="claim_value_insurance[]"/><label class="form-control-placeholder" for="claim_value_insurance"> Value of Claim({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_claim[]"/><label class="form-control-placeholder" for="date_of_claim">Date of Claim:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_notice_insurance[]"/><label class="form-control-placeholder" for="date_of_notice">Date of Notice:</label></div></div><div class="col-md-4" ><div class="form-group"><input class="datechk form-control" type="date" name="date_of_breach_insurance[]"/><label class="form-control-placeholder" for="date_of_breach">Date of Breach:</label> </div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="claim_amount_insurance[]"/><label class="form-control-placeholder" for="claim_amount_insurance">Claim Amount({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"   name="claim_amount_int[]"/><label class="form-control-placeholder" for="claim_amount_int">Interest:</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control" type="text" name="document_no[]"/><label class="form-control-placeholder" for="document_no">Transport/ Warehousing/ Courier Document No: </label></div></div><div class="col-md-2" > <div class="form-group"><input class="datechk form-control"   type="date" name="date_document[]"/><label class="form-control-placeholder" for="date_document">Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="freight_charges[]"/><label class="form-control-placeholder" for="freight_charges">Freight Charges({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" ><div class="form-group"> <input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="demurrage_charges[]"/><label class="form-control-placeholder" for="demurrage_charges">Demurrage Charges({{$claimantinformations[0]->currency}}): </label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="goods_nature[]"/>    <label class="form-control-placeholder" for="goods_nature">Nature of Goods:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)" name="value_of_good[]"/><label class="form-control-placeholder" for="value_of_good"> Value of Goods({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="loss_nature[]"/><label class="form-control-placeholder" for="loss_nature"> Nature of Loss:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        
+        
+      }
+     $('#insurance2').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' }); 
+      $("#insurance_del2").css('display','block');
+    }); 
+     $("#insurance_del2").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_insurance");
+        $('.remove_insurance:last').remove();
+        x5_2--;
+         if($(".remove_insurance").length==0){
+        $("#insurance_del2").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+     var x6 = 2;
+    $('#real_btn1').on('click', function () {
+       
+     var max_fields      = 10; 
+     var real1       = $("#real1");
+  
+     if(x6 < max_fields){ 
+
+      $(real1).append('<div class="row remove_real"><div class="col-md-1"><input class="form-control" value='+x6+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="nature_of_contract_real[]"/> <label class="form-control-placeholder" for="nature_of_contract_real">Nature of Contract:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control"   type="date" name="date_of_cintract_real[]"/><label class="form-control-placeholder" for="date_of_cintract_real">Date of Contract</label></div></div><div class="col-md-5" > <div class="form-group"><input class="form-control" type="text"   name="annual_value_real[]"/> <label class="form-control-placeholder" for="annual_value_real">Annual Value of Contract/ Annual Average Rental Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="natue_of_immovable_real[]"/><label class="form-control-placeholder" for="natue_of_immovable_real">Nature of Immovable Property: </label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="name_of_possessor_real[]"/><label class="form-control-placeholder" for="name_of_possessor_real">Name of the Possessor:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))"  name="name_of_owner_real[]"/><label class="form-control-placeholder" for="name_of_owner_real">Name of the Property Owner:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="description_real[]"/> <label class="form-control-placeholder" for="description_real">Description of Property:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="schedule_real"/><label class="form-control-placeholder" for="schedule_real[]">Schedule and Boundaries:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="market_value_real[]"/> <label class="form-control-placeholder" for="market_value_real">Market Value of Property({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="mortgage_value[]"/><label class="form-control-placeholder" for="mortgage_value">Mortgage Value({{$claimantinformations[0]->currency}}):  </label></div></div><div class="col-md-5" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_breach_real[]"/><label class="form-control-placeholder" for="date_of_breach_real">Date of Breach:  </label></div></div><div class="col-md-5" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_notice_real[]"/><label class="form-control-placeholder" for="date_of_notice_real">Date of Notice:  </label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        
+        x6++;
+      }
+ $("#real_del").css('display','block');
+      $('#real1').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+      
+    });
+    
+    $("#real_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_real");
+        $('.remove_real:last').remove();
+        x6--;
+         if($(".remove_real").length==0){
+        $("#real_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+     
+    $('#real_btn1_edit').on('click', function () {
+        var x6_2 = $(".real_estate").last().val();
+     var max_fields      = 10; 
+     var real1_edit       = $("#real1_edit");
+  
+     if(x6_2 < max_fields){ 
+      x6_2++;
+
+      $(real1_edit).append('<div class="row remove_real_edit"><div class="col-md-1"><input class="form-control real_estate" value='+x6_2+'  type="text" disabled ><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="nature_of_contract_real[]"/> <label class="form-control-placeholder" for="nature_of_contract_real">Nature of Contract:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="datechk form-control"   type="date" name="date_of_cintract_real[]"/><label class="form-control-placeholder" for="date_of_cintract_real">Date of Contract</label></div></div><div class="col-md-5" > <div class="form-group"><input class="form-control" type="text"   name="annual_value_real[]"/> <label class="form-control-placeholder" for="annual_value_real">Annual Value of Contract/ Annual Average Rental Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="natue_of_immovable_real[]"/><label class="form-control-placeholder" for="natue_of_immovable_real">Nature of Immovable Property: </label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="name_of_possessor_real[]"/><label class="form-control-placeholder" for="name_of_possessor_real">Name of the Possessor:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))"  name="name_of_owner_real[]"/><label class="form-control-placeholder" for="name_of_owner_real">Name of the Property Owner:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123))" name="description_real[]"/> <label class="form-control-placeholder" for="description_real">Description of Property:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="schedule_real"/><label class="form-control-placeholder" for="schedule_real[]">Schedule and Boundaries:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="market_value_real[]"/> <label class="form-control-placeholder" for="market_value_real">Market Value of Property({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  onkeypress="return isNumberKey(event)"  name="mortgage_value[]"/><label class="form-control-placeholder" for="mortgage_value">Mortgage Value({{$claimantinformations[0]->currency}}):  </label></div></div><div class="col-md-5" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_breach_real[]"/><label class="form-control-placeholder" for="date_of_breach_real">Date of Breach:  </label></div></div><div class="col-md-5" > <div class="form-group"><input class="datechk form-control" type="date"  name="date_of_notice_real[]"/><label class="form-control-placeholder" for="date_of_notice_real">Date of Notice:  </label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        
+        
+      }
+ $("#real_del_edit").css('display','block');
+      $('#real1_edit').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+      
+    });
+    
+    $("#real_del_edit").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_real_edit");
+        $('.remove_real_edit:last').remove();
+        x6--;
+         if($(".remove_real_edit").length==0){
+        $("#real_del_edit").css('display','none');
+      }
+      });
+  </script>
+   <script type="text/javascript">
+   var x7 = 2;
+    $('#media_btn').on('click', function () {
+     var max_fields      = 10; 
+     var media       = $("#media");
+     
+     
+     if(x7 < max_fields){ 
+      $(media).append('<div class="row"><div class="col-md-4"></div><div class="col-md-3"></div><div class="col-md-1"><input class="form-control" placeholder='+x7+'  type="text" disabled ></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="file" name="fileupload_media[]"/><label class="form-control-placeholder" for="fileupload_media">Document Details:</div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x7++;
+      }
+      
+      
+    });
+    $("#media").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x7--;
+      });
+  </script>
+  <!-- <script type="text/javascript">
+   
+    $('#real_btn2').on('click', function () {
+     var max_fields      = 10; 
+     var real2     = $("#real2");
+     
+     var x = 0;
+     if(x < max_fields){ 
+      $(real2).append('<div class="row"><div class="col-md-4"> <div class="form-group"><input class="form-control" placeholder="Nature of Immovable Property "  type="text" name="natue_of_immovable_real[]"/></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" placeholder="Name of the Possessor"  type="text" name="name_of_possessor_real[]"/></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" placeholder="Name of the Property Owner" name="name_of_owner_real[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Description of Property" name="description_real[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Schedule and boundaries " name="schedule_real"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Market Value of Property" name="market_value_real[]"/></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text" placeholder="Mortgage Value  " name="mortgage_value[]"/></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); 
+      
+      //add input box  // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+      
+    }
+    $(real2).on("click",".buttons", function(e)
+    { 
+      e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+    
+  });
+</script> -->
+<script type="text/javascript">
+ var x8 = 2;
+  $('#bankclaim_btn1').on('click', function () {
+   var max_fields      = 10; 
+   var bankclaim1       = $("#bankclaim1");
+   
+   
+   if(x8 < max_fields){ 
+      $(bankclaim1).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x8+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control"   type="text" name="description_mort_bank[]"/><label class="form-control-placeholder" for="description_mort_bank">Description of Property:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control"  type="text" name="value_mort_bank[]"/><label class="form-control-placeholder" for="value_mort_bank">Value:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" name="schedule_mort_bank[]"/><label class="form-control-placeholder" for="schedule_mort_bank">Schedule and Boundaries:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date"  name="date_mort_bank[]"/> <label class="form-control-placeholder" for="date_mort_bank">Date of Mortgage/ LEDTD:</label></div></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="text" name="mortgage_mortgagor[]"/><label class="form-control-placeholder" for="mortgage_mortgagor">Name of the Mortgagaor:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control"   type="text" name="mortgage_company[]"/><label class="form-control-placeholder" for="mortgage_company">Company/ Individual:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"name="mortgage_property[]"/> <label class="form-control-placeholder" for="mortgage_property">Name & Description of Property:</label> </div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date"  name="mortgage_schedule[]"/><label class="form-control-placeholder" for="mortgage_schedule">Schedule and Boundaries Date of Mortgage:</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x8++;
+        
+      }
+     
+      
+    });
+   $("#bankclaim1").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x8--;
+      });
+  </script>
+  <script type="text/javascript">
+   var x9 = 2;
+    $('#bankclaim_btn2').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim2       = $("#bankclaim2");
+     
+     
+     if(x9 < max_fields){ 
+      $(bankclaim2).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x9+'  type="text" disabled ></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="text" name="description_hypo_bank[]"/> <label class="form-control-placeholder" for="description_hypo_bank">Description of Property:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="text" name="value_hypo_bank[]"/><label class="form-control-placeholder" for="value_hypo_bank">Value:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" name="location_hypo[]"/><label class="form-control-placeholder" for="location_hypo">Location:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"name="vehicle_hypo_bank[]"/>  <label class="form-control-placeholder" for="vehicle_hypo_bank">Vehicle Engine Number:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" name="chassis_hypo_bank[]"/> <label class="form-control-placeholder" for="chassis_hypo_bank">Chassis Number:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date" name="date_hypo_bank[]"/><label class="form-control-placeholder" for="date_hypo_bank">Date of Hypothecation:</label> </div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x9++;
+      }
+     
+      
+    });
+     $("#bankclaim2").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x9--;
+      });
+  </script>
+  <script type="text/javascript">
+   var x10 = 2;
+    $('#bankclaim_btn3').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim3       = $("#bankclaim3");
+     
+     
+     if(x10 < max_fields){ 
+      $(bankclaim3).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x10+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control"   type="text" name="pledge_nature[]"/> <label class="form-control-placeholder" for="pledge_nature">Pledge Nature:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control"   type="date" name="pledge_date[]"/><label class="form-control-placeholder" for="date_mort_bank">Pledge Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date" name="pledge_date_maturity[]"/><label class="form-control-placeholder" for="pledge_date_maturity">Date of Maturity:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  name="pledge_value[]"/> <label class="form-control-placeholder" for="pledge_value">Pledge Value:</label> </div></div><div class="col-md-3"> <div class="form-group"><input class="form-control"  type="text" name="pledgor_name[]"/> <label class="form-control-placeholder" for="pledgor_name">Name of the Pledgor:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" placeholder="Company/Individual"  type="date" name="pledgor_dob[]"/><label class="form-control-placeholder" for="pledgor_dob">Date of Birth:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" name="pledgor_father[]"/>  <label class="form-control-placeholder" for="pledgor_father">Father/ Spouse Name:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="pledgor_address[]"/> <label class="form-control-placeholder" for="pledgor_address">Address:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="pledgor_nature[]"/> <label class="form-control-placeholder" for="pledgor_nature">Nature:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date"  name="pledgor_date[]"/><label class="form-control-placeholder" for="pledgor_date">Date:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date"  name="pledgor_date_maturity[]"/><label class="form-control-placeholder" for="pledgor_dob">Date of Maturity:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text"  name="pledgor_value[]"/><label class="form-control-placeholder" for="pledgor_value">Value:</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x10++;
+      }
+     
+      
+    });
+     $("#bankclaim3").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x10--;
+      });
+  </script>
+ 
+  <script type="text/javascript">
+   var x11 = 2;
+    $('#bankclaim_btn4').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim4       = $("#bankclaim4");
+     
+     
+     if(x11 < max_fields){ 
+      $(bankclaim4).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x11+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control"  type="text" name="personnel_guar_name[]"/> <label class="form-control-placeholder" for="personnel_guar_name">Name of the Guarantor:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control"   type="date" name="personnel_dob[]"/><label class="form-control-placeholder" for="personnel_dob">Date of Birth:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="personnel_father[]"/> <label class="form-control-placeholder" for="personnel_father">Father/ Spouse Name:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="personnel_adddress[]"/><label class="form-control-placeholder" for="personnel_adddress">Address:</label> </div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x11++;
+      }
+     
+      
+    });
+     $("#bankclaim4").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x11--;
+      });
+  </script>
+  <script type="text/javascript">
+   var x12 = 2;
+    $('#bankclaim_btn5').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim5       = $("#bankclaim5");
+     
+     
+     if(x12 < max_fields){ 
+      $(bankclaim5).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x12+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control"   type="text" name="company_guar_name[]"/><label class="form-control-placeholder" for="company_guar_name">Name of the Company:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control"   type="text" name="compnay_cid[]"/><label class="form-control-placeholder" for="compnay_cid">CID Number:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date"  name="company_date[]"/> <label class="form-control-placeholder" for="company_date">Date of Board of Resolution:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="company_address[]"/> <label class="form-control-placeholder" for="company_address">Registered Address:</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x12++;
+      }
+     
+      
+    });
+     $("#bankclaim5").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove(); x12--;
+      });
+  </script>
+
+  <script type="text/javascript">
+   var x13= 2;
+    $('#bankclaim_btn6').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim6       = $("#bankclaim6");
+     
+     
+     if(x13 < max_fields){ 
+      $(bankclaim6).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x13+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control" placeholder="Name of the Mortgagaor"  type="text" name="mortgage_mortgagor[]"/></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" placeholder="Company/Individual"  type="text" name="mortgage_company[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Name & Description of Property" name="mortgage_property[]"/> </div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date" placeholder="Schedule and Boundaries Date of Mortgage" name="mortgage_schedule[]"/> <label class="form-control-placeholder" for="company_date">Schedule and Boundaries Date of Mortgage</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x13++;
+      }
+      
+      
+    });
+    $("#bankclaim6").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove();
+        x13--;
+      });
+  </script>
+  <script type="text/javascript">
+   var x14 = 2;
+    $('#bankclaim_btn7').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim7       = $("#bankclaim7");
+     
+     
+     if(x14 < max_fields){ 
+      $(bankclaim7).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x14+'  type="text" disabled ></div><div class="col-md-3"> <div class="form-group"><input class="form-control"   type="text" name="hypo_name[]"/><label class="form-control-placeholder" for="hypo_name">Name of the Hypothecator:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control"   type="date" name="hypo_dob[]"/><label class="form-control-placeholder" for="hypo_dob">Date of Birth:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  name="hypo_father[]"/><label class="form-control-placeholder" for="hypo_father">Father/ Spouse Name:</label> </div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="hypo_address[]"/><label class="form-control-placeholder" for="hypo_address">Address:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  value" name="hypo_description[]"/><label class="form-control-placeholder" for="hypo_description">Description of Property:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text"  name="value_hypo_bank[]"/> <label class="form-control-placeholder" for="value_hypo_bank">Value:</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text" name="hypo_location[]"/><label class="form-control-placeholder" for="hypo_location">Location:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text" name="hypo_vehicle[]"/><label class="form-control-placeholder" for="hypo_vehicle">Vehicle Engine Number:</label></div></div><div class="col-md-4" > <div class="form-group"><input class="form-control" type="text"  name="hypo_chassis[]"/><label class="form-control-placeholder" for="hypo_chassis">Chassis Number:</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" "  type="date" name="hypo_date_hypo[]"/><label class="form-control-placeholder" for="hypo_date_hypo">Date of Hypothecation:</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x14++;
+      }
+     
+      
+    });
+     $("#bankclaim7").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove();
+        x14--;
+      });
+  </script>
+  <!-- <script type="text/javascript">
+   
+    $('#bankclaim_btn8').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim8       = $("#bankclaim8");
+     
+     var x = 0;
+     if(x < max_fields){ 
+      $(bankclaim8).append('<div class="row"><div class="col-md-3"> <div class="form-group"><input class="form-control" placeholder="Name of the Pledgor"  type="text" name="pledgor_name[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" placeholder="Company/Individual"  type="date" name="pledgor_dob[]"/><label class="form-control-placeholder" for="pledgor_dob">Date of Birth</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Father/Spouse Name" name="pledgor_father[]"/> </div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Address" name="pledgor_address[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="text" placeholder="Nature" name="pledgor_nature[]"/></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date" placeholder="Location" name="Date[]"/><label class="form-control-placeholder" for="pledgor_dob">Date</label></div></div><div class="col-md-3" > <div class="form-group"><input class="form-control" type="date" placeholder="Date of Maturity" name="pledgor_date_maturity[]"/><label class="form-control-placeholder" for="pledgor_dob">Date of Maturity</label></div></div><div class="col-md-2" > <div class="form-group"><input class="form-control" type="text" placeholder="Value" name="pledgor_value[]"/></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        
+      }
+      $(bankclaim8).on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove();
+        x--;
+      })
+      
+    });
+  </script> -->
+  <script type="text/javascript">
+   var x15 = 2;
+    $('#bankclaim_btn9').on('click', function () {
+     var max_fields      = 10; 
+     var bankclaim9       = $("#bankclaim9");
+     
+     
+     if(x15 < max_fields){ 
+      $(bankclaim9).append('<div class="row"><div class="col-md-1"><input class="form-control" placeholder='+x15+'  type="text" disabled ></div><div class="col-md-2"> <div class="form-group"><input class="form-control"   type="date" name="pro_date[]"/> <label class="form-control-placeholder" for="pro_date">Pro Note Date:</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control"   type="date" name="revival_letter[]"/><label class="form-control-placeholder" for="revival_letter">Revival/ Renewal Letter Date:</label></div></div><div class="col-md-4"> <div class="form-group"><input class="form-control"  type="text" name="document_other[]"/><label class="form-control-placeholder" for="document_other">Document Details:</label></div></div><div class="buttons"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x15++;
+      }
+     
+      
+    });
+     $("#bankclaim9").on("click",".buttons", function(e)
+      { 
+        e.preventDefault(); $(this).parent('div').remove();
+        x15--;
+      });
+  </script>
+
+  <script type="text/javascript">
+   var x16 = 2;
+    $('#mortgage_add').on('click', function () {
+     var max_fields = 10; 
+     var mortgage       = $("#mortgage");
+     var mortgage_hide_id='mortgage_hide'+x16;
+     var guarntee_hide_id='guarntee_hide'+x16;
+     var other_hide_id='other_hide'+x16;
+     var hypo_hide_id='hypo_hide'+x16;
+
+     if(x16 < max_fields){ 
+      $(mortgage).append('<div class="row remove_security"><div class="col-md-1"><input class="form-control" value='+x16+'  type="text" disabled style="background-color: aliceblue;"><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3"> <div class="form-group"><select name="security_type[]" id="security_type_add'+x16+'" class="form-control" onchange="selectsecurity('+x16+')"><option value="">Select Security Type</option><option value="mortgage">Mortgage</option><option value="hypothecation">Hypothecation</option><option value="guarntee">Guarntee Agreement</option><option value="other">Other</option></select></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'> <div class="form-group"><input type="text" id="mortgage_property" class="form-control" name="mortgage_property[]"  ><label class="form-control-placeholder" for="mortgage_property">Description of Property:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text"  onkeypress="return isNumberKey(event)"   id="mortgage_value_bank" class="form-control" name="mortgage_value_bank[]" ><label class="form-control-placeholder" for="mortgage_value_bank">Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text" id="mortgage_schedule" class="form-control" name="mortgage_schedule[]" ><label class="form-control-placeholder" for="mortgage_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text" id="mortgage_name" class="form-control" name="mortgage_name[]"  ><label class="form-control-placeholder" for="mortgage_name">Name of the Mortgagaor:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="date"  name="mortgage_date[]"  class="datechk form-control" ><label class="form-control-placeholder" for="mortgage_date">Date of Mortgage/ LEDTD:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text" id="hypo_property" class="form-control" name="hypo_property[]"  ><label class="form-control-placeholder" for="hypo_property">Description of Property:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text"  onkeypress="return isNumberKey(event)"  id="hypo_value" class="form-control" name="hypo_value[]" ><label class="form-control-placeholder" for="hypo_value">Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'><div class="form-group"><input type="text" id="hypo_schedule" class="form-control" name="hypo_schedule[]" ><label class="form-control-placeholder" for="hypo_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text" id="hypo_name" class="form-control" name="hypo_name[]" ><label class="form-control-placeholder" for="hypo_name">Hypothecator Name:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="date"  name="hypo_date[]"  class="datechk form-control" ><label class="form-control-placeholder" for="hypo_date">Date of Hypothecation:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="text" id="hypo_engine" name="hypo_engine[]"  class="form-control" ><label class="form-control-placeholder" for="hypo_engine">Vehicle Engine Number:</label></div></div><div class="col-md-2" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="text" id="hypo_chassis" name="hypo_chassis[]"  class="form-control" ><label class="form-control-placeholder" for="hypo_chassis">Chassis Number:</label></div></div><div class="col-md-4" style="display: none;" class_attr='+guarntee_hide_id+'> <div class="form-group"><input type="text" id="guarntee_name" class="form-control" name="guarntee_name[]"  ><label class="form-control-placeholder" for="guarntee_name">Guarantor Name:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+guarntee_hide_id+'> <div class="form-group"><input type="date"  class="datechk form-control" name="guarntor_agreement[]" ><label class="form-control-placeholder" for="guarntor_agreement">Date of Guarantor Agreement:</label></div></div><div class="col-md-4" style="display: none;" class_attr='+other_hide_id+'> <div class="form-group"><input type="text" id="others_details" class="form-control" name="others_details[]" ><label class="form-control-placeholder" for="others_details">Other Details:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+other_hide_id+'> <div class="form-group"><input type="date"  class="datechk form-control" name="others_date[]"  ><label class="form-control-placeholder" for="others_date">Date:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x16++;
+      }
+      $("#security_del").css('display','block');
+     $('#mortgage').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+      
+    }); 
+     $("#security_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_security");
+        $('.remove_security:last').remove();
+        x16--;
+         if($(".remove_security").length==0){
+        $("#security_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+   // var x60 = 2;
+  
+   function mortgage_add_edit(id,e){
+        var output = 0;
+    $(".security"+id).each(
+        function(){
+            if(this.value > output){
+                output = this.value;
+            }
+        }
+    );
+    
+        var x60 = $(".security"+id).last().val();
+       var sno =output ;
+
+     var max_fields = 10; 
+     var mortgage_edit = $("#mortgage_edit"+id);
+     var mortgage_hide_id='mortgage_hide'+x60;
+     var guarntee_hide_id='guarntee_hide'+x60;
+     var other_hide_id='other_hide'+x60;
+     var hypo_hide_id='hypo_hide'+x60;
+
+
+     if(x60 < max_fields){ 
+     sno++;
+
+      $(mortgage_edit).append('<div class="row"><div class="col-md-1"><input class="form-control security'+id+'" value='+sno+'  type="text" disabled style="background-color: aliceblue;"><label class="form-control-placeholder">Sl. No.</label></div><div class="col-md-3"> <div class="form-group"><select name="security_type_edit[]" id="security_type_add'+x60+'" class="form-control" onchange="selectsecurity('+x60+')"><option value="">Select Security Type</option><option value="mortgage">Mortgage</option><option value="hypothecation">Hypothecation</option><option value="guarntee">Guarntee Agreement</option><option value="other">Other</option></select></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'> <div class="form-group"><input type="text" id="mortgage_property" class="form-control" name="mortgage_property_edit[]"  ><label class="form-control-placeholder" for="mortgage_property">Description of Property:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text"  onkeypress="return isNumberKey(event)"   id="mortgage_value_bank" class="form-control" name="mortgage_value_bank_edit[]" ><label class="form-control-placeholder" for="mortgage_value_bank">Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text" id="mortgage_schedule" class="form-control" name="mortgage_schedule_edit[]" ><label class="form-control-placeholder" for="mortgage_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="text" id="mortgage_name" class="form-control" name="mortgage_name_add[]"  ><label class="form-control-placeholder" for="mortgage_name">Name of the Mortgagaor:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+mortgage_hide_id+'><div class="form-group"><input type="date"  name="mortgage_date_add[]"  class="datechk form-control" ><label class="form-control-placeholder" for="mortgage_date">Date of Mortgage/ LEDTD:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text" id="hypo_property" class="form-control" name="hypo_property_add[]"  ><label class="form-control-placeholder" for="hypo_property">Description of Property:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text"  onkeypress="return isNumberKey(event)"  id="hypo_value" class="form-control" name="hypo_value_add[]" ><label class="form-control-placeholder" for="hypo_value">Value({{$claimantinformations[0]->currency}}):</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'><div class="form-group"><input type="text" id="hypo_schedule" class="form-control" name="hypo_schedule_add[]" ><label class="form-control-placeholder" for="hypo_schedule">Schedule and Boundaries:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'> <div class="form-group"><input type="text" id="hypo_name" class="form-control" name="hypo_name_add[]" ><label class="form-control-placeholder" for="hypo_name">Hypothecator Name:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="date"  name="hypo_date_add[]"  class="datechk form-control" ><label class="form-control-placeholder" for="hypo_date">Date of Hypothecation:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="text" id="hypo_engine" name="hypo_engine_add[]"  class="form-control" ><label class="form-control-placeholder" for="hypo_engine">Vehicle Engine Number:</label></div></div><div class="col-md-2" style="display: none;" class_attr='+hypo_hide_id+'>  <div class="form-group"><input type="text" id="hypo_chassis" name="hypo_chassis_add[]"  class="form-control" ><label class="form-control-placeholder" for="hypo_chassis">Chassis Number:</label></div></div><div class="col-md-4" style="display: none;" class_attr='+guarntee_hide_id+'> <div class="form-group"><input type="text" id="guarntee_name" class="form-control" name="guarntee_name_edit[]"  ><label class="form-control-placeholder" for="guarntee_name">Guarantor Name:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+guarntee_hide_id+'> <div class="form-group"><input type="date"  class="datechk form-control" name="guarntor_agreement_edit[]" ><label class="form-control-placeholder" for="guarntor_agreement">Date of Guarantor Agreement:</label></div></div><div class="col-md-4" style="display: none;" class_attr='+other_hide_id+'> <div class="form-group"><input type="text" id="others_details" class="form-control" name="others_details_edit[]" ><label class="form-control-placeholder" for="others_details">Other Details:</label></div></div><div class="col-md-3" style="display: none;" class_attr='+other_hide_id+'> <div class="form-group"><input type="date"  class="datechk form-control" name="others_date_edit[]"  ><label class="form-control-placeholder" for="others_date">Date:</label></div></div><div id ="buttons_close_edit" class="buttons" onclick="mortgage_add_remove(this,event)"><span class="btn btn-icon btn-sm btn-danger remove"  > <i class="fas fa-window-close"></i></span></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x60++;
+      }
+     
+      $('#mortgage_edit'+id).find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+   }
+    function mortgage_add_remove(eve,e)
+    {
+e.preventDefault(); 
+$(eve).parent('div').remove();
+        x60--;
+    }
+     
+  </script>
+  
+  
+  <script type="text/javascript">
+    var x26 = 2;
+   
+    $('#renewal_add').on('click', function () {
+     var max_fields      = 10; 
+     var renewal       = $("#renewal");
+     
+     
+     if(x26 < max_fields){ 
+      
+      $(renewal).append('<div class="row remove_renewal"><div class="col-md-3"></div><div class="col-md-1"><input class="form-control" placeholder='+x26+'  type="text" id="placeholder'+x26+'" disabled style="background-color: antiquewhite;"></div><div class="col-md-4"><div class="form-group"><input type="date" class="datechk form-control" name="renewal_date[]" ><label class="form-control-placeholder" for="renewal_date">Renewal Letter Date:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x26++;
+        
+      }
+       $("#renewal_del").css('display','block');
+      $('#renewal').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+
+     
+    }); 
+     $("#renewal_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_renewal");
+        $('.remove_renewal:last').remove();
+        x26--;
+         if($(".remove_renewal").length==0){
+        $("#renewal_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+  
+   function renewal_add_edit(id,e){
+    var output = 0;
+    $(".renewal"+id).each(
+        function(){
+            if(this.value > output){
+                output = this.value;
+            }
+        }
+    );
+    var x50 = $(".renewal"+id).last().val();
+     var sno = output;
+    var max_fields      = 10; 
+     var renewal_edit       = $("#renewal_edit"+id);
+     
+     
+     if(x50 < max_fields){ 
+      sno++;
+
+      $(renewal_edit).append('<div class="row"><div class="col-md-1"><input class="form-control renewal'+id+'"  value="'+sno+'" type="text" disabled style="background-color: aliceblue;"></div><div class="col-md-3"><div class="form-group"><input type="date"  class="datechk form-control" name="renewal_date[]" ><label class="form-control-placeholder" for="renewal_date">Renewal Letter Date:</label></div></div><div class="buttons" onclick="renewal_add_remove(this,event)"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x50++;
+      }
+     
+      $('#renewal_edit'+id).find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+   }
+    
+    function renewal_add_remove(eve,e)
+    {
+      e.preventDefault(); 
+$(eve).parent('div').remove();
+        x50--;
+    }
+    
+  </script>
+   <script type="text/javascript">
+   var x27 = 2;
+    $('#revival_add').on('click', function () {
+     var max_fields      = 10; 
+     var revival       = $("#revival");
+     
+     
+     if(x27 < max_fields){ 
+      $(revival).append('<div class="row remove_revival"><div class="col-md-3"></div><div class="col-md-1"><input class="form-control" placeholder='+x27+'  type="text" disabled style="background-color: bisque;"></div><div class="col-md-4"><div class="form-group"><input type="date"  class="datechk form-control" name="revival_date[]"><label class="form-control-placeholder" for="revival_date">Revival Letter Date:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x27++;
+      }
+       $("#revival_del").css('display','block');
+     $('#revival').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+     
+    });
+    $("#revival_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_revival");
+        $('.remove_revival:last').remove();
+        x27--;
+         if($(".remove_revival").length==0){
+        $("#revival_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+  
+  
+    function revival_addedit(id,e){
+       var output = 0;
+    $(".revival"+id).each(
+        function(){
+            if(this.value > output){
+                output = this.value;
+            }
+        }
+    );
+       var x61 = $(".revival"+id).last().val();
+        var sno = output;
+      var max_fields = 10; 
+     var revival_add_add = $("#revival_add_add"+id);
+     
+     
+     if(x61 < max_fields){ 
+       sno++;
+      $(revival_add_add).append('<div class="row"><div class="col-md-1"><input class="form-control revival'+id+'" value="'+sno+'"  type="text" disabled style="background-color: bisque;"></div><div class="col-md-3"><div class="form-group"><input type="date"  class="datechk form-control" name="revival_date[]"><label class="form-control-placeholder" for="revival_date">Revival Letter Date:</label></div></div><div class="buttons" onclick="revival_add_remove(this,event)"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+       x61++;
+      }
+     $('#revival_add_add'+id).find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+    }
+    function revival_add_remove(eve,e)
+    {
+      e.preventDefault(); 
+$(eve).parent('div').remove();
+        x61--;
+    }
+    </script>
+  <script type="text/javascript">
+   var x28 = 2;
+    $('#legal_add').on('click', function () {
+     var max_fields      = 10; 
+     var legal       = $("#legal");
+     
+     
+     if(x28 < max_fields){ 
+      $(legal).append('<div class="row remove_legal"><div class="col-md-3"></div><div class="col-md-1"><input class="form-control" placeholder='+x28+'  type="text" disabled ></div><div class="col-md-4"><div class="form-group"><input type="date"  class="datechk form-control" name="legal_notice[]" ><label class="form-control-placeholder" for="legal_notice">Demand/Legal Notice Date:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x28++;
+      }
+      $("#legal_del").css('display','block');
+      $('#legal').find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+     
+      
+    });
+     $("#legal_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_legal");
+        $('.remove_legal:last').remove();
+        x28--;
+         if($(".remove_legal").length==0){
+        $("#legal_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+   
+   function legal_add_edit(id,e){
+     var output = 0;
+    $(".legal"+id).each(
+        function(){
+            if(this.value > output){
+                output = this.value;
+            }
+        }
+    );
+     var x54 = $(".legal"+id).last().val();
+     var sno = output;
+    var max_fields      = 10; 
+     var legal_edit       = $("#legal_edit"+id);
+     
+     
+     
+     if(x54 < max_fields){ 
+     sno++;
+      $(legal_edit).append('<div class="row"><div class="col-md-1"><input class="form-control legal'+id+'" value="'+sno+'"  type="text" disabled></div><div class="col-md-3"><div class="form-group"><input type="date"  class="datechk form-control" name="legal_notice[]" ><label class="form-control-placeholder" for="legal_notice">Demand/Legal Notice Date:</label></div></div><div class="buttons" onclick="legal_add_remove(this,event)"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> '); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+         x54++;
+      }
+     $('#legal_edit'+id).find(".datechk").datepicker({ dateFormat: 'yy-mm-dd' });
+   }
+   function legal_add_remove(eve,e)
+    {
+      e.preventDefault(); 
+$(eve).parent('div').remove();
+        x54--;
+    }
+  </script>
+  <script type="text/javascript">
+   var x29 = 2;
+    $('#document_add').on('click', function () {
+     var max_fields      = 10; 
+     var document1      = $("#document1");
+     
+     
+     if(x29 < max_fields){ 
+      $(document1).append('<div class="row remove_other"><div class="col-md-3"></div><div class="col-md-1"><input class="form-control" placeholder='+x29+'  type="text" disabled style="background-color: azure;"></div><div class="col-md-4"><div class="form-group"><input type="text" id="other_document" class="form-control" name="other_document[]" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123)|| event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57))"><label class="form-control-placeholder" for="other_document">Other Document Details:</label></div></div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x29++;
+      }
+     $("#other_del").css('display','block');
+      
+    });
+    $("#other_del").on("click", function(e)
+      { 
+         e.preventDefault(); 
+        var div=$(".remove_other");
+        $('.remove_other:last').remove();
+        x29--;
+         if($(".remove_other").length==0){
+        $("#other_del").css('display','none');
+      }
+      });
+  </script>
+  <script type="text/javascript">
+   
+    function document_add_edit(id,e){
+      var output = 0;
+    $(".others"+id).each(
+        function(){
+            if(this.value > output){
+                output = this.value;
+            }
+        }
+    );
+       var x55 = $(".others"+id).last().val();
+       var sno = output;
+      var max_fields      = 10; 
+     var document1_edit      = $("#document1_edit"+id);
+     
+     
+     if(x55 < max_fields){ 
+      sno++;
+      $(document1_edit).append('<div class="row"><div class="col-md-1"><input class="form-control others'+id+'" value="'+sno+'"  type="text" disabled style="background-color: azure;"></div><div class="col-md-3"><div class="form-group"><input type="text" id="other_document" class="form-control" name="other_document[]" onkeypress="return (event.charCode > 64 && event.charCode < 91 || (event.charCode > 96 && event.charCode < 123)|| event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57))"><label class="form-control-placeholder" for="other_document">Other Document Details:</label></div></div><div class="buttons" onclick="document_add_remove(this,event)"><span class="btn btn-icon btn-sm btn-danger remove"> <i class="fas fa-window-close"></i></span> </div>'); //add input box
+        // $(wrapper2).append('<div><a href="#" class="remove_field">Remove</a></div>'); 
+        x55++;
+      }
+    }
+    function document_add_remove(eve,e)
+    {
+      e.preventDefault(); 
+$(eve).parent('div').remove();
+        x55--;
+    }
+    
+     
+  </script>
+   @endif
+  <script type="text/javascript">
+  function selectsecurity(id)
+  {
+    // var mortgage_hide = document.getElementById("mortgage_hide");
+    // var guarntee_hide = document.getElementById("guarntee_hide");
+    // var other_hide = document.getElementById("other_hide");
+    // var hypo_hide = document.getElementById("hypo_hide");
+    // var mortgage_hide="mortgage_hide"+id;
+    var mortgage_hide="[class_attr="+"mortgage_hide"+id+"]";
+    var guarntee_hide="[class_attr="+"guarntee_hide"+id+"]";
+    var other_hide="[class_attr="+"other_hide"+id+"]";
+    var hypo_hide="[class_attr="+"hypo_hide"+id+"]";
+
+   
+    if(document.getElementById("security_type_add"+id).value=='mortgage')
+    {
+      $(mortgage_hide).css("display", "block");
+      $(guarntee_hide).css("display", "none");
+      $(other_hide).css("display", "none");
+      $(hypo_hide).css("display", "none");
+}
+   else if(document.getElementById("security_type_add"+id).value=="hypothecation")
+   {
+    $(mortgage_hide).css("display", "none");
+      $(guarntee_hide).css("display", "none");
+      $(other_hide).css("display", "none");
+      $(hypo_hide).css("display", "block");
+  }
+   else if(document.getElementById("security_type_add"+id).value=="guarntee")
+   {
+    $(mortgage_hide).css("display", "none");
+      $(guarntee_hide).css("display", "block");
+      $(other_hide).css("display", "none");
+      $(hypo_hide).css("display", "none");
+  }
+     else if(document.getElementById("security_type_add"+id).value=="other")
+   {
+    $(mortgage_hide).css("display", "none");
+      $(guarntee_hide).css("display", "none");
+      $(other_hide).css("display", "block");
+      $(hypo_hide).css("display", "none");
+  }
+  else
+   {
+   $(mortgage_hide).css("display", "none");
+      $(guarntee_hide).css("display", "none");
+      $(other_hide).css("display", "none");
+      $(hypo_hide).css("display", "none");
+  } 
+
+}
+
+$( document ).ready(function() {
+    var mortgage_hide = document.getElementById("mortgage_hide");
+    var guarntee_hide = document.getElementById("guarntee_hide");
+    var other_hide = document.getElementById("other_hide");
+    var hypo_hide = document.getElementById("hypo_hide");
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+});
+
+
+</script>
+<script type="text/javascript">
+  function selectsecurity_create()
+  {
+
+    var mortgage_hide = document.getElementById("mortgage_hide");
+    var guarntee_hide = document.getElementById("guarntee_hide");
+    var other_hide = document.getElementById("other_hide");
+    var hypo_hide = document.getElementById("hypo_hide");
+
+   //alert(document.getElementById("security_type"));
+    if(document.getElementById("security_type").value=='mortgage')
+    {
+     mortgage_hide.style.display = "block";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+     
+
+}
+   else if(document.getElementById("security_type").value=="hypothecation")
+   {
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "block";
+
+  }
+   else if(document.getElementById("security_type").value=="guarntee")
+   {
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "block";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+
+  }
+     else if(document.getElementById("security_type").value=="other")
+   {
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "block";
+      hypo_hide.style.display = "none";
+
+  }
+  else
+   {
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+
+  } 
+
+}
+
+$( document ).ready(function() {
+    var mortgage_hide = document.getElementById("mortgage_hide");
+    var guarntee_hide = document.getElementById("guarntee_hide");
+    var other_hide = document.getElementById("other_hide");
+    var hypo_hide = document.getElementById("hypo_hide");
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+});
+
+
+</script>
+<script type="text/javascript">
+  function selectsecurity_edit()
+  {
+
+    var mortgage_hide1 = document.getElementById("mortgage_hide1");
+    var guarntee_hide1 = document.getElementById("guarntee_hide1");
+    var other_hide1 = document.getElementById("other_hide1");
+    var hypo_hide1 = document.getElementById("hypo_hide1");
+
+    
+    if(document.getElementById("security_type1").value=='mortgage')
+    {
+     mortgage_hide1.style.display = "block";
+     guarntee_hide1.style.display = "none";
+     other_hide1.style.display = "none";
+      hypo_hide1.style.display = "none";
+     
+
+}
+   else if(document.getElementById("security_type1").value=="hypothecation")
+   {
+    mortgage_hide1.style.display = "none";
+     guarntee_hide1.style.display = "none";
+     other_hide1.style.display = "none";
+      hypo_hide1.style.display = "block";
+
+  }
+   else if(document.getElementById("security_type1").value=="guarntee")
+   {
+    mortgage_hide1.style1.display = "none";
+     guarntee_hide1.style.display = "block";
+     other_hide1.style.display = "none";
+      hypo_hide1.style.display = "none";
+
+  }
+     else if(document.getElementById("security_type1").value=="other")
+   {
+    mortgage_hide1.style.display = "none";
+     guarntee_hide1.style.display = "none";
+     other_hide1.style.display = "block";
+      hypo_hide1.style.display = "none";
+
+  }
+  else
+   {
+    mortgage_hide1.style.display = "none";
+     guarntee_hide1.style.display = "none";
+     other_hide1.style.display = "none";
+      hypo_hide1.style.display = "none";
+
+  } 
+
+}
+$( document ).ready(function() {
+    var mortgage_hide = document.getElementById("mortgage_hide1");
+    var guarntee_hide = document.getElementById("guarntee_hide1");
+    var other_hide = document.getElementById("other_hide1");
+    var hypo_hide = document.getElementById("hypo_hide1");
+    mortgage_hide.style.display = "none";
+     guarntee_hide.style.display = "none";
+     other_hide.style.display = "none";
+      hypo_hide.style.display = "none";
+});
+
+</script>
+<!-- <script type="text/javascript">
+  function alphaOnly(event) {
+  var key = event.keyCode;
+  return ((key >= 65 && key <= 90) || key == 8);
+};
+</script> -->
+<script type="text/javascript">
+  $('#organization_details').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z .]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+  $('#official_designation').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z .]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+</script>
+<!-- <script type="text/javascript">
+  var items = $('#subcategory option').get();
+items.sort(function(a,b){
+  var keyA = $(a).text();
+  var keyB = $(b).text();
+
+  if (keyA < keyB) return -1;
+  if (keyA > keyB) return 1;
+  return 0;
+});
+var select = $('#subcategory');
+$.each(items, function(i, option){
+select.append(option);
+})
+</script> -->
+
+
+  @endsection
+  <script type="text/javascript">
+function date_field(){
+  
+    var dateClass='.datechk';
+
+  if (document.querySelector(dateClass).type !== 'date')
+  {
+    var oCSS = document.createElement('link');
+    oCSS.type='text/css'; oCSS.rel='stylesheet';
+    oCSS.href='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css';
+    oCSS.onload=function()
+    {
+      var oJS = document.createElement('script');
+      oJS.type='text/javascript';
+      oJS.src='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js';
+      oJS.onload=function()
+      {
+        $(dateClass).datepicker();
+      }
+      document.body.appendChild(oJS);
+    }
+    document.body.appendChild(oCSS);
+  }
+}
+  </script>
+  <SCRIPT language=Javascript>
+       <!--
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+       //-->
+    </SCRIPT>
+

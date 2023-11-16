@@ -1,0 +1,7 @@
+ 
+<div class="col-md-4">
+        <div class="form-group">
+         <strong><u><?php echo e($notice->arbitration_petionno); ?> <?php echo e($ClaimNoticeStatuss->claimantnoticestatus); ?> By on Date  </strong></u><br>
+         <?php echo e($ClaimNoticeStatuss->creatorname); ?> on <?php echo e($ClaimNoticeStatuss->created_at); ?>  
+       </div>
+     </div> 

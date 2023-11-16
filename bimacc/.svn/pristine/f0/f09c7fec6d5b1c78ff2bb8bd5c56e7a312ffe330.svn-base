@@ -1,0 +1,318 @@
+
+<?php $__currentLoopData = $arbitrationmasters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $arbitrationmaster): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+<div class="modal fade fade-scale" id="editArbitrationMasterModal<?php echo e($arbitrationmaster->id); ?>" tabindex="-1" role="dialog" aria-labelledby="editArbitrationMasterlabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <?php if($errors->any()): ?>
+      <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+          <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <li><?php echo e($error); ?></li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+      </div>
+      <?php endif; ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="editArbitrationMasterlabel">Edit Arbitration</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"> 
+
+        <form  action="<?php echo e(route('arbitrationmaster.update', $arbitrationmaster->id )); ?>" method="POST" id = "editForm"> 
+
+          <?php echo csrf_field(); ?>
+          <?php echo method_field('PUT'); ?> 
+
+
+          <div class="row register-form">
+            <div class="col-md-6">
+             <div class="form-group">
+              <input type="text" id="arbitrator_code1" class="form-control" name="arbitrator_code"  value="<?php echo e($arbitrationmaster->arbitrator_code); ?>" required="true">
+              <label class="form-control-placeholder" for="arbitrator_code">Arbitrator's Code</label>
+              <!-- <?php if($errors->has('arbitrator_code')): ?>
+              <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('arbitrator_code')); ?></strong>
+              </span>
+              <?php endif; ?> -->
+            </div>
+            <div class="form-group">
+           <select class="form-control disputesubcategory1" id="disputesubcategory1" name="dispute_subcategories_id" data-dependent = "dispute_subcategories_id" required="true">
+            <?php $__currentLoopData = $dispute_subcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <option value="<?php echo e($category->id); ?>" <?php echo e($category->id == $arbitrationmaster->dispute_subcategories_id ? 'selected':''); ?>><?php echo e($category->subcategory_name); ?></option>                     
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                      
+            
+          </select> 
+          <label class="form-control-placeholder" for="dispute_categories_id">Dispute Sub Category</label>   
+
+        </div>
+            
+           <div class="form-group">
+             <input type="text" id="lastname1" name=
+             "lastname" class="form-control" value="<?php echo e($arbitrationmaster->lastname); ?>" required="true">
+             <label class="form-control-placeholder" for="lastname">Lastname</label>
+           </div>
+            <div class="form-group">
+              <input type="text" id="phone1" class="form-control" name="phone"   value="<?php echo e($arbitrationmaster->phone); ?>" required="true">
+              <label class="form-control-placeholder" for="phone">Phone</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <select class="form-control disputecategory1" id="disputecategory1" name="dispute_categories_id" data-dependent = "dispute_categories_id" required="true">
+                <?php $__currentLoopData = $dispute_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($category->id); ?>" <?php echo e($category->id == $arbitrationmaster->dispute_categories_id ? 'selected':''); ?> ><?php echo e($category->category_name); ?></option>    
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                                 
+              </select> 
+              <label class="form-control-placeholder" for="dispute_categories_id">Main Dispute Category</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="firstname" class="form-control<?php echo e($errors->has('firstname') ? ' is-invalid' : ''); ?>" name="firstname"  value="<?php echo e($arbitrationmaster->firstname); ?>" required="true">
+              <label class="form-control-placeholder" for="firstname">Firstname</label>
+              <?php if($errors->has('firstname')): ?>
+              <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('firstname')); ?></strong>
+              </span>
+              <?php endif; ?>
+            </div>
+             <div class="form-group">
+              <input type="text" id="username1" class="form-control<?php echo e($errors->has('username') ? ' is-invalid' : ''); ?>" name="username"  value="<?php echo e($arbitrationmaster->username); ?>" required="true">
+              <label class="form-control-placeholder" for="username">Username</label>
+              <?php if($errors->has('username')): ?>
+              <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($errors->first('username')); ?></strong>
+              </span>
+              <?php endif; ?>
+            </div>
+             
+
+
+           
+          
+          <div class="form-group">
+            <input type="text" id="alt_phone1" class="form-control" name="alt_phone"   value="<?php echo e($arbitrationmaster->alt_phone); ?>" >
+            <label class="form-control-placeholder" for="alt_phone">alt phone</label>
+          </div>
+
+        </div>
+
+        <div class="col-md-6"> 
+         <div class="form-group" style="pointer-events: none;">
+             <input type="email" id="email1" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email"  value="<?php echo e($arbitrationmaster->email); ?>" required="true">
+             <label class="form-control-placeholder" for="email">Email</label>
+             <?php if($errors->has('email')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('email')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+
+<div class="form-group">
+         <input type="text" id="city1" name="city" class="form-control<?php echo e($errors->has('city') ? ' is-invalid' : ''); ?>" required="false" value="<?php echo e($arbitrationmaster->city); ?>" required="true">
+         <label class="form-control-placeholder" for="city">City</label>
+         <?php if($errors->has('city')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('city')); ?></strong>
+        </span>
+        <?php endif; ?>
+
+      </div>
+
+
+        <div class="form-group" id="country">
+          <?php echo Form::countries('country', Input::old('country', $arbitrationmaster->country), 'form-control'); ?>  
+          <label class="form-control-placeholder" for="country">Country</label> 
+        </div>
+        
+
+
+    </div>
+    <div class="col-md-6"> 
+    
+
+
+     <div class="form-group">              
+      <input type="text"id="address1" name="address" value="<?php echo e($arbitrationmaster->address); ?>" class="form-control<?php echo e($errors->has('address') ? ' is-invalid' : ''); ?>" required="true">
+      <label class="form-control-placeholder" for="address">Address</label>
+      <?php if($errors->has('address')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('address')); ?></strong>
+      </span>
+      <?php endif; ?>
+
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="state1" name="state" class="form-control<?php echo e($errors->has('state') ? ' is-invalid' : ''); ?>"  value="<?php echo e($arbitrationmaster->state); ?>" required="true">
+      <label class="form-control-placeholder" for="state">State</label>
+      <?php if($errors->has('state')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('state')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+    <div class="form-group">
+       <input type="text" id="zipcode1" name="zipcode" class="form-control<?php echo e($errors->has('zipcode') ? ' is-invalid' : ''); ?>"  value="<?php echo e($arbitrationmaster->zipcode); ?>" required="true">
+       <label class="form-control-placeholder" for="zipcode">Zipcode</label>
+       <?php if($errors->has('zipcode')): ?>
+       <span class="invalid-feedback" role="alert">
+         <strong><?php echo e($errors->first('zipcode')); ?></strong>
+       </span>
+       <?php endif; ?>
+
+     </div>
+  </div>              
+
+
+
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button type="submit" class="btn btn-success btn-space">Update</button> 
+      <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">Cancel</span>
+      </button>                      
+
+
+    </div>
+  </div> 
+</div>             
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<script>
+  $('.disputecategory1').change(function(){  
+
+    var categoryID = $(this).val();    
+
+
+
+    if(categoryID){
+      $.ajax({
+       type:"GET",
+       url:"<?php echo e(url('/get-dispute-list')); ?>?dispute_categories_id="+categoryID,
+       dataType:"json", 
+       data:{categoryID:categoryID},          
+       success:function(res){
+        if(res){
+          $(".disputesubcategory1").empty();
+          $(".disputesubcategory1").append('<option></option>');
+          $.each(res,function(key,value){                                  
+            $(".disputesubcategory1").append('<option value="'+key+'">'+value+'</option>');
+
+          });
+
+        }else{
+         $(".disputesubcategory1").empty();
+       }
+
+     }
+   });
+    } 
+
+  });
+
+</script>   
+<!-- <script>
+  function arbitrationeditbuttonclick() {
+    // var country =  $('#country').val();
+    //  alert(country);
+
+  var arbitrator_code =  $('#arbitrator_code1').val();
+ // alert(arbitrator_code);
+     if (arbitrator_code =='') 
+     {
+       swal("Enter Arbitrator Code ", "", "error");
+     return false;
+     }
+     var category =  $('#disputecategory1').val();
+     if (category =='') 
+     {
+       swal("Enter Main Dispute Category  ", "", "error");
+     return false;
+     }
+     var subcategory =  $('#disputesubcategory1').val();
+     if (subcategory =='') 
+     {
+       swal("Enter Sub Dispute Category  ", "", "error");
+     return false;
+     }
+   var firstname =  $('#firstname1').val();
+     if (firstname =='') 
+     {
+       swal("Enter First Name ", "", "error");
+     return false;
+     }
+     var lastname =  $('#lastname1').val();
+     if (lastname =='') 
+     {
+       swal("Enter Last Name ", "", "error");
+     return false;
+     }
+     var username =  $('#username1').val();
+     if (username =='') 
+     {
+       swal("Enter User Name ", "", "error");
+     return false;
+     }
+     var phone =  $('#phone1').val();
+     if (phone =='') 
+     {
+       swal("Enter phone Number ", "", "error");
+     return false;
+     }
+     var email =  $('#email1').val();
+     if (email =='') 
+     {
+       swal("Enter Email-ID ", "", "error");
+     return false;
+     }
+     var address =  $('#address1').val();
+     if (address =='') 
+     {
+       swal("Enter Address ", "", "error");
+     return false;
+     }
+      
+     var city =  $('#city1').val();
+     if (city =='') 
+     {
+       swal("Enter City ", "", "error");
+     return false;
+     }
+      var state =  $('#state1').val();
+     if (state =='') 
+     {
+       swal("Enter State ", "", "error");
+     return false;
+     }
+     var country =  $('#country1').val();
+     if (country =='') 
+     {
+       swal("Enter Country ", "", "error");
+     return false;
+     }
+     var zipcode =  $('#zipcode1').val();
+     if (zipcode =='') 
+     {
+       swal("Enter Zipcode ", "", "error");
+     return false;
+     }
+      $("#arbitrationeditbutton").attr("disabled", true);
+     document.getElementById('editForm<?php echo e($arbitrationmaster->id); ?>').submit();
+   }
+   </script>
+ -->
+
+
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+
+
+

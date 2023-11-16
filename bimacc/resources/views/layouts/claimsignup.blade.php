@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Claimant Registeration</title>
+
+    <!-- Icons font CSS-->
+    <link href="{{ url(asset('vendor/mdi-font/css/material-design-iconic-font.min.css')) }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ url(asset('vendor/font-awesome-4.7/css/font-awesome.min.css')) }}" rel="stylesheet" media="all">
+    
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <!-- <link href="{{ url(asset('vendor/select2/select2.min.css')) }}" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="{{ url(asset('vendor/datepicker/daterangepicker.css')) }}" rel="stylesheet" type="text/css"> -->
+
+    
+   
+    <!-- Main CSS-->
+    <link href="{{ url(asset('css/main.css')) }}" rel="stylesheet" type="text/css" media="all" >
+      <link href="{{ url(asset('css/app.css')) }}" rel="stylesheet" type="text/css" media="all" >
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    
+  <link href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.css') }}" rel="stylesheet">
+   
+    
+</head>
+
+<body>
+    @yield('content')
+
+    <!-- Jquery JS-->
+    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
+    <!-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> -->
+   
+    <!-- Vendor JS-->
+     <!-- <script src="{{ asset('vendor/select2/select2.min.js') }}"></script> -->
+     <script src="{{ asset('vendor/datepicker/moment.min.js') }}"></script>
+     <!-- <script src="{{ asset('vendor/datepicker/daterangepicker.js') }}"></script> -->
+     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    
+
+    <!-- Main JS-->
+     
+
+</body>
+
+</html>
+<!-- end document-->

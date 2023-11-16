@@ -1,0 +1,3 @@
+[2020-04-30 13:17:17] local.INFO: C:\Apache24\htdocs\bimacc_production\storage/app/public/uploads/claim/CN_BIMACC_2020_004 : errors 1.xlsx : xlsx : workspace://SpacesStore/63d2b162-a4a6-45dc-af6a-856cea656281  
+[2020-04-30 13:17:17] local.INFO: C:\Apache24\htdocs\bimacc_production\storage/app/public/uploads/claim/CN_BIMACC_2020_004/errors 1.xlsx  
+[2020-04-30 13:17:18] local.INFO: http://49.207.182.10:9080/alfresco/service/api/upload?alf_ticket=TICKET_60d1b5db8c72a152bae3079bf677393c3fa484bb  

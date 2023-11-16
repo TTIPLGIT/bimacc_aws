@@ -1,0 +1,421 @@
+    <?php if($claimandrelief == null): ?>
+    <form  id="sample_form" name="sample_form"  method="POST" style="    width: 100%;" >
+      <?php echo csrf_field(); ?>  
+      <div class="row register-form">
+        <div class="col-md-12">
+           <div class="row">
+           <div class="col-md-12">
+             <div class="form-group text-center" style="margin-bottom: 1.4em; color:red; font-size: 15px;">
+              <label><b>Please fill in the applicable details  pertaining to the dispute</b></label>
+            </div>            
+              
+          </div>
+        </div>
+          <div class="row">
+           <div class="col-md-12"> 
+             <div class="form-group text-center" style="margin-bottom: 1.4em">
+              <label><u><b>Details of Flight/ Cargo/ Airports</b></u></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+
+
+          <div class="col-md-4"> 
+            <div class="form-group">
+             <input type="text" id="carriername" class="form-control<?php echo e($errors->has('carriername') ? ' is-invalid' : ''); ?>" name="carriername" >
+             <label class="form-control-placeholder" for="carriername">Carrier Name: </label>
+             <?php if($errors->has('carriername')): ?>
+             <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('carriername')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-4"> 
+          <div class="form-group">
+            <input type="text" id="CharterParty" class="form-control<?php echo e($errors->has('CharterParty') ? ' is-invalid' : ''); ?>" name="charterparty" >
+            <label class="form-control-placeholder" for="CharterParty">Charter Party:</label>
+            <?php if($errors->has('CharterParty')): ?>
+            <span class="invalid-feedback" role="alert">
+              <strong><?php echo e($errors->first('CharterParty')); ?></strong>
+            </span>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="col-md-4"> 
+         <div class="form-group">
+           <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  step='0.01' step='0.01' id="pnrno" class="form-control<?php echo e($errors->has('pnrno') ? ' is-invalid' : ''); ?>" name="pnrno" >
+           <label class="form-control-placeholder" for="pnrno">PNR No:</label>
+           <?php if($errors->has('pnrno')): ?>
+           <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('pnrno')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+        <div class="form-group">
+          <input type="text" id="cargonature" class="form-control<?php echo e($errors->has('cargonature') ? ' is-invalid' : ''); ?>" name="cargonature" >
+          <label class="form-control-placeholder" for="cargonature">Cargo/ Baggage Nature:</label>
+          <?php if($errors->has('cargonature')): ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo e($errors->first('cargonature')); ?></strong>
+          </span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-4"> 
+       <div class="form-group">
+         <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  id="quantity" class="form-control<?php echo e($errors->has('quantity') ? ' is-invalid' : ''); ?>" name="quantity" >
+         <label class="form-control-placeholder" for="quantity">Quantity:</label>
+         <?php if($errors->has('quantity')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('quantity')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+
+    <div class="col-md-4"> 
+      <div class="form-group">
+       <input type="text" id="natureofincident" class="form-control<?php echo e($errors->has('natureofincident') ? ' is-invalid' : ''); ?>" name="natureofincident" >
+       <label class="form-control-placeholder" for="natureofincident">Nature of Claim: </label>
+       <?php if($errors->has('natureofincident')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('natureofincident')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  step='0.01' id="claimamount" class="form-control<?php echo e($errors->has('claimamount') ? ' is-invalid' : ''); ?>" name="claimamount">
+    <?php if($claimantinformations[0]->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Value of Claim (INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Value of Claim (USD) <span style="color: red">*</span>:</label>
+           <?php endif; ?>
+     <?php if($errors->has('claimamount')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('claimamount')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-6"> 
+    <div class="form-group">
+     <textarea id="reason_for_claim" class="form-control<?php echo e($errors->has('reason_for_claim') ? ' is-invalid' : ''); ?>" name="reason_for_claim"></textarea>
+     <label class="form-control-placeholder" for="reason_for_claim">Reason for Claim<span style="color: red">*</span>:</label>
+     <?php if($errors->has('reason_for_claim')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('reason_for_claim')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+    <label><u><b>Date of Contract / Invoice</b></u></label>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="date"  id="contractdate" class="datechk form-control<?php echo e($errors->has('contractdate') ? ' is-invalid' : ''); ?>" name="contractdate" >
+     <label class="form-control-placeholder" for="contractdate">Date of Contract: </label>
+     <?php if($errors->has('contractdate')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('contractdate')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" id="bill_of_lading_details_date_no" class="form-control<?php echo e($errors->has('bill_of_lading_details_date_no') ? ' is-invalid' : ''); ?>" name="bill_of_lading_details_date_no" >
+    <label class="form-control-placeholder" for="bill_of_lading_details_date_no">Bill of Lading/ Ticket No*:</label>
+    <?php if($errors->has('bill_of_lading_details_date_no')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('bill_of_lading_details_date_no')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+ <div class="form-group">
+   <input type="date"  id="passenger_ticket_booking_date" class="datechk form-control<?php echo e($errors->has('passenger_ticket_booking_date') ? ' is-invalid' : ''); ?>" name="passenger_ticket_booking_date" >
+   <label class="form-control-placeholder" for="passenger_ticket_booking_date">Passenger Ticket/ Booking Date:</label>
+   <?php if($errors->has('passenger_ticket_booking_date')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('passenger_ticket_booking_date')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>Date of Breach/ Due Date/ Date of Cause of Action</b></u></label>
+   </div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-6"> 
+    <div class="form-group">
+     <input type="date"  id="due_date" class="datechk form-control<?php echo e($errors->has('due_date') ? ' is-invalid' : ''); ?>" name="due_date" >
+     <label class="form-control-placeholder" for="due_date">Date of Breach/ Due Date/ Date of Cause of Action*:</label>
+     <?php if($errors->has('due_date')): ?>
+     <span class="invalid-feessdback" role="alert">
+      <strong><?php echo e($errors->first('due_date')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-6"> 
+  <div class="form-group">
+    <input type="date"  id="noticedate" class="datechk form-control<?php echo e($errors->has('noticedate') ? ' is-invalid' : ''); ?>" name="noticedate" >
+    <label class="form-control-placeholder" for="noticedate">Date of Notice:</label>
+    <?php if($errors->has('noticedate')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('noticedate')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+
+</div>
+</div>                  
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" id="claimsave" class="btn btn-success btn-space"  >Save and Next</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>
+</form>
+
+<?php else: ?>
+
+<?php $__currentLoopData = $claimandrelief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $claimDetail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<form  id="claimdetails_update_form" name="claimdetails_update_form"  method="POST" style="    width: 100%;" >
+  <?php echo csrf_field(); ?>  
+  <div class="row register-form">
+    <div class="col-md-12">
+      <div class="row">
+       <div class="col-md-12"> 
+         <div class="form-group text-center" style="margin-bottom: 1.4em">
+          <label><u><b>DETAILS OF  FLIGHT/CARO/AIRPORTS</b></u></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="form-group">
+         <input type="text" id="carriername" value="<?php echo e($claimDetail->carriername); ?>" class="form-control<?php echo e($errors->has('carriername') ? ' is-invalid' : ''); ?>" name="carriername" >
+         <label class="form-control-placeholder" for="carriername">Carrier Name: </label>
+         <?php if($errors->has('carriername')): ?>
+         <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('carriername')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-4"> 
+      <div class="form-group">
+        <input type="text" name="claimdetailsid" style="display: none" value="<?php echo e($claimDetail->claimdetailsid); ?>">
+        <input type="text" id="CharterParty" value="<?php echo e($claimDetail->charterparty); ?>" class="form-control<?php echo e($errors->has('CharterParty') ? ' is-invalid' : ''); ?>" name="charterparty" >
+        <label class="form-control-placeholder" for="CharterParty">Charter Party:</label>
+        <?php if($errors->has('CharterParty')): ?>
+        <span class="invalid-feedback" role="alert">
+          <strong><?php echo e($errors->first('CharterParty')); ?></strong>
+        </span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="col-md-4"> 
+     <div class="form-group">
+       <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  step='0.01' id="pnrno" value="<?php echo e($claimDetail->pnrno); ?>" class="form-control<?php echo e($errors->has('pnrno') ? ' is-invalid' : ''); ?>" name="pnrno" >
+       <label class="form-control-placeholder" for="pnrno">PNR No:</label>
+       <?php if($errors->has('pnrno')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('pnrno')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4"> 
+    <div class="form-group">
+      <input type="text" id="cargonature" value="<?php echo e($claimDetail->cargonature); ?>" class="form-control<?php echo e($errors->has('cargonature') ? ' is-invalid' : ''); ?>" name="cargonature" >
+      <label class="form-control-placeholder" for="cargonature">Cargo/Baggage Nature:</label>
+      <?php if($errors->has('cargonature')): ?>
+      <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('cargonature')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-4"> 
+   <div class="form-group">
+     <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  id="quantity" value="<?php echo e($claimDetail->quantity); ?>" class="form-control<?php echo e($errors->has('quantity') ? ' is-invalid' : ''); ?>" name="quantity" >
+     <label class="form-control-placeholder" for="quantity">Quantity:</label>
+     <?php if($errors->has('quantity')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('quantity')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="text" id="natureofincident"  value="<?php echo e($claimDetail->natureofincident); ?>" class="form-control<?php echo e($errors->has('natureofincident') ? ' is-invalid' : ''); ?>" name="natureofincident" >
+   <label class="form-control-placeholder" for="natureofincident">Nature Of Claim: </label>
+   <?php if($errors->has('natureofincident')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('natureofincident')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+
+<div class="col-md-4"> 
+  <div class="form-group">
+   <input type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  step='0.01' id="claimamount" class="form-control<?php echo e($errors->has('claimamount') ? ' is-invalid' : ''); ?>" name="claimamount"  value="<?php echo e($claimDetail->claimamount); ?>">
+   <?php if($claimantinformations[0]->currency =='INR'): ?> 
+       <label class="form-control-placeholder" for="damage_with_interest">Value of Claim (INR)<span style="color: red">*</span>:</label>
+       <?php else: ?>
+        <label class="form-control-placeholder" for="damage_with_interest">Value of Claim (USD) <span style="color: red">*</span>:</label>
+           <?php endif; ?>
+   <?php if($errors->has('claimamount')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('claimamount')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+<div class="col-md-6"> 
+      <div class="form-group">
+       <input type="text" id="reason_for_claim" class="form-control<?php echo e($errors->has('reason_for_claim') ? ' is-invalid' : ''); ?>" name="reason_for_claim"   value="<?php echo e($claimDetail->reason_for_claim); ?>">
+  
+       <label class="form-control-placeholder" for="reason_for_claim">Reason For Claim<span style="color: red">*</span>:</label>
+       <?php if($errors->has('reason_for_claim')): ?>
+       <span class="invalid-feedback" role="alert">
+        <strong><?php echo e($errors->first('reason_for_claim')); ?></strong>
+      </span>
+      <?php endif; ?>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+    <label><u><b>Date of contract/Invoice</b></u></label>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4"> 
+    <div class="form-group">
+     <input type="date"  id="contractdate" value="<?php echo e($claimDetail->contractdate); ?>" class="datechk form-control<?php echo e($errors->has('contractdate') ? ' is-invalid' : ''); ?>" name="contractdate" >
+     <label class="form-control-placeholder" for="contractdate">Date of Contract: </label>
+     <?php if($errors->has('contractdate')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('contractdate')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+  <div class="form-group">
+    <input type="text" id="bill_of_lading_details_date_no" value="<?php echo e($claimDetail->bill_of_lading_details_date_no); ?>" class="form-control<?php echo e($errors->has('bill_of_lading_details_date_no') ? ' is-invalid' : ''); ?>" name="bill_of_lading_details_date_no" >
+    <label class="form-control-placeholder" for="bill_of_lading_details_date_no">Bill of Lading/ Ticket No: </label>
+    <?php if($errors->has('bill_of_lading_details_date_no')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('bill_of_lading_details_date_no')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-4"> 
+ <div class="form-group">
+   <input type="date"  id="passenger_ticket_booking_date" value="<?php echo e($claimDetail->passenger_ticket_booking_date); ?>" class="datechk form-control<?php echo e($errors->has('passenger_ticket_booking_date') ? ' is-invalid' : ''); ?>" name="passenger_ticket_booking_date" >
+   <label class="form-control-placeholder" for="passenger_ticket_booking_date">Passenger Ticket/ Booking Date:</label>
+   <?php if($errors->has('passenger_ticket_booking_date')): ?>
+   <span class="invalid-feedback" role="alert">
+    <strong><?php echo e($errors->first('passenger_ticket_booking_date')); ?></strong>
+  </span>
+  <?php endif; ?>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+ <div class="col-md-12"> 
+   <div class="form-group text-center" style="margin-bottom: 1.4em !important;">
+     <label><u><b>Date of Breach/ Due Date/ Date of Cause of Action</b></u></label>
+   </div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-6"> 
+    <div class="form-group">
+     <input type="date"  id="due_date" value="<?php echo e($claimDetail->due_date); ?>" class="datechk form-control<?php echo e($errors->has('due_date') ? ' is-invalid' : ''); ?>" name="due_date" >
+     <label class="form-control-placeholder" for="due_date">Date of Breach/ Due Date/ Date of Cause of Action*:</label>
+     <?php if($errors->has('due_date')): ?>
+     <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('due_date')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="col-md-6"> 
+  <div class="form-group">
+    <input type="date"  id="noticedate" value="<?php echo e($claimDetail->noticedate); ?>" class="datechk form-control<?php echo e($errors->has('noticedate') ? ' is-invalid' : ''); ?>" name="noticedate" >
+    <label class="form-control-placeholder" for="noticedate">Date of Notice: </label>
+    <?php if($errors->has('noticedate')): ?>
+    <span class="invalid-feedback" role="alert">
+      <strong><?php echo e($errors->first('noticedate')); ?></strong>
+    </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+
+</div>
+</div>                  
+<div class="modal-footer">
+  <div class="mx-auto">
+    <button type="submit" class="btn btn-success btn-space"  >Update</button>
+    <button type="reset" class="btn btn-warning btn-space" value="Reset!">Clear</button>
+    <button class="btn btn-danger btn-space" type="button" data-dismiss="modal" aria-label="Close">
+     Close
+   </button>
+ </div> 
+</div>
+</form>
+
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+<?php endif; ?>

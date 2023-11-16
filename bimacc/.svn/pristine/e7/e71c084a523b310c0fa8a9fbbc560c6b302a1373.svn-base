@@ -1,0 +1,143 @@
+<?php $__env->startSection('content'); ?>
+<?php if($errors->any()): ?>
+<div class="alert alert-danger">
+  <strong>Whoops!</strong> There were some problems with your input.<br><br>
+  <ul>
+    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <li><?php echo e($error); ?></li>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+  </ul>
+</div>
+<?php endif; ?>
+<div class="container con"> 
+  <div class="row">
+   <div class="col-lg-12 margin-tb">                    
+    <div class="pull-right">
+      <?php if (app('laratrust')->hasRole('centre')) : ?>
+      <a class="btn btn-success float-right" title="create" href="<?php echo e(route('registrationfees.create')); ?>" data-toggle="modal" data-target="#createRegistrationFeesModal" data-backdrop="static" data-keyboard="false" ><i class="fas fa-plus" ></i></a>
+      <?php endif; // app('laratrust')->hasRole ?>
+    </div>          
+  </div>
+</div>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Registration Fees</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="display table table-bordered"  width="100%" cellspacing="0">
+        <thead class="theadalign">
+          <tr>
+            <th  style="width: 104.4px;">Sl. No.</th>              
+            <th>Registration Fees(INR)</th>
+            <th>Amount Value Range</th>
+             <?php if (app('laratrust')->hasRole('centre')) : ?>    
+            <th>Claim From</th>
+            <th>Claim To</th> 
+            <th>Action</th>
+            <?php endif; // app('laratrust')->hasRole ?>
+          </tr>
+        </thead>
+        <?php if($registrationfees != null): ?>
+        <tbody>
+
+         <?php $__currentLoopData = $registrationfees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $registrationfee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+         <tr style="text-align: center">
+
+          <td><?php echo e($loop->iteration); ?></td>
+          <td><?php echo e($registrationfee->registration_fees); ?></td>
+          <td><?php echo e($registrationfee->fees_description); ?></td> 
+           <?php if (app('laratrust')->hasRole('centre')) : ?>          
+          <td><?php echo e($registrationfee->claim_amount_from); ?></td>
+          <td><?php echo e($registrationfee->claim_amount_to); ?></td>
+                             
+          <td>
+            <form action="<?php echo e(route('registrationfees.destroy',$registrationfee->id)); ?>" method="POST">
+              <a class="btn btn-info" href="<?php echo e(route('registrationfees.show',$registrationfee->id)); ?>" data-toggle="modal"  data-target="#showRegistrationFeesModal<?php echo e($registrationfee->id); ?>"><i class="fas fa-eye"></i></a>
+              <a class="btn btn-primary" id="test1" href="<?php echo e(route('registrationfees.edit',$registrationfee->id)); ?>" data-toggle="modal"  data-target="#editRegistrationFeesModal<?php echo e($registrationfee->id); ?>" ><i class="fas fa-pencil-alt"></i></a>
+              <?php echo csrf_field(); ?>
+
+              <?php echo method_field('DELETE'); ?>
+
+              <button type="submit" onclick="return myFunction();" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </form>
+          </td>                      
+          <?php endif; // app('laratrust')->hasRole ?>
+        </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      </tbody>
+      <?php endif; ?>
+    </table>
+</div>
+</div>
+<div class="card shadow mb-4">
+ <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Administration & Arbitration Fee</h6>
+  </div>
+  <div class="card-body">
+ <div class="table-responsive">
+          <table class="display  table table-bordered"   width="100%" cellspacing="0">
+      <thead class="theadalign">
+          <tr>
+            <th style="width: 104.4px;">Sl. No.</th>              
+           <!--  <th>Claim Amount From</th>
+            <th>Claim Amount To</th> -->
+            <th>Claim Value</th>
+            <th>Arbitration Fee</th>
+            <th>Administration Fee</th>
+            <th>Total Fees</th>                      
+            <?php if (app('laratrust')->hasRole('centre')) : ?>   
+            <th style="width: 200px;">Action</th>
+            <?php endif; // app('laratrust')->hasRole ?>
+          </tr>
+        </thead>
+        <?php if($arbitratorallocationfees != null): ?>
+        <tbody>
+         <?php $__currentLoopData = $arbitratorallocationfees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $arbitratorallocationfee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+         <tr style="text-align: center">
+          <td><?php echo e($loop->iteration); ?></td>
+
+          <!-- <td><?php echo e($arbitratorallocationfee->claim_amount_form); ?></td>
+          <td><?php echo e($arbitratorallocationfee->claim_amount_to); ?></td> -->
+          <td><?php echo e($arbitratorallocationfee->fees_description); ?></td>
+          <td><?php echo e(number_format($arbitratorallocationfee->arbitrator_fees,2)); ?></td>
+          <td><?php echo e(number_format($arbitratorallocationfee->adminstration_fees,2)); ?></td>
+          <td><?php echo e(number_format($arbitratorallocationfee->total_fees,2)); ?></td>
+          <?php if (app('laratrust')->hasRole('centre')) : ?>   
+          <td>
+            <form action="<?php echo e(route('arbitratorallocationfees.destroy',$arbitratorallocationfee->id)); ?>" method="POST">
+              <a class="btn btn-info" href="<?php echo e(route('arbitratorallocationfees.show',$arbitratorallocationfee->id)); ?>" data-toggle="modal"  data-target="#showArbitratorAllocationFeesModal<?php echo e($arbitratorallocationfee->id); ?>"><i class="fas fa-eye"></i></a>
+              <a class="btn btn-primary" id="test1" href="<?php echo e(route('arbitratorallocationfees.edit',$arbitratorallocationfee->id)); ?>" data-toggle="modal"  data-target="#editArbitratorAllocationFeesModal<?php echo e($arbitratorallocationfee->id); ?>" ><i class="fas fa-pencil-alt"></i></a>
+              <?php echo csrf_field(); ?>
+              <?php echo method_field('DELETE'); ?>
+              <button type="submit" onclick="return myFunction();" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </form>
+          </td>  
+          <?php endif; // app('laratrust')->hasRole ?>                    
+        </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      </tbody>
+      <?php endif; ?>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+<!-- /.container-fluid -->  
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('table.display').DataTable();
+} );
+</script>
+<?php echo $__env->make('registrationfees/create', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php if($registrationfees != null): ?>
+<?php echo $__env->make('registrationfees/show', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('registrationfees/edit', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
